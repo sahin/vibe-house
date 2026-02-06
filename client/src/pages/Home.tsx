@@ -487,6 +487,7 @@ export default function Home() {
                   <div>
                     <h3 className="font-display text-xl font-normal mb-2">Exited Founder</h3>
                     <p className="text-foreground/50 font-light">You've built something and seen it through to an exit.</p>
+                    <p className="text-foreground/70 font-light mt-2 text-sm">PEF, Superfounders members are welcome — no need to apply.</p>
                   </div>
                 </div>
                 
