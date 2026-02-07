@@ -229,25 +229,54 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* What is Vibe House SF? — L heading, M body */}
+      {/* What is Vibe House SF? — Dictionary style like hero */}
       <section id="about" className="py-24 md:py-36 relative z-10">
         <div className="container">
           <motion.div
-            className="max-w-4xl mx-auto text-center"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="max-w-4xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>What is Vibe House SF?</span>
+            <motion.h2
+              className={`${T.xl} mb-6`}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              the space
+            </motion.h2>
 
-            <h2 className={`${T.l} mt-8 mb-12`}>
-              Where exited founders<br />build together again
-            </h2>
+            <motion.div
+              className="mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <p className={`${T.m} text-foreground/40 font-light`}>/ðə speɪs/</p>
+              <p className={`${T.m} text-foreground/40 italic`}>noun</p>
+            </motion.div>
 
-            <p className={`${T.m} text-foreground/55`}>
-              Vibe House SF is a physical space in San Francisco built for exited founders with technical backgrounds. You show up. You bring your laptop. Everyone gets their own AI agent on one big screen. You prompt, others riff, you rotate — and you build together. Great food. Organic snacks. A meditation room. No chemicals. Just builders in the zone.
-            </p>
+            <motion.div
+              className="w-full h-px bg-foreground/10 mb-10"
+              initial={{ scaleX: 0, originX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            />
+
+            <motion.p
+              className={`${T.l} text-foreground/80 mb-10 max-w-3xl`}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+            >
+              A room in San Francisco. One big screen. Exited founders with laptops and AI agents. You prompt, others riff, you rotate. Great food. No chemicals. Just builders in the zone.
+            </motion.p>
           </motion.div>
         </div>
       </section>
