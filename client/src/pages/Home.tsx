@@ -130,42 +130,69 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero — XL headline, M body */}
-      <section className="relative min-h-screen flex items-center justify-center pt-24">
+      {/* Hero — Dictionary definition style */}
+      <section className="relative min-h-screen flex items-center pt-24 relative z-10">
         <div className="container relative z-10">
           <motion.div
-            className="max-w-5xl mx-auto text-center"
+            className="max-w-4xl mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <motion.div className="mb-10" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <PillBadge>San Francisco</PillBadge>
-            </motion.div>
-
+            {/* Dictionary word */}
             <motion.h1
-              className={`${T.xl} mb-8`}
+              className={`${T.xl} mb-6`}
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
-              Back to<br />Builder Mode.
+              builder mode
             </motion.h1>
 
-            <motion.p
-              className={`${T.m} text-foreground/50 max-w-3xl mx-auto mb-14`}
+            {/* Pronunciation + part of speech */}
+            <motion.div
+              className="mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Exited founders in San Francisco, building with AI together — like watching a sports game, but everyone's playing.
+              <p className={`${T.m} text-foreground/40 font-light`}>/ˈbɪl.dər moʊd/</p>
+              <p className={`${T.m} text-foreground/40 italic`}>noun phrase</p>
+            </motion.div>
+
+            {/* Divider line */}
+            <motion.div
+              className="w-full h-px bg-foreground/10 mb-10"
+              initial={{ scaleX: 0, originX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            />
+
+            {/* Definition */}
+            <motion.p
+              className={`${T.l} text-foreground/80 mb-16 max-w-3xl`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+            >
+              when exited founders stop managing and start building again — this time with AI, faster than ever before.
+            </motion.p>
+
+            {/* Vibe House description */}
+            <motion.p
+              className={`${T.m} text-foreground/50 max-w-3xl mb-14`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+            >
+              Vibe House: A new type of hacker house for exited technical founders to vibe code together.
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row items-center justify-center gap-5"
+              className="flex flex-col sm:flex-row items-start gap-5"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
             >
               <Button asChild size="lg" className={`bg-foreground text-background hover:bg-foreground/90 ${T.m} rounded-full px-10 py-7`}>
                 <a href="#join">Join the House <ArrowRight className="ml-2 w-5 h-5" /></a>
