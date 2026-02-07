@@ -1,10 +1,10 @@
 /*
   DESIGN: The Way of Code + sahin.io hybrid
-  TYPOGRAPHY v7: Exactly 4 font sizes
+  TYPOGRAPHY v8: Exactly 3 font sizes (excluding nav)
   - XL (Display): text-6xl md:text-8xl lg:text-[9rem] — Hero headline only
   - L (Heading): text-3xl md:text-5xl lg:text-[4.5rem] — Section headings, closing statements, quote text
-  - M (Body): text-lg md:text-xl lg:text-2xl — Body text, card titles, card descriptions, sub-headlines
-  - S (UI): text-sm md:text-base — Nav, buttons, badges, section numbers, stat labels, footer
+  - M (Body): text-lg md:text-xl lg:text-2xl — Everything else: body, cards, badges, labels, footer
+  - Nav keeps its own size (text-sm md:text-base) as excluded from the 3-size system
 */
 
 import { Button } from "@/components/ui/button";
@@ -21,17 +21,17 @@ const IMAGES = {
   exterior: "https://private-us-east-1.manuscdn.com/sessionFile/EYUEGdEJ1P4CEaW2SLZOhC/sandbox/lgQvb1oSQa2zmHxYUjbe3V-img-5_1770340079000_na1fn_dmliZS1ob3VzZS1leHRlcmlvcg.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvRVlVRUdkRUoxUDRDRWFXMlNMWk9oQy9zYW5kYm94L2xnUXZiMW9TUWEyem1IeFlVamJlM1YtaW1nLTVfMTc3MDM0MDA3OTAwMF9uYTFmbl9kbWxpWlMxb2IzVnpaUzFsZUhSbGNtbHZjZy5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=N9aUG0~YgaU6ZOYuM8J63sTmTl3m51P5pzuKxDGt~q~5WeA7ynrYHUzXL2HK40jgG6wYdlu7AodQO2S3uB5sIu8YkzFJPTR2ZeB7c2XLtAf6YTI-LD6NC191txILp2oUVPlZhVC4I0RJTvlKm6MEe~LXWY2B-hx7pOlW6udVY16HhevR1EqGORB5RromOtc0N21CjrRc40M9LlnC~LE~rxSW0UCnoDRCJEH32n1QYoEkCTe0JXZTxXBGM3gyRaW5p95vs0kHGklHoId-yrkdAkU5ByuNJIQPCklyFzUVuDxmOHl7-V7RdVOnxfza-uWLSyiX2fIOWr~v7xKk9nXeFg__",
 };
 
-// Typography classes — 4 sizes only
-// XL: text-6xl md:text-8xl lg:text-[9rem]
-// L:  text-3xl md:text-5xl lg:text-[4.5rem]
-// M:  text-lg md:text-xl lg:text-2xl
-// S:  text-sm md:text-base
+// Typography classes — 3 sizes (excluding nav)
+// XL: text-6xl md:text-8xl lg:text-[9rem] — Hero headline
+// L:  text-3xl md:text-5xl lg:text-[4.5rem] — Section headings, quotes, closings
+// M:  text-lg md:text-xl lg:text-2xl — Everything else
+// Nav: text-sm md:text-base (excluded from the 3-size system)
 
 const T = {
   xl: "font-display text-6xl md:text-8xl lg:text-[9rem] font-normal leading-[1.02]",
   l: "font-display text-3xl md:text-5xl lg:text-[4.5rem] font-normal leading-tight",
   m: "text-lg md:text-xl lg:text-2xl leading-relaxed",
-  s: "text-sm md:text-base tracking-[0.12em] uppercase",
+  nav: "text-sm md:text-base tracking-[0.12em] uppercase",
 };
 
 // Animated geometric background
@@ -79,22 +79,6 @@ function GeometricBackground() {
   return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.4 }} />;
 }
 
-// Stat card — S for label, M for value
-function StatCard({ value, label, delay = 0 }: { value: string; label: string; delay?: number }) {
-  return (
-    <motion.div
-      className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 md:p-10 text-center shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay }}
-    >
-      <p className={`${T.m} font-display font-normal text-foreground`}>{value}</p>
-      <p className={`${T.s} text-foreground/50 mt-3`}>{label}</p>
-    </motion.div>
-  );
-}
-
 // Feature card — M for title and description
 function FeatureCard({ icon: Icon, title, desc, delay = 0 }: { icon: React.ElementType; title: string; desc: string; delay?: number }) {
   return (
@@ -114,9 +98,9 @@ function FeatureCard({ icon: Icon, title, desc, delay = 0 }: { icon: React.Eleme
   );
 }
 
-// Pill badge — S size
+// Pill badge — M size
 function PillBadge({ children, variant = "default" }: { children: React.ReactNode; variant?: "default" | "highlight" }) {
-  const base = `inline-flex items-center px-5 py-2 rounded-full font-medium ${T.s}`;
+  const base = `inline-flex items-center px-5 py-2 rounded-full font-medium ${T.m}`;
   const styles = variant === "highlight"
     ? `${base} bg-foreground text-background`
     : `${base} bg-foreground/5 text-foreground/70`;
@@ -128,19 +112,19 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <GeometricBackground />
 
-      {/* Navigation — S size */}
+      {/* Navigation — own size, excluded from 3-size system */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
         <div className="container flex items-center justify-between h-18 md:h-22">
-          <a href="#" className={`${T.s} font-body font-medium`}>
+          <a href="#" className={`${T.nav} font-body font-medium`}>
             Vibe House <span className="text-foreground/40">SF</span>
           </a>
           <div className="hidden md:flex items-center gap-10">
-            <a href="#about" className={`${T.s} text-foreground/50 hover:text-foreground transition-colors duration-300`}>About</a>
-            <a href="#experience" className={`${T.s} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Experience</a>
-            <a href="#space" className={`${T.s} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Space</a>
-            <a href="#join" className={`${T.s} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Join</a>
+            <a href="#about" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>About</a>
+            <a href="#experience" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Experience</a>
+            <a href="#space" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Space</a>
+            <a href="#join" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Join</a>
           </div>
-          <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.s} rounded-full px-7 py-3`}>
+          <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-7 py-3`}>
             <a href="#join">Apply Now</a>
           </Button>
         </div>
@@ -169,21 +153,12 @@ export default function Home() {
             </motion.h1>
 
             <motion.p
-              className={`${T.m} text-foreground/50 mb-6`}
+              className={`${T.m} text-foreground/50 max-w-3xl mx-auto mb-14`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15 }}
             >
-              A vibe coder house for exited founders who want to vibe code together.
-            </motion.p>
-
-            <motion.p
-              className={`${T.m} text-foreground/55 max-w-3xl mx-auto mb-14`}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              A vibe coder house in San Francisco where exited founders come together to build with AI — like watching a sports game, but everyone's playing.
+              Exited founders in San Francisco, building with AI together — like watching a sports game, but everyone's playing.
             </motion.p>
 
             <motion.div
@@ -192,10 +167,10 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <Button asChild size="lg" className={`bg-foreground text-background hover:bg-foreground/90 ${T.s} rounded-full px-10 py-7`}>
+              <Button asChild size="lg" className={`bg-foreground text-background hover:bg-foreground/90 ${T.m} rounded-full px-10 py-7`}>
                 <a href="#join">Join the House <ArrowRight className="ml-2 w-5 h-5" /></a>
               </Button>
-              <Button asChild variant="outline" size="lg" className={`${T.s} rounded-full px-10 py-7 border-foreground/15 hover:bg-foreground/5`}>
+              <Button asChild variant="outline" size="lg" className={`${T.m} rounded-full px-10 py-7 border-foreground/15 hover:bg-foreground/5`}>
                 <a href="#about">Learn More</a>
               </Button>
             </motion.div>
@@ -228,7 +203,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className={`${T.s} text-foreground/40`}>What is Vibe House SF?</span>
+            <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>What is Vibe House SF?</span>
 
             <h2 className={`${T.l} mt-8 mb-12`}>
               Where exited founders<br />build together again
@@ -238,18 +213,6 @@ export default function Home() {
               Vibe House SF is a physical space in San Francisco built for exited founders with technical backgrounds. You show up. You bring your laptop. Everyone gets their own AI agent on one big screen. You prompt, others riff, you rotate — and you build together. Great food. Organic snacks. A meditation room. No chemicals. Just builders in the zone.
             </p>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Stats Row */}
-      <section className="py-10 md:py-14 relative z-10">
-        <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            <StatCard value="Exited Founders" label="Only" delay={0} />
-            <StatCard value="Hackathons" label="Weekly" delay={0.1} />
-            <StatCard value="1 Big Screen" label="All Vibing" delay={0.2} />
-            <StatCard value="San Francisco" label="California" delay={0.3} />
-          </div>
         </div>
       </section>
 
@@ -273,7 +236,7 @@ export default function Home() {
               </p>
               <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <div className="hidden sm:block w-10 h-px bg-foreground/20" />
-                <p className={`${T.s} text-foreground/40`}>
+                <p className={`${T.m} text-foreground/40`}>
                   Now with AI, you can build faster than ever before
                 </p>
                 <div className="hidden sm:block w-10 h-px bg-foreground/20" />
@@ -293,7 +256,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className={`${T.s} text-foreground/40`}>01 — The Why</span>
+            <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>01 — The Why</span>
 
             <h2 className={`${T.l} mt-8 mb-14`}>
               In a world of<br />constant change
@@ -321,7 +284,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <span className={`${T.s} text-foreground/40`}>02 — Together</span>
+              <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>02 — Together</span>
 
               <h2 className={`${T.l} mt-8 mb-10`}>
                 Why Vibe Code Together
@@ -368,7 +331,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <div className="max-w-4xl mx-auto text-center">
-              <span className={`${T.s} text-background/40`}>03 — The Edge</span>
+              <span className={`${T.m} text-background/40 tracking-[0.12em] uppercase`}>03 — The Edge</span>
 
               <h2 className={`${T.l} mt-8 mb-12 text-background`}>
                 Speed still wins
@@ -397,7 +360,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <div className="flex items-center gap-4 mb-8">
-              <span className={`${T.s} text-foreground/40`}>04 — Experience</span>
+              <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>04 — Experience</span>
               <PillBadge variant="highlight">New Format</PillBadge>
             </div>
 
@@ -456,7 +419,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className={`${T.s} text-foreground/40`}>05 — The Space</span>
+            <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>05 — The Space</span>
 
             <h2 className={`${T.l} mt-8 mb-10`}>
               Designed for the zone
@@ -507,7 +470,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <span className={`${T.s} text-foreground/40`}>06 — Join</span>
+              <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>06 — Join</span>
 
               <h2 className={`${T.l} mt-8 mb-12`}>
                 How to Join
@@ -526,7 +489,7 @@ export default function Home() {
                       <div className="mt-4 flex flex-wrap gap-2 items-center">
                         <PillBadge variant="highlight">PEF</PillBadge>
                         <PillBadge variant="highlight">Superfounders</PillBadge>
-                        <span className={`${T.s} text-foreground/45 normal-case ml-1`}>members welcome — no need to apply</span>
+                        <span className={`${T.m} text-foreground/45 ml-1`}>members welcome — no need to apply</span>
                       </div>
                     </div>
                   </div>
@@ -551,7 +514,7 @@ export default function Home() {
                 Just builders who want to build again.
               </p>
 
-              <Button size="lg" className={`bg-foreground text-background hover:bg-foreground/90 ${T.s} rounded-full px-10 py-7`}>
+              <Button size="lg" className={`bg-foreground text-background hover:bg-foreground/90 ${T.m} rounded-full px-10 py-7`}>
                 Apply Now <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </motion.div>
@@ -571,14 +534,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer — S size */}
+      {/* Footer — M size */}
       <footer className="py-14 md:py-20 border-t border-foreground/5 relative z-10">
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <p className={`${T.s} font-medium`}>
+            <p className={`${T.m} font-medium tracking-[0.12em] uppercase`}>
               Vibe House <span className="text-foreground/40">SF</span>
             </p>
-            <p className={`${T.s} text-foreground/35`}>
+            <p className={`${T.m} text-foreground/35`}>
               San Francisco, California
             </p>
           </div>
