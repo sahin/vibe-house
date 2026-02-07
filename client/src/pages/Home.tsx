@@ -175,17 +175,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
             >
-              when exited founders stop managing and start building again — this time with AI, faster than ever before.
-            </motion.p>
-
-            {/* Vibe House description */}
-            <motion.p
-              className={`${T.m} text-foreground/50 max-w-3xl mb-14`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-            >
-              Vibe House: A new type of hacker house for exited technical founders to vibe code together.
+              A new type of hacker house for exited technical founders to vibe code together.
             </motion.p>
 
             <motion.div
