@@ -31,7 +31,7 @@ const T = {
   xl: "font-display text-6xl md:text-8xl lg:text-[9rem] font-normal leading-[1.02]",
   l: "font-display text-3xl md:text-5xl lg:text-[4.5rem] font-normal leading-tight",
   m: "text-lg md:text-xl lg:text-2xl leading-relaxed",
-  nav: "text-sm md:text-base tracking-[0.12em] uppercase",
+  nav: "text-xs tracking-[0.08em] uppercase",
 };
 
 // Animated geometric background
@@ -134,7 +134,7 @@ export default function Home() {
       {/* Navigation — own size, excluded from 3-size system */}
       <nav className={`fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5 transition-transform duration-300 ${navVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="container flex items-center justify-between h-18 md:h-22">
-          <a href="#" className={`${T.nav} font-body font-medium`}>
+          <a href="#" className={`${T.nav} font-body font-medium whitespace-nowrap`}>
             Vibe House <span className="text-foreground/40">SF</span>
           </a>
           <div className="hidden md:flex items-center gap-10">
@@ -143,7 +143,7 @@ export default function Home() {
             <a href="#space" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Space</a>
             <a href="#join" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Join</a>
           </div>
-          <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-7 py-3`}>
+          <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
             <a href="#join">Apply Now</a>
           </Button>
         </div>
