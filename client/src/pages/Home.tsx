@@ -1,14 +1,16 @@
 /*
-  DESIGN: The Way of Code Style
-  - Zen minimalism, warm cream background
-  - Large serif typography, extreme whitespace
-  - Monochromatic, clean, meditative
+  DESIGN: The Way of Code + sahin.io hybrid
+  - Zen minimalism with warm cream background
+  - sahin.io inspired: stat counters, card layouts, pill badges, hover lift effects
+  - Full color images (no grayscale)
+  - Large serif typography, generous whitespace
   - Numbered sections, quote styling
 */
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { ArrowRight, Leaf, Brain, Music, Sparkles, Utensils, ShieldCheck } from "lucide-react";
 
 // Image URLs from generated assets
 const IMAGES = {
@@ -19,28 +21,7 @@ const IMAGES = {
   exterior: "https://private-us-east-1.manuscdn.com/sessionFile/EYUEGdEJ1P4CEaW2SLZOhC/sandbox/lgQvb1oSQa2zmHxYUjbe3V-img-5_1770340079000_na1fn_dmliZS1ob3VzZS1leHRlcmlvcg.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvRVlVRUdkRUoxUDRDRWFXMlNMWk9oQy9zYW5kYm94L2xnUXZiMW9TUWEyem1IeFlVamJlM1YtaW1nLTVfMTc3MDM0MDA3OTAwMF9uYTFmbl9kbWxpWlMxb2IzVnpaUzFsZUhSbGNtbHZjZy5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=N9aUG0~YgaU6ZOYuM8J63sTmTl3m51P5pzuKxDGt~q~5WeA7ynrYHUzXL2HK40jgG6wYdlu7AodQO2S3uB5sIu8YkzFJPTR2ZeB7c2XLtAf6YTI-LD6NC191txILp2oUVPlZhVC4I0RJTvlKm6MEe~LXWY2B-hx7pOlW6udVY16HhevR1EqGORB5RromOtc0N21CjrRc40M9LlnC~LE~rxSW0UCnoDRCJEH32n1QYoEkCTe0JXZTxXBGM3gyRaW5p95vs0kHGklHoId-yrkdAkU5ByuNJIQPCklyFzUVuDxmOHl7-V7RdVOnxfza-uWLSyiX2fIOWr~v7xKk9nXeFg__",
 };
 
-const fadeIn = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  transition: { duration: 0.8, ease: "easeOut" }
-};
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 40 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, ease: "easeOut" }
-};
-
-// Section number component
-function SectionNumber({ number }: { number: string }) {
-  return (
-    <span className="text-xs tracking-[0.3em] text-foreground/40 font-body uppercase">
-      {number}
-    </span>
-  );
-}
-
-// Animated geometric background (simplified zen style)
+// Animated geometric background
 function GeometricBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -61,41 +42,28 @@ function GeometricBackground() {
 
     const draw = () => {
       if (!ctx) return;
-      
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = 'rgba(51, 51, 51, 0.06)';
+      ctx.strokeStyle = 'rgba(51, 51, 51, 0.04)';
       ctx.lineWidth = 1;
 
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const maxRadius = Math.max(canvas.width, canvas.height) * 0.6;
 
-      // Draw concentric circles with wave effect
       for (let i = 0; i < 20; i++) {
         const baseRadius = (i / 20) * maxRadius;
         const waveOffset = Math.sin(time * 0.5 + i * 0.3) * 20;
         const radius = baseRadius + waveOffset;
-
         ctx.beginPath();
         ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
         ctx.stroke();
       }
 
-      // Draw radial lines
       for (let i = 0; i < 36; i++) {
         const angle = (i / 36) * Math.PI * 2 + time * 0.1;
-        const innerRadius = 50;
-        const outerRadius = maxRadius;
-
         ctx.beginPath();
-        ctx.moveTo(
-          centerX + Math.cos(angle) * innerRadius,
-          centerY + Math.sin(angle) * innerRadius
-        );
-        ctx.lineTo(
-          centerX + Math.cos(angle) * outerRadius,
-          centerY + Math.sin(angle) * outerRadius
-        );
+        ctx.moveTo(centerX + Math.cos(angle) * 50, centerY + Math.sin(angle) * 50);
+        ctx.lineTo(centerX + Math.cos(angle) * maxRadius, centerY + Math.sin(angle) * maxRadius);
         ctx.stroke();
       }
 
@@ -106,19 +74,64 @@ function GeometricBackground() {
     resize();
     window.addEventListener('resize', resize);
     draw();
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      cancelAnimationFrame(animationId);
-    };
+    return () => { window.removeEventListener('resize', resize); cancelAnimationFrame(animationId); };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.5 }}
-    />
+    <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.4 }} />
+  );
+}
+
+// Stat counter card (sahin.io style)
+function StatCard({ value, label, delay = 0 }: { value: string; label: string; delay?: number }) {
+  return (
+    <motion.div
+      className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-center shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay }}
+    >
+      <p className="font-display text-3xl md:text-4xl lg:text-5xl font-normal text-foreground">{value}</p>
+      <p className="text-xs md:text-sm tracking-[0.15em] uppercase text-foreground/50 mt-2">{label}</p>
+    </motion.div>
+  );
+}
+
+// Feature card (sahin.io card style with icon)
+function FeatureCard({ icon: Icon, title, desc, delay = 0 }: { icon: React.ElementType; title: string; desc: string; delay?: number }) {
+  return (
+    <motion.div
+      className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+    >
+      <div className="w-10 h-10 rounded-xl bg-foreground/5 flex items-center justify-center mb-4">
+        <Icon className="w-5 h-5 text-foreground/60" />
+      </div>
+      <h3 className="font-display text-lg md:text-xl font-normal mb-2">{title}</h3>
+      <p className="text-sm text-foreground/50 leading-relaxed font-light">{desc}</p>
+    </motion.div>
+  );
+}
+
+// Pill badge (sahin.io style)
+function PillBadge({ children, variant = "default" }: { children: React.ReactNode; variant?: "default" | "highlight" }) {
+  const base = "inline-flex items-center px-4 py-1.5 rounded-full text-xs tracking-[0.1em] uppercase font-medium";
+  const styles = variant === "highlight"
+    ? `${base} bg-foreground text-background`
+    : `${base} bg-foreground/5 text-foreground/70`;
+  return <span className={styles}>{children}</span>;
+}
+
+// Section number component
+function SectionNumber({ number }: { number: string }) {
+  return (
+    <span className="text-xs tracking-[0.3em] text-foreground/40 font-body uppercase">
+      {number}
+    </span>
   );
 }
 
@@ -126,25 +139,24 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <GeometricBackground />
-      
-      {/* Navigation - Minimal */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm">
-        <div className="container flex items-center justify-between h-20">
-          <a href="#" className="text-sm tracking-[0.2em] uppercase font-body">
-            Vibe House SF
+
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
+        <div className="container flex items-center justify-between h-16 md:h-20">
+          <a href="#" className="text-sm tracking-[0.2em] uppercase font-body font-medium">
+            Vibe House <span className="text-foreground/40">SF</span>
           </a>
-          <div className="hidden md:flex items-center gap-12">
-            <a href="#why" className="text-xs tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors">Why</a>
-            <a href="#experience" className="text-xs tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors">Experience</a>
-            <a href="#space" className="text-xs tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors">Space</a>
-            <a href="#join" className="text-xs tracking-[0.15em] uppercase text-foreground/60 hover:text-foreground transition-colors">Join</a>
+          <div className="hidden md:flex items-center gap-10">
+            <a href="#why" className="text-xs tracking-[0.15em] uppercase text-foreground/50 hover:text-foreground transition-colors duration-300">Why</a>
+            <a href="#experience" className="text-xs tracking-[0.15em] uppercase text-foreground/50 hover:text-foreground transition-colors duration-300">Experience</a>
+            <a href="#space" className="text-xs tracking-[0.15em] uppercase text-foreground/50 hover:text-foreground transition-colors duration-300">Space</a>
+            <a href="#join" className="text-xs tracking-[0.15em] uppercase text-foreground/50 hover:text-foreground transition-colors duration-300">Join</a>
           </div>
-          <Button 
-            asChild 
-            variant="outline" 
-            className="text-xs tracking-[0.15em] uppercase border-foreground/20 hover:bg-foreground hover:text-background transition-all"
+          <Button
+            asChild
+            className="bg-foreground text-background hover:bg-foreground/90 text-xs tracking-[0.15em] uppercase rounded-full px-6"
           >
-            <a href="#join">Apply</a>
+            <a href="#join">Apply Now</a>
           </Button>
         </div>
       </nav>
@@ -152,79 +164,130 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-20">
         <div className="container relative z-10">
-          <motion.div 
+          <motion.div
             className="max-w-4xl mx-auto text-center"
-            initial="initial"
-            animate="animate"
-            variants={fadeIn}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
           >
-            <motion.p 
-              className="text-xs tracking-[0.3em] uppercase text-foreground/50 mb-8"
-              variants={fadeInUp}
+            <motion.div
+              className="mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              San Francisco
-            </motion.p>
-            
-            <motion.h1 
-              className="font-display text-5xl md:text-7xl lg:text-8xl font-normal leading-[1.1] mb-12"
-              variants={fadeInUp}
-              transition={{ delay: 0.1 }}
+              <PillBadge>San Francisco</PillBadge>
+            </motion.div>
+
+            <motion.h1
+              className="font-display text-5xl md:text-7xl lg:text-[6.5rem] font-normal leading-[1.05] mb-8"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
             >
-              Back to<br />Builder Mode
+              Back to<br />Builder Mode.
             </motion.h1>
-            
-            <motion.div 
-              className="w-16 h-px bg-foreground/20 mx-auto mb-12"
-              variants={fadeIn}
-              transition={{ delay: 0.3 }}
-            />
-            
-            <motion.p 
-              className="text-lg md:text-xl text-foreground/60 leading-relaxed max-w-2xl mx-auto font-light"
-              variants={fadeInUp}
-              transition={{ delay: 0.2 }}
+
+            <motion.p
+              className="text-lg md:text-xl text-foreground/55 leading-relaxed max-w-2xl mx-auto font-light mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Remember when you were just building? Before the investors,<br className="hidden md:block" />
+              Remember when you were just building? Before the investors,
               the board meetings, the people management.
             </motion.p>
+
+            <motion.div
+              className="flex items-center justify-center gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <Button
+                asChild
+                size="lg"
+                className="bg-foreground text-background hover:bg-foreground/90 text-xs tracking-[0.15em] uppercase rounded-full px-8 py-6"
+              >
+                <a href="#join">
+                  Join the House <ArrowRight className="ml-2 w-4 h-4" />
+                </a>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="text-xs tracking-[0.15em] uppercase rounded-full px-8 py-6 border-foreground/15 hover:bg-foreground/5"
+              >
+                <a href="#why">Learn More</a>
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
-        
+
         {/* Scroll indicator */}
-        <motion.div 
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
+        <motion.div
+          className="absolute bottom-10 left-1/2 -translate-x-1/2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
         >
-          <div className="w-px h-16 bg-gradient-to-b from-foreground/0 via-foreground/20 to-foreground/0" />
+          <motion.div
+            className="w-6 h-10 rounded-full border-2 border-foreground/15 flex items-start justify-center p-1.5"
+            animate={{ y: [0, 5, 0] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+          >
+            <div className="w-1 h-2 rounded-full bg-foreground/30" />
+          </motion.div>
         </motion.div>
       </section>
 
-      {/* Quote Section */}
-      <section className="section-zen relative z-10">
+      {/* Stats Row (sahin.io style) */}
+      <section className="py-16 md:py-20 relative z-10">
         <div className="container">
-          <motion.div 
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <StatCard value="1" label="Big Screen" delay={0} />
+            <StatCard value="AI" label="Agents for All" delay={0.1} />
+            <StatCard value="0" label="Chemicals" delay={0.2} />
+            <StatCard value="100%" label="Builder Energy" delay={0.3} />
+          </div>
+        </div>
+      </section>
+
+      {/* Quote Section */}
+      <section className="py-20 md:py-28 relative z-10">
+        <div className="container">
+          <motion.div
             className="max-w-3xl mx-auto text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <p className="font-display text-2xl md:text-3xl lg:text-4xl leading-relaxed font-normal italic text-foreground/80">
-              "You were in the zone, shipping code, creating something from nothing. You loved it. Then you scaled. You exited. And now? You're ready to build again."
-            </p>
-            <p className="mt-8 text-sm tracking-[0.2em] uppercase text-foreground/40">
-              — Now with AI, you can build faster than ever before
-            </p>
+            <motion.div
+              className="bg-white/60 backdrop-blur-sm rounded-3xl p-10 md:p-14 shadow-[0_2px_30px_rgba(0,0,0,0.04)]"
+              whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.3 }}
+            >
+              <p className="font-display text-xl md:text-2xl lg:text-3xl leading-relaxed font-normal italic text-foreground/80">
+                "You were in the zone, shipping code, creating something from nothing. You loved it. Then you scaled. You exited. And now? You're ready to build again."
+              </p>
+              <div className="mt-8 flex items-center justify-center gap-3">
+                <div className="w-8 h-px bg-foreground/20" />
+                <p className="text-sm tracking-[0.15em] uppercase text-foreground/40">
+                  Now with AI, you can build faster than ever before
+                </p>
+                <div className="w-8 h-px bg-foreground/20" />
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* The Why - Section 01 */}
-      <section id="why" className="section-zen relative z-10">
+      <section id="why" className="py-20 md:py-28 relative z-10">
         <div className="container">
-          <motion.div 
+          <motion.div
             className="max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -232,22 +295,27 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <SectionNumber number="01 — The Why" />
-            
+
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal mt-6 mb-12 leading-tight">
-              In a world of constant change
+              In a world of<br />constant change
             </h2>
-            
-            <p className="text-lg md:text-xl text-foreground/60 leading-relaxed max-w-2xl font-light">
-              Your most valuable asset isn't what you know—it's how fast you can learn and apply what's new. The tools are evolving daily. The founders who master them first will define what comes next.
-            </p>
+
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+              <p className="text-lg text-foreground/55 leading-relaxed font-light">
+                Your most valuable asset isn't what you know—it's how fast you can learn and apply what's new. The tools are evolving daily.
+              </p>
+              <p className="text-lg text-foreground/55 leading-relaxed font-light">
+                The founders who master them first will define what comes next. This is the place to stay ahead.
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Why Vibe Code Together - Section 02 */}
-      <section className="section-zen relative z-10">
+      <section className="py-20 md:py-28 relative z-10">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -255,36 +323,38 @@ export default function Home() {
               transition={{ duration: 0.8 }}
             >
               <SectionNumber number="02 — Together" />
-              
+
               <h2 className="font-display text-4xl md:text-5xl font-normal mt-6 mb-8 leading-tight">
                 Why Vibe Code Together
               </h2>
-              
-              <p className="text-lg text-foreground/60 leading-relaxed mb-6 font-light">
+
+              <p className="text-lg text-foreground/55 leading-relaxed mb-6 font-light">
                 Solo coding is powerful. Vibe coding is a cheat code.
               </p>
-              
-              <p className="text-lg text-foreground/60 leading-relaxed font-light">
+
+              <p className="text-lg text-foreground/55 leading-relaxed font-light">
                 When you watch another founder prompt, you learn their mental models. When they riff on your idea, you see angles you missed. You absorb techniques in minutes that would take weeks alone.
               </p>
-              
-              <p className="text-lg text-foreground/80 leading-relaxed mt-6 font-light">
-                It's not collaboration for collaboration's sake—it's accelerated learning disguised as hanging out.
-              </p>
+
+              <div className="mt-8 bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-[0_2px_20px_rgba(0,0,0,0.04)]">
+                <p className="text-base text-foreground/70 leading-relaxed font-light italic">
+                  "It's not collaboration for collaboration's sake—it's accelerated learning disguised as hanging out."
+                </p>
+              </div>
             </motion.div>
-            
+
             <motion.div
               className="relative"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="aspect-[4/3] overflow-hidden">
-                <img 
-                  src={IMAGES.coding} 
-                  alt="Collaborative coding" 
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              <div className="aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]">
+                <img
+                  src={IMAGES.coding}
+                  alt="Collaborative coding"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>
             </motion.div>
@@ -293,167 +363,161 @@ export default function Home() {
       </section>
 
       {/* The Edge - Section 03 */}
-      <section className="section-zen relative z-10 bg-foreground text-background">
+      <section className="py-20 md:py-28 relative z-10">
         <div className="container">
-          <motion.div 
-            className="max-w-4xl mx-auto text-center"
+          <motion.div
+            className="bg-foreground text-background rounded-3xl p-10 md:p-16 lg:p-20 shadow-[0_8px_40px_rgba(0,0,0,0.15)]"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <SectionNumber number="03 — The Edge" />
-            
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal mt-6 mb-12 leading-tight text-background">
-              Speed still wins
-            </h2>
-            
-            <p className="text-lg md:text-xl text-background/60 leading-relaxed max-w-2xl mx-auto font-light mb-12">
-              AI has leveled the playing field. Anyone can build now. But the founders who experiment fastest, iterate fastest, and learn fastest will pull ahead.
-            </p>
-            
-            <p className="font-display text-2xl md:text-3xl font-normal text-background/90">
-              Vibe House is where that happens.
-            </p>
+            <div className="max-w-3xl mx-auto text-center">
+              <span className="text-xs tracking-[0.3em] text-background/40 uppercase">03 — The Edge</span>
+
+              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal mt-6 mb-10 leading-tight text-background">
+                Speed still wins
+              </h2>
+
+              <p className="text-lg md:text-xl text-background/55 leading-relaxed font-light mb-10">
+                AI has leveled the playing field. Anyone can build now. But the founders who experiment fastest, iterate fastest, and learn fastest will pull ahead.
+              </p>
+
+              <p className="font-display text-2xl md:text-3xl font-normal text-background/90">
+                Vibe House is where that happens.
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* The Experience - Section 04 */}
-      <section id="experience" className="section-zen relative z-10">
+      <section id="experience" className="py-20 md:py-28 relative z-10">
         <div className="container">
-          <motion.div 
-            className="max-w-4xl mx-auto"
+          <motion.div
+            className="max-w-4xl mx-auto mb-12"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <SectionNumber number="04 — Experience" />
-            
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal mt-6 mb-8 leading-tight">
-              A different kind of hackathon
+            <div className="flex items-center gap-3 mb-6">
+              <SectionNumber number="04 — Experience" />
+              <PillBadge variant="highlight">New Format</PillBadge>
+            </div>
+
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal mb-8 leading-tight">
+              A different kind<br />of hackathon
             </h2>
-            
-            <p className="text-lg text-foreground/60 leading-relaxed font-light mb-12 max-w-2xl">
+
+            <p className="text-lg text-foreground/55 leading-relaxed font-light max-w-2xl">
               We come together and build like watching a sports game. One big screen. Everyone vibing.
             </p>
           </motion.div>
-          
+
           <motion.div
-            className="mt-16"
+            className="mt-12"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="aspect-[21/9] overflow-hidden">
-              <img 
-                src={IMAGES.hero} 
-                alt="Vibe coding session" 
+            <div className="aspect-[21/9] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]">
+              <img
+                src={IMAGES.hero}
+                alt="Vibe coding session"
                 className="w-full h-full object-cover"
               />
             </div>
           </motion.div>
-          
-          <motion.div 
-            className="max-w-3xl mx-auto mt-16 grid md:grid-cols-2 gap-12"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <div>
-              <p className="text-lg text-foreground/60 leading-relaxed font-light">
-                Everyone has their own AI agent. You speak your prompt—voice to text, raw and unfiltered. It goes up on the big screen. Others chime in, add feedback, riff on your idea.
-              </p>
-            </div>
-            <div>
-              <p className="text-lg text-foreground/60 leading-relaxed font-light">
-                Then we rotate. While building, we chat. We laugh. We eat ridiculously good food. It's building as a spectator sport—except everyone's playing.
-              </p>
-            </div>
-          </motion.div>
+
+          {/* How it works cards */}
+          <div className="grid md:grid-cols-3 gap-6 mt-12">
+            {[
+              { step: "01", title: "Prompt", desc: "Everyone has their own AI agent. You speak your prompt—voice to text, raw and unfiltered. It goes up on the big screen." },
+              { step: "02", title: "Riff", desc: "Others chime in, add feedback, riff on your idea. You see angles you missed. The collective intelligence kicks in." },
+              { step: "03", title: "Rotate", desc: "Then we rotate. While building, we chat. We laugh. We eat ridiculously good food. Everyone's playing." },
+            ].map((item, i) => (
+              <motion.div
+                key={item.step}
+                className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.15 }}
+              >
+                <span className="text-3xl md:text-4xl font-display text-foreground/10">{item.step}</span>
+                <h3 className="font-display text-xl font-normal mt-3 mb-3">{item.title}</h3>
+                <p className="text-sm text-foreground/50 leading-relaxed font-light">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* The Space - Section 05 */}
-      <section id="space" className="section-zen relative z-10">
+      <section id="space" className="py-20 md:py-28 relative z-10">
         <div className="container">
-          <motion.div 
-            className="max-w-4xl mx-auto mb-16"
+          <motion.div
+            className="max-w-4xl mx-auto mb-12"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
             <SectionNumber number="05 — The Space" />
-            
+
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal mt-6 mb-8 leading-tight">
               Designed for the zone
             </h2>
-            
-            <p className="text-lg text-foreground/60 leading-relaxed font-light max-w-2xl">
+
+            <p className="text-lg text-foreground/55 leading-relaxed font-light max-w-2xl">
               The Vibe House isn't just a space—it's an environment engineered for peak performance and deep focus. Every detail is intentional. Every element serves your mind and body.
             </p>
           </motion.div>
 
-          {/* Space Features */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {[
-              { title: "Sit How You Want", desc: "Floor cushions. Standing desks. Your own corner. However you work best." },
-              { title: "Biohacking Built In", desc: "Blue lotus tea. Dandelion tea. Rosemary essential oils. Curated scents." },
-              { title: "Inspiration Everywhere", desc: "Quotes on the walls. AI-written books. New perspectives, endless rabbit holes." },
-              { title: "Curated Atmosphere", desc: "Amazing music, always playing, always right. The air itself keeps you sharp." },
-              { title: "Nourishment", desc: "Good food. Healthy snacks. The kind of fuel that keeps ideas flowing." },
-              { title: "No Chemicals", desc: "Everything clean. No toxins. Pure, healthy inputs for the best mindful experience." },
-            ].map((item, i) => (
-              <motion.div 
-                key={item.title}
-                className="py-8 border-t border-foreground/10"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <h3 className="font-display text-xl font-normal mb-3">{item.title}</h3>
-                <p className="text-sm text-foreground/50 leading-relaxed font-light">{item.desc}</p>
-              </motion.div>
-            ))}
+          {/* Feature cards grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <FeatureCard icon={Sparkles} title="Sit How You Want" desc="Floor cushions. Standing desks. Your own corner. However you work best." delay={0} />
+            <FeatureCard icon={Leaf} title="Biohacking Built In" desc="Blue lotus tea. Dandelion tea. Rosemary essential oils. Curated scents to keep you sharp." delay={0.1} />
+            <FeatureCard icon={Brain} title="Inspiration Everywhere" desc="Quotes on the walls. AI-written books throughout. New perspectives, endless rabbit holes." delay={0.2} />
+            <FeatureCard icon={Music} title="Curated Atmosphere" desc="Amazing music, always playing, always right. The air itself is designed to keep you in flow." delay={0.3} />
+            <FeatureCard icon={Utensils} title="Nourishment" desc="Good food. Insanely healthy organic snacks. The kind of fuel that keeps ideas flowing." delay={0.4} />
+            <FeatureCard icon={ShieldCheck} title="No Chemicals" desc="Everything clean. No toxins. No synthetic anything. Pure, healthy inputs for the best mindful experience." delay={0.5} />
           </div>
 
-          {/* Space Images */}
-          <div className="grid md:grid-cols-2 gap-4">
+          {/* Space Images - Full Color */}
+          <div className="grid md:grid-cols-2 gap-6">
             <motion.div
-              className="aspect-[4/3] overflow-hidden"
+              className="aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <img 
-                src={IMAGES.meditation} 
-                alt="Meditation room" 
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              <img
+                src={IMAGES.meditation}
+                alt="Meditation room"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
             </motion.div>
-            
+
             <motion.div
-              className="aspect-[4/3] overflow-hidden"
+              className="aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <img 
-                src={IMAGES.snacks} 
-                alt="Organic nourishment" 
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              <img
+                src={IMAGES.snacks}
+                alt="Organic nourishment"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
             </motion.div>
           </div>
-          
-          <motion.p 
+
+          <motion.p
             className="text-center font-display text-2xl md:text-3xl font-normal mt-16 text-foreground/80"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -466,9 +530,9 @@ export default function Home() {
       </section>
 
       {/* How to Join - Section 06 */}
-      <section id="join" className="section-zen relative z-10">
+      <section id="join" className="py-20 md:py-28 relative z-10">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -476,55 +540,69 @@ export default function Home() {
               transition={{ duration: 0.8 }}
             >
               <SectionNumber number="06 — Join" />
-              
-              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal mt-6 mb-12 leading-tight">
+
+              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal mt-6 mb-10 leading-tight">
                 How to Join
               </h2>
-              
-              <div className="space-y-8 mb-12">
-                <div className="flex gap-6 items-start">
-                  <span className="text-xs tracking-[0.2em] text-foreground/40 mt-1">01</span>
-                  <div>
-                    <h3 className="font-display text-xl font-normal mb-2">Exited Founder</h3>
-                    <p className="text-foreground/50 font-light">You've built something and seen it through to an exit.</p>
-                    <p className="text-foreground/70 font-light mt-2 text-sm">PEF, Superfounders members are welcome — no need to apply.</p>
+
+              <div className="space-y-6 mb-10">
+                <motion.div
+                  className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300"
+                  whileHover={{ x: 4 }}
+                >
+                  <div className="flex items-start gap-5">
+                    <span className="text-2xl font-display text-foreground/15 mt-0.5">01</span>
+                    <div>
+                      <h3 className="font-display text-xl font-normal mb-1.5">Exited Founder</h3>
+                      <p className="text-foreground/50 font-light text-sm">You've built something and seen it through to an exit.</p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <PillBadge variant="highlight">PEF</PillBadge>
+                        <PillBadge variant="highlight">Superfounders</PillBadge>
+                        <span className="text-xs text-foreground/40 self-center ml-1">members welcome — no need to apply</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                
-                <div className="flex gap-6 items-start">
-                  <span className="text-xs tracking-[0.2em] text-foreground/40 mt-1">02</span>
-                  <div>
-                    <h3 className="font-display text-xl font-normal mb-2">Technical Background</h3>
-                    <p className="text-foreground/50 font-light">You can code. You've shipped. You're a builder at heart.</p>
+                </motion.div>
+
+                <motion.div
+                  className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300"
+                  whileHover={{ x: 4 }}
+                >
+                  <div className="flex items-start gap-5">
+                    <span className="text-2xl font-display text-foreground/15 mt-0.5">02</span>
+                    <div>
+                      <h3 className="font-display text-xl font-normal mb-1.5">Technical Background</h3>
+                      <p className="text-foreground/50 font-light text-sm">You can code. You've shipped. You're a builder at heart.</p>
+                    </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
-              
-              <p className="text-lg text-foreground/60 mb-8 font-light">
+
+              <p className="text-lg text-foreground/55 mb-8 font-light">
                 That's it. No pitch decks. No networking agendas.<br />
                 Just builders who want to build again.
               </p>
-              
-              <Button 
-                size="lg" 
-                className="bg-foreground text-background hover:bg-foreground/90 text-xs tracking-[0.15em] uppercase px-8 py-6"
+
+              <Button
+                size="lg"
+                className="bg-foreground text-background hover:bg-foreground/90 text-xs tracking-[0.15em] uppercase rounded-full px-8 py-6"
               >
-                Apply Now
+                Apply Now <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </motion.div>
-            
+
             <motion.div
               className="relative"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="aspect-[4/5] overflow-hidden">
-                <img 
-                  src={IMAGES.exterior} 
-                  alt="Vibe House SF" 
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              <div className="aspect-[4/5] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]">
+                <img
+                  src={IMAGES.exterior}
+                  alt="Vibe House SF"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>
             </motion.div>
@@ -533,13 +611,13 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-16 border-t border-foreground/10 relative z-10">
+      <footer className="py-12 md:py-16 border-t border-foreground/5 relative z-10">
         <div className="container">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <p className="text-sm tracking-[0.2em] uppercase">
-              Vibe House SF
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <p className="text-sm tracking-[0.2em] uppercase font-medium">
+              Vibe House <span className="text-foreground/40">SF</span>
             </p>
-            <p className="text-xs text-foreground/40 tracking-[0.1em]">
+            <p className="text-xs text-foreground/35 tracking-[0.1em]">
               San Francisco, California
             </p>
           </div>
