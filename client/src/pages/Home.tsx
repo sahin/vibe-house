@@ -5,6 +5,7 @@
   - Full color images (no grayscale)
   - Large serif typography, generous whitespace
   - Numbered sections, quote styling
+  CONTENT v5: Added context line, What is section, grounded stats, renamed nav
 */
 
 import { Button } from "@/components/ui/button";
@@ -92,7 +93,7 @@ function StatCard({ value, label, delay = 0 }: { value: string; label: string; d
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
     >
-      <p className="font-display text-3xl md:text-4xl lg:text-5xl font-normal text-foreground">{value}</p>
+      <p className="font-display text-2xl md:text-3xl lg:text-4xl font-normal text-foreground">{value}</p>
       <p className="text-xs md:text-sm tracking-[0.15em] uppercase text-foreground/50 mt-2">{label}</p>
     </motion.div>
   );
@@ -140,14 +141,14 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <GeometricBackground />
 
-      {/* Navigation */}
+      {/* Navigation — renamed "Why" to "About" */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
         <div className="container flex items-center justify-between h-16 md:h-20">
           <a href="#" className="text-sm tracking-[0.2em] uppercase font-body font-medium">
             Vibe House <span className="text-foreground/40">SF</span>
           </a>
           <div className="hidden md:flex items-center gap-10">
-            <a href="#why" className="text-xs tracking-[0.15em] uppercase text-foreground/50 hover:text-foreground transition-colors duration-300">Why</a>
+            <a href="#about" className="text-xs tracking-[0.15em] uppercase text-foreground/50 hover:text-foreground transition-colors duration-300">About</a>
             <a href="#experience" className="text-xs tracking-[0.15em] uppercase text-foreground/50 hover:text-foreground transition-colors duration-300">Experience</a>
             <a href="#space" className="text-xs tracking-[0.15em] uppercase text-foreground/50 hover:text-foreground transition-colors duration-300">Space</a>
             <a href="#join" className="text-xs tracking-[0.15em] uppercase text-foreground/50 hover:text-foreground transition-colors duration-300">Join</a>
@@ -161,7 +162,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section — added context line + rewritten sub-headline */}
       <section className="relative min-h-screen flex items-center justify-center pt-20">
         <div className="container relative z-10">
           <motion.div
@@ -180,7 +181,7 @@ export default function Home() {
             </motion.div>
 
             <motion.h1
-              className="font-display text-5xl md:text-7xl lg:text-[6.5rem] font-normal leading-[1.05] mb-8"
+              className="font-display text-5xl md:text-7xl lg:text-[6.5rem] font-normal leading-[1.05] mb-6"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
@@ -188,18 +189,28 @@ export default function Home() {
               Back to<br />Builder Mode.
             </motion.h1>
 
+            {/* NEW: Context line — immediately tells visitor what this is */}
+            <motion.p
+              className="text-base md:text-lg tracking-[0.05em] text-foreground/45 mb-6 font-light"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+            >
+              A hacker house for exited founders who want to vibe code together.
+            </motion.p>
+
+            {/* Rewritten sub-headline — concrete description */}
             <motion.p
               className="text-lg md:text-xl text-foreground/55 leading-relaxed max-w-2xl mx-auto font-light mb-12"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Remember when you were just building? Before the investors,
-              the board meetings, the people management.
+              A hacker house in San Francisco where exited founders come together to build with AI — like watching a sports game, but everyone's playing.
             </motion.p>
 
             <motion.div
-              className="flex items-center justify-center gap-4"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -219,7 +230,7 @@ export default function Home() {
                 size="lg"
                 className="text-xs tracking-[0.15em] uppercase rounded-full px-8 py-6 border-foreground/15 hover:bg-foreground/5"
               >
-                <a href="#why">Learn More</a>
+                <a href="#about">Learn More</a>
               </Button>
             </motion.div>
           </motion.div>
@@ -242,19 +253,42 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Stats Row (sahin.io style) */}
-      <section className="py-16 md:py-20 relative z-10">
+      {/* NEW: What is Vibe House SF? — plain-English explainer */}
+      <section id="about" className="py-20 md:py-28 relative z-10">
+        <div className="container">
+          <motion.div
+            className="max-w-3xl mx-auto text-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <SectionNumber number="What is Vibe House SF?" />
+
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-normal mt-6 mb-10 leading-tight">
+              Where exited founders<br />build together again
+            </h2>
+
+            <p className="text-lg md:text-xl text-foreground/55 leading-relaxed font-light">
+              Vibe House SF is a physical space in San Francisco built for exited founders with technical backgrounds. You show up. You bring your laptop. Everyone gets their own AI agent on one big screen. You prompt, others riff, you rotate — and you build together. Great food. Organic snacks. A meditation room. No chemicals. Just builders in the zone.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Stats Row — grounded stats */}
+      <section className="py-8 md:py-12 relative z-10">
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            <StatCard value="1" label="Big Screen" delay={0} />
-            <StatCard value="AI" label="Agents for All" delay={0.1} />
-            <StatCard value="0" label="Chemicals" delay={0.2} />
-            <StatCard value="100%" label="Builder Energy" delay={0.3} />
+            <StatCard value="Exited Founders" label="Only" delay={0} />
+            <StatCard value="Hackathons" label="Weekly" delay={0.1} />
+            <StatCard value="1 Big Screen" label="All Vibing" delay={0.2} />
+            <StatCard value="San Francisco" label="California" delay={0.3} />
           </div>
         </div>
       </section>
 
-      {/* Quote Section */}
+      {/* Quote Section — moved after the explainer */}
       <section className="py-20 md:py-28 relative z-10">
         <div className="container">
           <motion.div
@@ -272,12 +306,12 @@ export default function Home() {
               <p className="font-display text-xl md:text-2xl lg:text-3xl leading-relaxed font-normal italic text-foreground/80">
                 "You were in the zone, shipping code, creating something from nothing. You loved it. Then you scaled. You exited. And now? You're ready to build again."
               </p>
-              <div className="mt-8 flex items-center justify-center gap-3">
-                <div className="w-8 h-px bg-foreground/20" />
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <div className="hidden sm:block w-8 h-px bg-foreground/20" />
                 <p className="text-sm tracking-[0.15em] uppercase text-foreground/40">
                   Now with AI, you can build faster than ever before
                 </p>
-                <div className="w-8 h-px bg-foreground/20" />
+                <div className="hidden sm:block w-8 h-px bg-foreground/20" />
               </div>
             </motion.div>
           </motion.div>
@@ -285,7 +319,7 @@ export default function Home() {
       </section>
 
       {/* The Why - Section 01 */}
-      <section id="why" className="py-20 md:py-28 relative z-10">
+      <section className="py-20 md:py-28 relative z-10">
         <div className="container">
           <motion.div
             className="max-w-4xl mx-auto"
