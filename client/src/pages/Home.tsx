@@ -146,7 +146,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
-              builder mode
+              Vibe House
             </motion.h1>
 
             {/* Pronunciation + part of speech */}
@@ -156,7 +156,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <p className={`${T.m} text-foreground/40 font-light`}>/ˈbɪl.dər moʊd/</p>
+              <p className={`${T.m} text-foreground/40 font-light`}>/vaɪb haʊs/</p>
               <p className={`${T.m} text-foreground/40 italic`}>noun phrase</p>
             </motion.div>
 
