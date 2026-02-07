@@ -196,7 +196,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15 }}
             >
-              A hacker house for exited founders who want to vibe code together.
+              A vibe coder house for exited founders who want to vibe code together.
             </motion.p>
 
             {/* Rewritten sub-headline — concrete description */}
@@ -206,7 +206,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              A hacker house in San Francisco where exited founders come together to build with AI — like watching a sports game, but everyone's playing.
+              A vibe coder house in San Francisco where exited founders come together to build with AI — like watching a sports game, but everyone's playing.
             </motion.p>
 
             <motion.div
