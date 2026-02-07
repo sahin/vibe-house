@@ -9,7 +9,7 @@
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Leaf, Brain, Music, Sparkles, Utensils, ShieldCheck } from "lucide-react";
 
 // Image URLs
@@ -108,12 +108,31 @@ function PillBadge({ children, variant = "default" }: { children: React.ReactNod
 }
 
 export default function Home() {
+  const [navVisible, setNavVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      if (currentY <= 50) {
+        setNavVisible(true);
+      } else if (currentY < lastScrollY.current) {
+        setNavVisible(true);
+      } else if (currentY > lastScrollY.current) {
+        setNavVisible(false);
+      }
+      lastScrollY.current = currentY;
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <GeometricBackground />
 
       {/* Navigation — own size, excluded from 3-size system */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
+      <nav className={`fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5 transition-transform duration-300 ${navVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="container flex items-center justify-between h-18 md:h-22">
           <a href="#" className={`${T.nav} font-body font-medium`}>
             Vibe House <span className="text-foreground/40">SF</span>
