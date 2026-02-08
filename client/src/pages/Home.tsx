@@ -264,7 +264,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.3 }}
             >
-              Everyone sits in one room. There's one massive screen on the wall. Each founder has their own AI agent. You speak your prompt — it goes up on the screen. Others watch, react, add ideas. Then the next person goes. It's like watching a game together, except you're building real products.
+              One room. One big screen. Each founder has an AI agent. You prompt, others riff, you rotate — like watching a game, except everyone's building.
             </motion.p>
 
             <motion.p
