@@ -246,7 +246,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              One big screen.
+              Great builders vibe together
             </motion.h2>
 
             <motion.div
