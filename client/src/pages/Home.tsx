@@ -1,16 +1,17 @@
 /*
   DESIGN: The Way of Code + sahin.io hybrid
-  TYPOGRAPHY v8: Exactly 3 font sizes (excluding nav)
-  - XL (Display): text-6xl md:text-8xl lg:text-[9rem] — Hero headline only
-  - L (Heading): text-3xl md:text-5xl lg:text-[4.5rem] — Section headings, closing statements, quote text
-  - M (Body): text-lg md:text-xl lg:text-2xl — Everything else: body, cards, badges, labels, footer
-  - Nav keeps its own size (text-sm md:text-base) as excluded from the 3-size system
+  TYPOGRAPHY: 3 font sizes (excluding nav)
+  - XL (Display): Hero headline
+  - L (Heading): Section headings, closings
+  - M (Body): Everything else
+  All content driven by content.yaml
 */
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Leaf, Brain, Music, Sparkles, Utensils, ShieldCheck } from "lucide-react";
+import content from "@/content.yaml";
 
 // Image URLs
 const IMAGES = {
@@ -21,12 +22,12 @@ const IMAGES = {
   exterior: "https://private-us-east-1.manuscdn.com/sessionFile/EYUEGdEJ1P4CEaW2SLZOhC/sandbox/lgQvb1oSQa2zmHxYUjbe3V-img-5_1770340079000_na1fn_dmliZS1ob3VzZS1leHRlcmlvcg.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvRVlVRUdkRUoxUDRDRWFXMlNMWk9oQy9zYW5kYm94L2xnUXZiMW9TUWEyem1IeFlVamJlM1YtaW1nLTVfMTc3MDM0MDA3OTAwMF9uYTFmbl9kbWxpWlMxb2IzVnpaUzFsZUhSbGNtbHZjZy5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=N9aUG0~YgaU6ZOYuM8J63sTmTl3m51P5pzuKxDGt~q~5WeA7ynrYHUzXL2HK40jgG6wYdlu7AodQO2S3uB5sIu8YkzFJPTR2ZeB7c2XLtAf6YTI-LD6NC191txILp2oUVPlZhVC4I0RJTvlKm6MEe~LXWY2B-hx7pOlW6udVY16HhevR1EqGORB5RromOtc0N21CjrRc40M9LlnC~LE~rxSW0UCnoDRCJEH32n1QYoEkCTe0JXZTxXBGM3gyRaW5p95vs0kHGklHoId-yrkdAkU5ByuNJIQPCklyFzUVuDxmOHl7-V7RdVOnxfza-uWLSyiX2fIOWr~v7xKk9nXeFg__",
 };
 
-// Typography classes — 3 sizes (excluding nav)
-// XL: text-6xl md:text-8xl lg:text-[9rem] — Hero headline
-// L:  text-3xl md:text-5xl lg:text-[4.5rem] — Section headings, quotes, closings
-// M:  text-lg md:text-xl lg:text-2xl — Everything else
-// Nav: text-sm md:text-base (excluded from the 3-size system)
+// Icon map for YAML-driven features
+const ICON_MAP: Record<string, React.ElementType> = {
+  Sparkles, Leaf, Brain, Music, Utensils, ShieldCheck,
+};
 
+// Typography classes — 3 sizes (excluding nav)
 const T = {
   xl: "font-display text-6xl md:text-8xl lg:text-[9rem] font-normal leading-[1.02]",
   l: "font-display text-3xl md:text-5xl lg:text-[4.5rem] font-normal leading-tight",
@@ -79,7 +80,7 @@ function GeometricBackground() {
   return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.4 }} />;
 }
 
-// Feature card — M for title and description
+// Feature card
 function FeatureCard({ icon: Icon, title, desc, delay = 0 }: { icon: React.ElementType; title: string; desc: string; delay?: number }) {
   return (
     <motion.div
@@ -98,7 +99,7 @@ function FeatureCard({ icon: Icon, title, desc, delay = 0 }: { icon: React.Eleme
   );
 }
 
-// Pill badge — M size
+// Pill badge
 function PillBadge({ children, variant = "default" }: { children: React.ReactNode; variant?: "default" | "highlight" }) {
   const base = `inline-flex items-center px-5 py-2 rounded-full font-medium ${T.m}`;
   const styles = variant === "highlight"
@@ -131,26 +132,25 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <GeometricBackground />
 
-      {/* Navigation — own size, excluded from 3-size system */}
+      {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5 transition-transform duration-300 ${navVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="container flex items-center justify-between h-18 md:h-22">
           <a href="#" className={`${T.nav} font-body font-medium whitespace-nowrap`}>
-            Vibe House <span className="text-foreground/40">SF</span>
+            {content.nav.logo} <span className="text-foreground/40">{content.nav.logo_suffix}</span>
           </a>
           <div className="hidden md:flex items-center gap-10">
-            <a href="#about" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>About</a>
-            <a href="#experience" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Experience</a>
-            <a href="#space" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Space</a>
-            <a href="#join" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Join</a>
+            {content.nav.links.map((link: any) => (
+              <a key={link.href} href={link.href} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{link.label}</a>
+            ))}
           </div>
           <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
-            <a href="#join">Apply Now</a>
+            <a href="#join">{content.nav.cta}</a>
           </Button>
         </div>
       </nav>
 
       {/* Hero — Dictionary definition style */}
-      <section className="relative min-h-screen flex items-center pt-24 relative z-10">
+      <section className="relative min-h-screen flex items-center pt-24 z-10">
         <div className="container relative z-10">
           <motion.div
             className="max-w-4xl mx-auto"
@@ -158,28 +158,25 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Dictionary word */}
             <motion.h1
               className={`${T.xl} mb-6`}
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
-              Vibe House
+              {content.hero.title}
             </motion.h1>
 
-            {/* Pronunciation + part of speech */}
             <motion.div
               className="mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <p className={`${T.m} text-foreground/40 font-light`}>/vaɪb haʊs/</p>
-              <p className={`${T.m} text-foreground/40 italic`}>noun phrase</p>
+              <p className={`${T.m} text-foreground/40 font-light`}>{content.hero.pronunciation}</p>
+              <p className={`${T.m} text-foreground/40 italic`}>{content.hero.part_of_speech}</p>
             </motion.div>
 
-            {/* Divider line */}
             <motion.div
               className="w-full h-px bg-foreground/10 mb-10"
               initial={{ scaleX: 0, originX: 0 }}
@@ -187,14 +184,13 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.3 }}
             />
 
-            {/* Definition */}
             <motion.p
               className={`${T.l} text-foreground/80 mb-16 max-w-3xl`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
             >
-              A new type of hacker house for exited technical founders to vibe code together.
+              {content.hero.definition}
             </motion.p>
 
             <motion.div
@@ -204,10 +200,10 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.6 }}
             >
               <Button asChild size="lg" className={`bg-foreground text-background hover:bg-foreground/90 ${T.m} rounded-full px-10 py-7`}>
-                <a href="#join">Join the House <ArrowRight className="ml-2 w-5 h-5" /></a>
+                <a href="#join">{content.hero.buttons.primary} <ArrowRight className="ml-2 w-5 h-5" /></a>
               </Button>
               <Button asChild variant="outline" size="lg" className={`${T.m} rounded-full px-10 py-7 border-foreground/15 hover:bg-foreground/5`}>
-                <a href="#about">Learn More</a>
+                <a href="#about">{content.hero.buttons.secondary}</a>
               </Button>
             </motion.div>
           </motion.div>
@@ -229,7 +225,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* How it works — Second hero, crystal clear */}
+      {/* About — What is Vibe House SF? */}
       <section id="about" className="py-32 md:py-44 relative z-10">
         <div className="container">
           <motion.div
@@ -246,7 +242,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              Great builders vibe together
+              {content.about.title}
             </motion.h2>
 
             <motion.div
@@ -258,59 +254,19 @@ export default function Home() {
             />
 
             <motion.p
-              className={`${T.l} text-foreground/70 mb-10 max-w-4xl`}
+              className={`${T.l} text-foreground/70 max-w-4xl`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.3 }}
             >
-              One room. One big screen. Each founder has an AI agent. You prompt, others riff, you rotate — like watching a game, except everyone's building.
-            </motion.p>
-
-            <motion.p
-              className={`${T.m} text-foreground/45 max-w-3xl`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-            >
-              Great food. Organic snacks. A meditation room. No chemicals. Just builders in the zone.
+              {content.about.description}
             </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* Quote — L size text */}
-      <section className="py-24 md:py-36 relative z-10">
-        <div className="container">
-          <motion.div
-            className="max-w-4xl mx-auto text-center"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.div
-              className="bg-white/60 backdrop-blur-sm rounded-3xl p-12 md:p-16 shadow-[0_2px_30px_rgba(0,0,0,0.04)]"
-              whileHover={{ scale: 1.01 }}
-              transition={{ duration: 0.3 }}
-            >
-              <p className={`${T.l} italic text-foreground/80`}>
-                "You were in the zone, shipping code, creating something from nothing. You loved it. Then you scaled. You exited. And now? You're ready to build again."
-              </p>
-              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <div className="hidden sm:block w-10 h-px bg-foreground/20" />
-                <p className={`${T.m} text-foreground/40`}>
-                  Now with AI, you can build faster than ever before
-                </p>
-                <div className="hidden sm:block w-10 h-px bg-foreground/20" />
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* The Why — L heading, M body */}
+      {/* The Why */}
       <section className="py-24 md:py-36 relative z-10">
         <div className="container">
           <motion.div
@@ -320,25 +276,22 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>01 — The Why</span>
+            <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>{content.the_why.section_label}</span>
 
             <h2 className={`${T.l} mt-8 mb-14`}>
-              In a world of<br />constant change
+              {content.the_why.title.split('\n').map((line: string, i: number) => (
+                <span key={i}>{line}{i === 0 && <br />}</span>
+              ))}
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-10 md:gap-16">
-              <p className={`${T.m} text-foreground/55`}>
-                Your most valuable asset isn't what you know — it's how fast you can learn and apply what's new. The tools are evolving daily. Yesterday's advantage is today's baseline.
-              </p>
-              <p className={`${T.m} text-foreground/55`}>
-                The founders who master these tools first will define what comes next. Vibe House is the place where you stay ahead — together.
-              </p>
-            </div>
+            <p className={`${T.m} text-foreground/55 max-w-4xl`}>
+              {content.the_why.description}
+            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Why Vibe Code Together — L heading, M body */}
+      {/* Why Vibe Code Together */}
       <section className="py-24 md:py-36 relative z-10">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-14 lg:gap-24 items-center">
@@ -348,25 +301,15 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>02 — Together</span>
+              <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>{content.together.section_label}</span>
 
               <h2 className={`${T.l} mt-8 mb-10`}>
-                Why Vibe Code Together
+                {content.together.title}
               </h2>
 
-              <p className={`${T.m} text-foreground/55 mb-8`}>
-                Solo coding is powerful. Vibe coding is a cheat code.
-              </p>
-
               <p className={`${T.m} text-foreground/55`}>
-                When you watch another founder prompt, you learn their mental models. When they riff on your idea, you see angles you missed. You absorb techniques in minutes that would take weeks alone.
+                {content.together.description}
               </p>
-
-              <div className="mt-10 bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)]">
-                <p className={`${T.m} text-foreground/70 italic`}>
-                  "It's not collaboration for collaboration's sake — it's accelerated learning disguised as hanging out."
-                </p>
-              </div>
             </motion.div>
 
             <motion.div
@@ -384,7 +327,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* The Edge — L heading, M body */}
+      {/* The Edge */}
       <section className="py-24 md:py-36 relative z-10">
         <div className="container">
           <motion.div
@@ -395,25 +338,21 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <div className="max-w-4xl mx-auto text-center">
-              <span className={`${T.m} text-background/40 tracking-[0.12em] uppercase`}>03 — The Edge</span>
+              <span className={`${T.m} text-background/40 tracking-[0.12em] uppercase`}>{content.the_edge.section_label}</span>
 
               <h2 className={`${T.l} mt-8 mb-12 text-background`}>
-                Speed still wins
+                {content.the_edge.title}
               </h2>
 
-              <p className={`${T.m} text-background/55 mb-12`}>
-                AI has leveled the playing field. Anyone can build now. But the founders who experiment fastest, iterate fastest, and learn fastest will pull ahead.
-              </p>
-
-              <p className={`${T.l} text-background/90`}>
-                Vibe House is where that happens.
+              <p className={`${T.m} text-background/55`}>
+                {content.the_edge.description}
               </p>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* The Experience — L heading, M body */}
+      {/* The Experience */}
       <section id="experience" className="py-24 md:py-36 relative z-10">
         <div className="container">
           <motion.div
@@ -424,17 +363,15 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <div className="flex items-center gap-4 mb-8">
-              <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>04 — Experience</span>
-              <PillBadge variant="highlight">New Format</PillBadge>
+              <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>{content.experience.section_label}</span>
+              <PillBadge variant="highlight">{content.experience.badge}</PillBadge>
             </div>
 
             <h2 className={`${T.l} mb-10`}>
-              A different kind<br />of hackathon
+              {content.experience.title.split('\n').map((line: string, i: number) => (
+                <span key={i}>{line}{i === 0 && <br />}</span>
+              ))}
             </h2>
-
-            <p className={`${T.m} text-foreground/55 max-w-3xl`}>
-              We come together and build like watching a sports game. One big screen. Everyone vibing. It's collaborative creation as a spectator sport — except everyone's playing.
-            </p>
           </motion.div>
 
           <motion.div
@@ -449,13 +386,9 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Step cards — M for all text */}
+          {/* Step cards */}
           <div className="grid md:grid-cols-3 gap-6 mt-14">
-            {[
-              { step: "01", title: "Prompt", desc: "Everyone has their own AI agent. You speak your prompt — voice to text, raw and unfiltered. It goes up on the big screen for all to see." },
-              { step: "02", title: "Riff", desc: "Others chime in, add feedback, riff on your idea. You see angles you missed. The collective intelligence kicks in and ideas compound." },
-              { step: "03", title: "Rotate", desc: "Then we rotate. While building, we chat. We laugh. We eat ridiculously good food. We snack on the healthiest stuff you've ever seen." },
-            ].map((item, i) => (
+            {content.experience.steps.map((item: any, i: number) => (
               <motion.div
                 key={item.step}
                 className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 md:p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1"
@@ -466,14 +399,14 @@ export default function Home() {
               >
                 <span className={`${T.l} text-foreground/10`}>{item.step}</span>
                 <h3 className={`${T.m} font-display font-normal mt-4 mb-4`}>{item.title}</h3>
-                <p className={`${T.m} text-foreground/55`}>{item.desc}</p>
+                <p className={`${T.m} text-foreground/55`}>{item.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* The Space — L heading, M body */}
+      {/* The Space */}
       <section id="space" className="py-24 md:py-36 relative z-10">
         <div className="container">
           <motion.div
@@ -483,24 +416,27 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>05 — The Space</span>
+            <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>{content.space.section_label}</span>
 
             <h2 className={`${T.l} mt-8 mb-10`}>
-              Designed for the zone
+              {content.space.title}
             </h2>
 
             <p className={`${T.m} text-foreground/55 max-w-3xl`}>
-              The Vibe House isn't just a space — it's an environment engineered for peak performance and deep focus. Every detail is intentional. Every element serves your mind and body.
+              {content.space.description}
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
-            <FeatureCard icon={Sparkles} title="Sit How You Want" desc="Floor cushions. Standing desks. Your own corner. However you work best." delay={0} />
-            <FeatureCard icon={Leaf} title="Biohacking Built In" desc="Blue lotus tea for calm focus. Dandelion tea for clarity. Rosemary essential oils for memory." delay={0.1} />
-            <FeatureCard icon={Brain} title="Inspiration Everywhere" desc="Quotes on the walls to spark ideas. AI-written books throughout. Endless rabbit holes." delay={0.2} />
-            <FeatureCard icon={Music} title="Curated Atmosphere" desc="Amazing music, always playing, always right. Curated scents. Designed for flow state." delay={0.3} />
-            <FeatureCard icon={Utensils} title="Nourishment" desc="Ridiculously good food. Insanely healthy organic snacks. Fuel that keeps ideas flowing." delay={0.4} />
-            <FeatureCard icon={ShieldCheck} title="No Chemicals" desc="Everything clean. No toxins. No synthetic anything. Pure, healthy inputs." delay={0.5} />
+            {content.space.features.map((feature: any, i: number) => (
+              <FeatureCard
+                key={feature.title}
+                icon={ICON_MAP[feature.icon] || Sparkles}
+                title={feature.title}
+                desc={feature.description}
+                delay={i * 0.1}
+              />
+            ))}
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -519,12 +455,12 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            This is your zone. We just built the house around it.
+            {content.space.closing}
           </motion.p>
         </div>
       </section>
 
-      {/* How to Join — L heading, M body */}
+      {/* How to Join */}
       <section id="join" className="py-24 md:py-36 relative z-10">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-14 lg:gap-24 items-center">
@@ -534,52 +470,46 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>06 — Join</span>
+              <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>{content.join.section_label}</span>
 
               <h2 className={`${T.l} mt-8 mb-12`}>
-                How to Join
+                {content.join.title}
               </h2>
 
               <div className="space-y-6 mb-12">
-                <motion.div
-                  className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300"
-                  whileHover={{ x: 4 }}
-                >
-                  <div className="flex items-start gap-6">
-                    <span className={`${T.l} text-foreground/10`}>01</span>
-                    <div>
-                      <h3 className={`${T.m} font-display font-normal mb-2`}>Exited Founder</h3>
-                      <p className={`${T.m} text-foreground/55`}>You've built something and seen it through to an exit.</p>
-                      <div className="mt-4 flex flex-wrap gap-2 items-center">
-                        <PillBadge variant="highlight">PEF</PillBadge>
-                        <PillBadge variant="highlight">Superfounders</PillBadge>
-                        <span className={`${T.m} text-foreground/45 ml-1`}>members welcome — no need to apply</span>
+                {content.join.requirements.map((req: any) => (
+                  <motion.div
+                    key={req.number}
+                    className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300"
+                    whileHover={{ x: 4 }}
+                  >
+                    <div className="flex items-start gap-6">
+                      <span className={`${T.l} text-foreground/10`}>{req.number}</span>
+                      <div>
+                        <h3 className={`${T.m} font-display font-normal mb-2`}>{req.title}</h3>
+                        <p className={`${T.m} text-foreground/55`}>{req.description}</p>
+                        {req.badges && (
+                          <div className="mt-4 flex flex-wrap gap-2 items-center">
+                            {req.badges.map((badge: string) => (
+                              <PillBadge key={badge} variant="highlight">{badge}</PillBadge>
+                            ))}
+                            <span className={`${T.m} text-foreground/45 ml-1`}>{req.badge_note}</span>
+                          </div>
+                        )}
                       </div>
                     </div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300"
-                  whileHover={{ x: 4 }}
-                >
-                  <div className="flex items-start gap-6">
-                    <span className={`${T.l} text-foreground/10`}>02</span>
-                    <div>
-                      <h3 className={`${T.m} font-display font-normal mb-2`}>Technical Background</h3>
-                      <p className={`${T.m} text-foreground/55`}>You can code. You've shipped. You're a builder at heart.</p>
-                    </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                ))}
               </div>
 
               <p className={`${T.m} text-foreground/55 mb-10`}>
-                That's it. No pitch decks. No networking agendas.<br />
-                Just builders who want to build again.
+                {content.join.closing.split('\n').map((line: string, i: number) => (
+                  <span key={i}>{line}{i === 0 && <br />}</span>
+                ))}
               </p>
 
               <Button size="lg" className={`bg-foreground text-background hover:bg-foreground/90 ${T.m} rounded-full px-10 py-7`}>
-                Apply Now <ArrowRight className="ml-2 w-5 h-5" />
+                {content.join.cta} <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </motion.div>
 
@@ -598,15 +528,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer — M size */}
+      {/* Footer */}
       <footer className="py-14 md:py-20 border-t border-foreground/5 relative z-10">
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <p className={`${T.m} font-medium tracking-[0.12em] uppercase`}>
-              Vibe House <span className="text-foreground/40">SF</span>
+              {content.footer.logo} <span className="text-foreground/40">{content.footer.logo_suffix}</span>
             </p>
             <p className={`${T.m} text-foreground/35`}>
-              San Francisco, California
+              {content.footer.location}
             </p>
           </div>
         </div>

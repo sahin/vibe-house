@@ -1,0 +1,108 @@
+# ============================================
+# VIBE HOUSE SF — Website Content
+# Edit this file to change all text on the site
+# ============================================
+
+nav:
+  logo: "Vibe House"
+  logo_suffix: "SF"
+  links:
+    - label: "About"
+      href: "#about"
+    - label: "Experience"
+      href: "#experience"
+    - label: "Space"
+      href: "#space"
+    - label: "Join"
+      href: "#join"
+  cta: "Apply Now"
+
+hero:
+  title: "Vibe House"
+  pronunciation: "/vaɪb haʊs/"
+  part_of_speech: "noun phrase"
+  definition: "A new type of hacker house for exited technical founders to vibe code together."
+  buttons:
+    primary: "Join the House"
+    secondary: "Learn More"
+
+about:
+  title: "What is Vibe House SF?"
+  description: "A physical house in San Francisco where exited founders sit in one room with one big screen. Each person has their own AI agent. You speak a prompt, it goes on the screen, others give feedback, then the next person goes. You build real things together while eating great food in a chill, chemical-free space."
+
+the_why:
+  section_label: "01 — The Why"
+  title: "In a world of constant change"
+  description: "Your most valuable asset isn't what you know — it's how fast you can learn and apply what's new. The tools are evolving daily. The founders who master these tools first will define what comes next."
+
+together:
+  section_label: "02 — Together"
+  title: "Why Vibe Code Together"
+  description: "Solo coding is powerful. Vibe coding is a cheat code. When you watch another founder prompt, you learn their mental models. When they riff on your idea, you see angles you missed. You absorb techniques in minutes that would take weeks alone."
+
+the_edge:
+  section_label: "03 — The Edge"
+  title: "Speed still wins"
+  description: "AI has leveled the playing field. Anyone can build now. But the founders who experiment fastest, iterate fastest, and learn fastest will pull ahead. Vibe House is where that happens."
+
+experience:
+  section_label: "04 — Experience"
+  badge: "New Format"
+  title: "A different kind of hackathon"
+  steps:
+    - step: "01"
+      title: "Prompt"
+      description: "Everyone has their own AI agent. You speak your prompt — voice to text, raw and unfiltered. It goes up on the big screen for all to see."
+    - step: "02"
+      title: "Riff"
+      description: "Others chime in, add feedback, riff on your idea. You see angles you missed. The collective intelligence kicks in and ideas compound."
+    - step: "03"
+      title: "Rotate"
+      description: "Then we rotate. While building, we chat. We laugh. We eat ridiculously good food. We snack on the healthiest stuff you've ever seen."
+
+space:
+  section_label: "05 — The Space"
+  title: "Designed for the zone"
+  description: "The Vibe House isn't just a space — it's an environment engineered for peak performance and deep focus. Every detail is intentional. Every element serves your mind and body."
+  features:
+    - title: "Sit How You Want"
+      description: "Floor cushions. Standing desks. Your own corner. However you work best."
+      icon: "Sparkles"
+    - title: "Biohacking Built In"
+      description: "Blue lotus tea for calm focus. Dandelion tea for clarity. Rosemary essential oils for memory."
+      icon: "Leaf"
+    - title: "Inspiration Everywhere"
+      description: "Quotes on the walls to spark ideas. AI-written books throughout. Endless rabbit holes."
+      icon: "Brain"
+    - title: "Curated Atmosphere"
+      description: "Amazing music, always playing, always right. Curated scents. Designed for flow state."
+      icon: "Music"
+    - title: "Nourishment"
+      description: "Ridiculously good food. Insanely healthy organic snacks. Fuel that keeps ideas flowing."
+      icon: "Utensils"
+    - title: "No Chemicals"
+      description: "Everything clean. No toxins. No synthetic anything. Pure, healthy inputs."
+      icon: "ShieldCheck"
+  closing: "This is your zone. We just built the house around it."
+
+join:
+  section_label: "06 — Join"
+  title: "How to Join"
+  requirements:
+    - number: "01"
+      title: "Exited Founder"
+      description: "You've built something and seen it through to an exit."
+      badges:
+        - "PEF"
+        - "Superfounders"
+      badge_note: "members welcome — no need to apply"
+    - number: "02"
+      title: "Technical Background"
+      description: "You can code. You've shipped. You're a builder at heart."
+  closing: "That's it. No pitch decks. No networking agendas.\nJust builders who want to build again."
+  cta: "Apply Now"
+
+footer:
+  logo: "Vibe House"
+  logo_suffix: "SF"
+  location: "San Francisco, California"
