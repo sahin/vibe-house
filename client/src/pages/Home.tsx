@@ -327,30 +327,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* The Edge */}
-      <section className="py-24 md:py-36 relative z-10">
-        <div className="container">
-          <motion.div
-            className="bg-foreground text-background rounded-3xl p-12 md:p-20 lg:p-24 shadow-[0_8px_40px_rgba(0,0,0,0.15)]"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="max-w-4xl mx-auto text-center">
-              <span className={`${T.m} text-background/40 tracking-[0.12em] uppercase`}>{content.the_edge.section_label}</span>
 
-              <h2 className={`${T.l} mt-8 mb-12 text-background`}>
-                {content.the_edge.title}
-              </h2>
-
-              <p className={`${T.m} text-background/55`}>
-                {content.the_edge.description}
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* The Experience */}
       <section id="experience" className="py-24 md:py-36 relative z-10">

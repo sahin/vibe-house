@@ -40,13 +40,8 @@ together:
   title: "Why Vibe Code Together"
   description: "Solo coding is powerful. Vibe coding is a cheat code. When you watch another founder prompt, you learn their mental models. When they riff on your idea, you see angles you missed. You absorb techniques in minutes that would take weeks alone."
 
-the_edge:
-  section_label: "03 — The Edge"
-  title: "Speed still wins"
-  description: "AI has leveled the playing field. Anyone can build now. But the founders who experiment fastest, iterate fastest, and learn fastest will pull ahead. Vibe House is where that happens."
-
 experience:
-  section_label: "04 — Experience"
+  section_label: "03 — Experience"
   badge: "New Format"
   title: "A different kind of hackathon"
   steps:
@@ -61,7 +56,7 @@ experience:
       description: "Then we rotate. While building, we chat. We laugh. We eat ridiculously good food. We snack on the healthiest stuff you've ever seen."
 
 space:
-  section_label: "05 — The Space"
+  section_label: "04 — The Space"
   title: "Designed for the zone"
   description: "The Vibe House isn't just a space — it's an environment engineered for peak performance and deep focus. Every detail is intentional. Every element serves your mind and body."
   features:
@@ -86,7 +81,7 @@ space:
   closing: "This is your zone. We just built the house around it."
 
 join:
-  section_label: "06 — Join"
+  section_label: "05 — Join"
   title: "How to Join"
   requirements:
     - number: "01"
