@@ -29,12 +29,12 @@ about:
   description: "One room. One big screen. Exited founders with AI agents. You prompt, others riff, you rotate. You build real things together."
 
 the_why:
-  section_label: "01 — The Why"
+  section_label: ""
   title: "Why Now"
   description: "The tools are evolving daily. The founders who master them first will define what comes next."
 
 vibe:
-  section_label: "02 — The Vibe"
+  section_label: ""
   title: "The Vibe"
   description: "Every detail engineered for deep focus and peak performance."
   features:
@@ -50,10 +50,10 @@ vibe:
       description: "Great food. Organic snacks. Clean fuel."
     - title: "No Chemicals"
       description: "No toxins. No synthetics. Pure inputs."
-  closing: "Your zone. We built the house around it."
+  closing: "Your vibe. We built the house around it."
 
 join:
-  section_label: "03 — Join"
+  section_label: ""
   title: "Join Us"
   requirements:
     - number: "01"
@@ -66,7 +66,7 @@ join:
     - number: "02"
       title: "Technical Background"
       description: "You can code. You've shipped."
-  closing: "No pitch decks. No networking agendas.\nJust builders who want to build again."
+  closing: "No pitch decks. No networking.\nJust for the builders who want to build again."
   cta: "Apply Now"
 
 footer:
