@@ -1,16 +1,14 @@
 /*
-  DESIGN: The Way of Code + sahin.io hybrid
-  TYPOGRAPHY: 3 font sizes (excluding nav)
-  - XL (Display): Hero headline
-  - L (Heading): Section headings, closings
-  - M (Body): Everything else
+  DESIGN: Dictionary-definition style throughout
+  Every section follows the hero pattern: big title, divider, large description
+  No small cards — everything is full-width, bold, spacious
   All content driven by content.yaml
 */
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Leaf, Brain, Music, Sparkles, Utensils, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import content from "@/content.yaml";
 
 // Image URLs
@@ -22,16 +20,11 @@ const IMAGES = {
   exterior: "https://private-us-east-1.manuscdn.com/sessionFile/EYUEGdEJ1P4CEaW2SLZOhC/sandbox/lgQvb1oSQa2zmHxYUjbe3V-img-5_1770340079000_na1fn_dmliZS1ob3VzZS1leHRlcmlvcg.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvRVlVRUdkRUoxUDRDRWFXMlNMWk9oQy9zYW5kYm94L2xnUXZiMW9TUWEyem1IeFlVamJlM1YtaW1nLTVfMTc3MDM0MDA3OTAwMF9uYTFmbl9kbWxpWlMxb2IzVnpaUzFsZUhSbGNtbHZjZy5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=N9aUG0~YgaU6ZOYuM8J63sTmTl3m51P5pzuKxDGt~q~5WeA7ynrYHUzXL2HK40jgG6wYdlu7AodQO2S3uB5sIu8YkzFJPTR2ZeB7c2XLtAf6YTI-LD6NC191txILp2oUVPlZhVC4I0RJTvlKm6MEe~LXWY2B-hx7pOlW6udVY16HhevR1EqGORB5RromOtc0N21CjrRc40M9LlnC~LE~rxSW0UCnoDRCJEH32n1QYoEkCTe0JXZTxXBGM3gyRaW5p95vs0kHGklHoId-yrkdAkU5ByuNJIQPCklyFzUVuDxmOHl7-V7RdVOnxfza-uWLSyiX2fIOWr~v7xKk9nXeFg__",
 };
 
-// Icon map for YAML-driven features
-const ICON_MAP: Record<string, React.ElementType> = {
-  Sparkles, Leaf, Brain, Music, Utensils, ShieldCheck,
-};
-
 // Typography — 3 fluid sizes using clamp() (excluding nav)
 const T = {
-  xl: "font-display font-normal leading-[1.02]" + " " + "text-[clamp(3.5rem,10vw,9rem)]",
-  l: "font-display font-normal leading-tight" + " " + "text-[clamp(2rem,6vw,4.5rem)]",
-  m: "leading-relaxed" + " " + "text-[clamp(1.1rem,2.2vw,1.5rem)]",
+  xl: "font-display font-normal leading-[1.02] text-[clamp(3.5rem,10vw,9rem)]",
+  l: "font-display font-normal leading-[1.1] text-[clamp(2.2rem,6vw,4.5rem)]",
+  m: "leading-relaxed text-[clamp(1.15rem,2.5vw,1.5rem)]",
   nav: "text-xs tracking-[0.08em] uppercase",
 };
 
@@ -80,32 +73,38 @@ function GeometricBackground() {
   return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.4 }} />;
 }
 
-// Feature card
-function FeatureCard({ icon: Icon, title, desc, delay = 0 }: { icon: React.ElementType; title: string; desc: string; delay?: number }) {
+// Divider line component
+function Divider({ delay = 0 }: { delay?: number }) {
   return (
     <motion.div
-      className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 md:p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      className="w-full h-px bg-foreground/10 my-10 md:my-14"
+      initial={{ scaleX: 0, originX: 0 }}
+      whileInView={{ scaleX: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay }}
-    >
-      <div className="w-12 h-12 rounded-xl bg-foreground/5 flex items-center justify-center mb-5">
-        <Icon className="w-6 h-6 text-foreground/60" />
-      </div>
-      <h3 className={`${T.m} font-display font-normal mb-3`}>{title}</h3>
-      <p className={`${T.m} text-foreground/55`}>{desc}</p>
-    </motion.div>
+      transition={{ duration: 0.8, delay }}
+    />
   );
 }
 
-// Pill badge
-function PillBadge({ children, variant = "default" }: { children: React.ReactNode; variant?: "default" | "highlight" }) {
-  const base = `inline-flex items-center px-5 py-2 rounded-full font-medium ${T.m}`;
-  const styles = variant === "highlight"
-    ? `${base} bg-foreground text-background`
-    : `${base} bg-foreground/5 text-foreground/70`;
-  return <span className={styles}>{children}</span>;
+// Section wrapper — consistent full-width dictionary-style layout
+function Section({
+  id,
+  children,
+  className = "",
+}: {
+  id?: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <section id={id} className={`py-28 md:py-40 relative z-10 ${className}`}>
+      <div className="container">
+        <div className="max-w-5xl mx-auto">
+          {children}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default function Home() {
@@ -134,7 +133,7 @@ export default function Home() {
 
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5 transition-transform duration-300 ${navVisible ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="container flex items-center justify-between h-18 md:h-22">
+        <div className="container flex items-center justify-between h-16 md:h-20">
           <a href="#" className={`${T.nav} font-body font-medium whitespace-nowrap`}>
             {content.nav.logo} <span className="text-foreground/40">{content.nav.logo_suffix}</span>
           </a>
@@ -149,11 +148,13 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero — Dictionary definition style */}
+      {/* ============================================ */}
+      {/* HERO — Dictionary definition */}
+      {/* ============================================ */}
       <section className="relative min-h-screen flex items-center pt-24 z-10">
-        <div className="container relative z-10">
+        <div className="container">
           <motion.div
-            className="max-w-4xl mx-auto"
+            className="max-w-5xl mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -178,14 +179,14 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              className="w-full h-px bg-foreground/10 mb-10"
+              className="w-full h-px bg-foreground/10 mb-12"
               initial={{ scaleX: 0, originX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             />
 
             <motion.p
-              className={`${T.l} text-foreground/80 mb-16 max-w-3xl`}
+              className={`${T.l} text-foreground/80 mb-16`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
@@ -225,285 +226,343 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* About — What is Vibe House SF? */}
-      <section id="about" className="py-32 md:py-44 relative z-10">
-        <div className="container">
+      {/* ============================================ */}
+      {/* ABOUT — Same dictionary style as hero */}
+      {/* ============================================ */}
+      <Section id="about">
+        <motion.h2
+          className={`${T.xl} mb-6`}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          {content.about.title}
+        </motion.h2>
+
+        <Divider delay={0.2} />
+
+        <motion.p
+          className={`${T.l} text-foreground/70`}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+        >
+          {content.about.description}
+        </motion.p>
+      </Section>
+
+      {/* ============================================ */}
+      {/* THE WHY — Dictionary style */}
+      {/* ============================================ */}
+      <Section>
+        <motion.p
+          className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase mb-6`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          {content.the_why.section_label}
+        </motion.p>
+
+        <motion.h2
+          className={`${T.xl} mb-6`}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          {content.the_why.title}
+        </motion.h2>
+
+        <Divider delay={0.2} />
+
+        <motion.p
+          className={`${T.l} text-foreground/70`}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+        >
+          {content.the_why.description}
+        </motion.p>
+      </Section>
+
+      {/* ============================================ */}
+      {/* TOGETHER — Dictionary style + image */}
+      {/* ============================================ */}
+      <Section>
+        <motion.p
+          className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase mb-6`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          {content.together.section_label}
+        </motion.p>
+
+        <motion.h2
+          className={`${T.xl} mb-6`}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          {content.together.title}
+        </motion.h2>
+
+        <Divider delay={0.2} />
+
+        <motion.p
+          className={`${T.l} text-foreground/70 mb-16`}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+        >
+          {content.together.description}
+        </motion.p>
+
+        <motion.div
+          className="aspect-[16/9] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <img src={IMAGES.coding} alt="Collaborative coding" className="w-full h-full object-cover" />
+        </motion.div>
+      </Section>
+
+      {/* ============================================ */}
+      {/* EXPERIENCE — Dictionary style + steps */}
+      {/* ============================================ */}
+      <Section id="experience">
+        <motion.p
+          className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase mb-6`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          {content.experience.section_label}
+        </motion.p>
+
+        <motion.h2
+          className={`${T.xl} mb-6`}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          {content.experience.title}
+        </motion.h2>
+
+        <Divider delay={0.2} />
+
+        {/* Full-width image */}
+        <motion.div
+          className="aspect-[21/9] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)] mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          <img src={IMAGES.hero} alt="Vibe coding session" className="w-full h-full object-cover" />
+        </motion.div>
+
+        {/* Steps — dictionary style, stacked vertically */}
+        {content.experience.steps.map((item: any, i: number) => (
           <motion.div
-            className="max-w-5xl mx-auto"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.h2
-              className={`${T.xl} mb-16`}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              {content.about.title}
-            </motion.h2>
-
-            <motion.div
-              className="w-full h-px bg-foreground/10 mb-14"
-              initial={{ scaleX: 0, originX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            />
-
-            <motion.p
-              className={`${T.l} text-foreground/70 max-w-4xl`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-            >
-              {content.about.description}
-            </motion.p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* The Why */}
-      <section className="py-24 md:py-36 relative z-10">
-        <div className="container">
-          <motion.div
-            className="max-w-5xl mx-auto"
-            initial={{ opacity: 0, y: 40 }}
+            key={item.step}
+            className="mb-16 last:mb-0"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6, delay: i * 0.15 }}
           >
-            <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>{content.the_why.section_label}</span>
-
-            <h2 className={`${T.l} mt-8 mb-14`}>
-              {content.the_why.title.split('\n').map((line: string, i: number) => (
-                <span key={i}>{line}{i === 0 && <br />}</span>
-              ))}
-            </h2>
-
-            <p className={`${T.m} text-foreground/55 max-w-4xl`}>
-              {content.the_why.description}
-            </p>
+            <span className={`${T.xl} text-foreground/8`}>{item.step}</span>
+            <h3 className={`${T.l} mt-2 mb-4`}>{item.title}</h3>
+            <p className={`${T.m} text-foreground/55 max-w-3xl`}>{item.description}</p>
+            {i < content.experience.steps.length - 1 && (
+              <div className="w-full h-px bg-foreground/5 mt-16" />
+            )}
           </motion.div>
-        </div>
-      </section>
+        ))}
+      </Section>
 
-      {/* Why Vibe Code Together */}
-      <section className="py-24 md:py-36 relative z-10">
-        <div className="container">
-          <div className="grid lg:grid-cols-2 gap-14 lg:gap-24 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>{content.together.section_label}</span>
+      {/* ============================================ */}
+      {/* THE SPACE — Dictionary style + features stacked */}
+      {/* ============================================ */}
+      <Section id="space">
+        <motion.p
+          className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase mb-6`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          {content.space.section_label}
+        </motion.p>
 
-              <h2 className={`${T.l} mt-8 mb-10`}>
-                {content.together.title}
-              </h2>
+        <motion.h2
+          className={`${T.xl} mb-6`}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          {content.space.title}
+        </motion.h2>
 
-              <p className={`${T.m} text-foreground/55`}>
-                {content.together.description}
-              </p>
-            </motion.div>
+        <Divider delay={0.2} />
 
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]">
-                <img src={IMAGES.coding} alt="Collaborative coding" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+        <motion.p
+          className={`${T.l} text-foreground/70 mb-20`}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+        >
+          {content.space.description}
+        </motion.p>
 
-
-
-      {/* The Experience */}
-      <section id="experience" className="py-24 md:py-36 relative z-10">
-        <div className="container">
+        {/* Features — stacked vertically, dictionary style */}
+        {content.space.features.map((feature: any, i: number) => (
           <motion.div
-            className="max-w-5xl mx-auto mb-14"
-            initial={{ opacity: 0, y: 40 }}
+            key={feature.title}
+            className="mb-14 last:mb-0"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
           >
-            <div className="flex items-center gap-4 mb-8">
-              <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>{content.experience.section_label}</span>
-              <PillBadge variant="highlight">{content.experience.badge}</PillBadge>
-            </div>
-
-            <h2 className={`${T.l} mb-10`}>
-              {content.experience.title.split('\n').map((line: string, i: number) => (
-                <span key={i}>{line}{i === 0 && <br />}</span>
-              ))}
-            </h2>
+            <h3 className={`${T.l} mb-3`}>{feature.title}</h3>
+            <p className={`${T.m} text-foreground/55`}>{feature.description}</p>
+            {i < content.space.features.length - 1 && (
+              <div className="w-full h-px bg-foreground/5 mt-14" />
+            )}
           </motion.div>
+        ))}
 
+        {/* Images */}
+        <div className="grid md:grid-cols-2 gap-6 mt-20">
           <motion.div
-            className="mt-14"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="aspect-[21/9] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]">
-              <img src={IMAGES.hero} alt="Vibe coding session" className="w-full h-full object-cover" />
-            </div>
-          </motion.div>
-
-          {/* Step cards */}
-          <div className="grid md:grid-cols-3 gap-6 mt-14">
-            {content.experience.steps.map((item: any, i: number) => (
-              <motion.div
-                key={item.step}
-                className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 md:p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
-              >
-                <span className={`${T.l} text-foreground/10`}>{item.step}</span>
-                <h3 className={`${T.m} font-display font-normal mt-4 mb-4`}>{item.title}</h3>
-                <p className={`${T.m} text-foreground/55`}>{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* The Space */}
-      <section id="space" className="py-24 md:py-36 relative z-10">
-        <div className="container">
-          <motion.div
-            className="max-w-5xl mx-auto mb-14"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>{content.space.section_label}</span>
-
-            <h2 className={`${T.l} mt-8 mb-10`}>
-              {content.space.title}
-            </h2>
-
-            <p className={`${T.m} text-foreground/55 max-w-3xl`}>
-              {content.space.description}
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
-            {content.space.features.map((feature: any, i: number) => (
-              <FeatureCard
-                key={feature.title}
-                icon={ICON_MAP[feature.icon] || Sparkles}
-                title={feature.title}
-                desc={feature.description}
-                delay={i * 0.1}
-              />
-            ))}
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <motion.div className="aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-              <img src={IMAGES.meditation} alt="Meditation room" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-            </motion.div>
-            <motion.div className="aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}>
-              <img src={IMAGES.snacks} alt="Organic nourishment" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-            </motion.div>
-          </div>
-
-          <motion.p
-            className={`text-center ${T.l} mt-20 text-foreground/80`}
+            className="aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            {content.space.closing}
-          </motion.p>
+            <img src={IMAGES.meditation} alt="Meditation room" className="w-full h-full object-cover" />
+          </motion.div>
+          <motion.div
+            className="aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <img src={IMAGES.snacks} alt="Organic nourishment" className="w-full h-full object-cover" />
+          </motion.div>
         </div>
-      </section>
 
-      {/* How to Join */}
-      <section id="join" className="py-24 md:py-36 relative z-10">
-        <div className="container">
-          <div className="grid lg:grid-cols-2 gap-14 lg:gap-24 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <span className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase`}>{content.join.section_label}</span>
+        <Divider delay={0.2} />
 
-              <h2 className={`${T.l} mt-8 mb-12`}>
-                {content.join.title}
-              </h2>
+        <motion.p
+          className={`${T.l} text-foreground/80`}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          {content.space.closing}
+        </motion.p>
+      </Section>
 
-              <div className="space-y-6 mb-12">
-                {content.join.requirements.map((req: any) => (
-                  <motion.div
-                    key={req.number}
-                    className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300"
-                    whileHover={{ x: 4 }}
-                  >
-                    <div className="flex items-start gap-6">
-                      <span className={`${T.l} text-foreground/10`}>{req.number}</span>
-                      <div>
-                        <h3 className={`${T.m} font-display font-normal mb-2`}>{req.title}</h3>
-                        <p className={`${T.m} text-foreground/55`}>{req.description}</p>
-                        {req.badges && (
-                          <div className="mt-4 flex flex-wrap gap-2 items-center">
-                            {req.badges.map((badge: string) => (
-                              <PillBadge key={badge} variant="highlight">{badge}</PillBadge>
-                            ))}
-                            <span className={`${T.m} text-foreground/45 ml-1`}>{req.badge_note}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </motion.div>
+      {/* ============================================ */}
+      {/* JOIN — Dictionary style */}
+      {/* ============================================ */}
+      <Section id="join">
+        <motion.p
+          className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase mb-6`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          {content.join.section_label}
+        </motion.p>
+
+        <motion.h2
+          className={`${T.xl} mb-6`}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          {content.join.title}
+        </motion.h2>
+
+        <Divider delay={0.2} />
+
+        {/* Requirements — stacked, dictionary style */}
+        {content.join.requirements.map((req: any, i: number) => (
+          <motion.div
+            key={req.number}
+            className="mb-14"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.15 }}
+          >
+            <span className={`${T.xl} text-foreground/8`}>{req.number}</span>
+            <h3 className={`${T.l} mt-2 mb-3`}>{req.title}</h3>
+            <p className={`${T.m} text-foreground/55`}>{req.description}</p>
+            {req.badges && (
+              <div className="mt-6 flex flex-wrap gap-3 items-center">
+                {req.badges.map((badge: string) => (
+                  <span key={badge} className={`inline-flex items-center px-5 py-2 rounded-full font-medium ${T.m} bg-foreground text-background`}>
+                    {badge}
+                  </span>
                 ))}
+                <span className={`${T.m} text-foreground/45`}>{req.badge_note}</span>
               </div>
+            )}
+            {i < content.join.requirements.length - 1 && (
+              <div className="w-full h-px bg-foreground/5 mt-14" />
+            )}
+          </motion.div>
+        ))}
 
-              <p className={`${T.m} text-foreground/55 mb-10`}>
-                {content.join.closing.split('\n').map((line: string, i: number) => (
-                  <span key={i}>{line}{i === 0 && <br />}</span>
-                ))}
-              </p>
+        <Divider />
 
-              <Button size="lg" className={`bg-foreground text-background hover:bg-foreground/90 ${T.m} rounded-full px-10 py-7`}>
-                {content.join.cta} <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </motion.div>
+        <motion.p
+          className={`${T.l} text-foreground/55 mb-14`}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          {content.join.closing.split('\n').map((line: string, i: number) => (
+            <span key={i}>{line}{i === 0 && <br />}</span>
+          ))}
+        </motion.p>
 
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="aspect-[4/5] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]">
-                <img src={IMAGES.exterior} alt="Vibe House SF" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <Button size="lg" className={`bg-foreground text-background hover:bg-foreground/90 ${T.m} rounded-full px-10 py-7`}>
+            {content.join.cta} <ArrowRight className="ml-2 w-5 h-5" />
+          </Button>
+        </motion.div>
+      </Section>
 
       {/* Footer */}
       <footer className="py-14 md:py-20 border-t border-foreground/5 relative z-10">
