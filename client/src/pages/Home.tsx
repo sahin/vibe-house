@@ -27,11 +27,11 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Sparkles, Leaf, Brain, Music, Utensils, ShieldCheck,
 };
 
-// Typography classes — 3 sizes (excluding nav)
+// Typography — 3 fluid sizes using clamp() (excluding nav)
 const T = {
-  xl: "font-display text-6xl md:text-8xl lg:text-[9rem] font-normal leading-[1.02]",
-  l: "font-display text-3xl md:text-5xl lg:text-[4.5rem] font-normal leading-tight",
-  m: "text-lg md:text-xl lg:text-2xl leading-relaxed",
+  xl: "font-display font-normal leading-[1.02]" + " " + "text-[clamp(3.5rem,10vw,9rem)]",
+  l: "font-display font-normal leading-tight" + " " + "text-[clamp(2rem,6vw,4.5rem)]",
+  m: "leading-relaxed" + " " + "text-[clamp(1.1rem,2.2vw,1.5rem)]",
   nav: "text-xs tracking-[0.08em] uppercase",
 };
 
