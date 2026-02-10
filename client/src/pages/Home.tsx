@@ -290,10 +290,14 @@ export default function Home() {
         </motion.p>
       </Section>
 
+
+
+
+
       {/* ============================================ */}
-      {/* TOGETHER — Dictionary style + image */}
+      {/* THE VIBE — Dictionary style + features stacked */}
       {/* ============================================ */}
-      <Section>
+      <Section id="vibe">
         <motion.p
           className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase mb-6`}
           initial={{ opacity: 0 }}
@@ -301,7 +305,7 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          {content.together.section_label}
+          {content.vibe.section_label}
         </motion.p>
 
         <motion.h2
@@ -311,111 +315,7 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          {content.together.title}
-        </motion.h2>
-
-        <Divider delay={0.2} />
-
-        <motion.p
-          className={`${T.l} text-foreground/70 mb-16`}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-        >
-          {content.together.description}
-        </motion.p>
-
-        <motion.div
-          className="aspect-[16/9] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <img src={IMAGES.coding} alt="Collaborative coding" className="w-full h-full object-cover" />
-        </motion.div>
-      </Section>
-
-      {/* ============================================ */}
-      {/* EXPERIENCE — Dictionary style + steps */}
-      {/* ============================================ */}
-      <Section id="experience">
-        <motion.p
-          className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase mb-6`}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          {content.experience.section_label}
-        </motion.p>
-
-        <motion.h2
-          className={`${T.xl} mb-6`}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          {content.experience.title}
-        </motion.h2>
-
-        <Divider delay={0.2} />
-
-        {/* Full-width image */}
-        <motion.div
-          className="aspect-[21/9] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)] mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <img src={IMAGES.hero} alt="Vibe coding session" className="w-full h-full object-cover" />
-        </motion.div>
-
-        {/* Steps — dictionary style, stacked vertically */}
-        {content.experience.steps.map((item: any, i: number) => (
-          <motion.div
-            key={item.step}
-            className="mb-16 last:mb-0"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.15 }}
-          >
-            <span className={`${T.xl} text-foreground/8`}>{item.step}</span>
-            <h3 className={`${T.l} mt-2 mb-4`}>{item.title}</h3>
-            <p className={`${T.m} text-foreground/55 max-w-3xl`}>{item.description}</p>
-            {i < content.experience.steps.length - 1 && (
-              <div className="w-full h-px bg-foreground/5 mt-16" />
-            )}
-          </motion.div>
-        ))}
-      </Section>
-
-      {/* ============================================ */}
-      {/* THE SPACE — Dictionary style + features stacked */}
-      {/* ============================================ */}
-      <Section id="space">
-        <motion.p
-          className={`${T.m} text-foreground/40 tracking-[0.12em] uppercase mb-6`}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          {content.space.section_label}
-        </motion.p>
-
-        <motion.h2
-          className={`${T.xl} mb-6`}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          {content.space.title}
+          {content.vibe.title}
         </motion.h2>
 
         <Divider delay={0.2} />
@@ -427,11 +327,11 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.3 }}
         >
-          {content.space.description}
+          {content.vibe.description}
         </motion.p>
 
         {/* Features — stacked vertically, dictionary style */}
-        {content.space.features.map((feature: any, i: number) => (
+        {content.vibe.features.map((feature: any, i: number) => (
           <motion.div
             key={feature.title}
             className="mb-14 last:mb-0"
@@ -442,7 +342,7 @@ export default function Home() {
           >
             <h3 className={`${T.l} mb-3`}>{feature.title}</h3>
             <p className={`${T.m} text-foreground/55`}>{feature.description}</p>
-            {i < content.space.features.length - 1 && (
+            {i < content.vibe.features.length - 1 && (
               <div className="w-full h-px bg-foreground/5 mt-14" />
             )}
           </motion.div>
@@ -479,7 +379,7 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          {content.space.closing}
+          {content.vibe.closing}
         </motion.p>
       </Section>
 

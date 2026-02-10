@@ -9,10 +9,8 @@ nav:
   links:
     - label: "About"
       href: "#about"
-    - label: "Experience"
-      href: "#experience"
-    - label: "Space"
-      href: "#space"
+    - label: "Vibe"
+      href: "#vibe"
     - label: "Join"
       href: "#join"
   cta: "Apply Now"
@@ -35,53 +33,27 @@ the_why:
   title: "Why Now"
   description: "The tools are evolving daily. The founders who master them first will define what comes next."
 
-together:
-  section_label: "02 — Together"
-  title: "Better Together"
-  description: "Watch another founder prompt — you learn their mental models. They riff on your idea — you see angles you missed."
-
-experience:
-  section_label: "03 — Experience"
-  badge: "New Format"
-  title: "How It Works"
-  steps:
-    - step: "01"
-      title: "Prompt"
-      description: "Speak your prompt. It goes on the big screen for all to see."
-    - step: "02"
-      title: "Riff"
-      description: "Others chime in, add feedback. Ideas compound."
-    - step: "03"
-      title: "Rotate"
-      description: "Next person goes. We chat, laugh, eat great food."
-
-space:
-  section_label: "04 — The Space"
-  title: "The Space"
+vibe:
+  section_label: "02 — The Vibe"
+  title: "The Vibe"
   description: "Every detail engineered for deep focus and peak performance."
   features:
     - title: "Sit How You Want"
       description: "Floor cushions. Standing desks. Your corner."
-      icon: "Sparkles"
     - title: "Biohacking Built In"
       description: "Blue lotus tea. Dandelion tea. Rosemary oils."
-      icon: "Leaf"
     - title: "Inspiration Everywhere"
       description: "Quotes on walls. AI-written books. Rabbit holes."
-      icon: "Brain"
     - title: "Curated Atmosphere"
       description: "Amazing music. Curated scents. Flow state."
-      icon: "Music"
     - title: "Nourishment"
       description: "Great food. Organic snacks. Clean fuel."
-      icon: "Utensils"
     - title: "No Chemicals"
       description: "No toxins. No synthetics. Pure inputs."
-      icon: "ShieldCheck"
   closing: "Your zone. We built the house around it."
 
 join:
-  section_label: "05 — Join"
+  section_label: "03 — Join"
   title: "Join Us"
   requirements:
     - number: "01"
