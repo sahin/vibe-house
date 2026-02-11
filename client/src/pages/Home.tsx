@@ -204,9 +204,7 @@ export default function Home() {
               <Button asChild size="lg" className={`bg-foreground text-background hover:bg-foreground/90 ${T.m} rounded-full px-10 py-7`}>
                 <a href="#join">{content.hero.buttons.primary} <ArrowRight className="ml-2 w-5 h-5" /></a>
               </Button>
-              <Button asChild variant="outline" size="lg" className={`${T.m} rounded-full px-10 py-7 border-foreground/15 hover:bg-foreground/5`}>
-                <a href="#about">{content.hero.buttons.secondary}</a>
-              </Button>
+
             </motion.div>
           </motion.div>
         </div>

@@ -28,3 +28,4 @@
 - [x] Remove unused Resend code and dependency
 - [ ] Debug: notifications not being received by admin users on form submission
 - [x] Fix: negative radius error in GeometricBackground canvas arc() call
+- [x] Remove "Learn more" button from the site
