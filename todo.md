@@ -22,3 +22,7 @@
 - [x] Connect "Join our next event" buttons to scroll to form (already linked to #join)
 - [x] Send owner notification on new form submission
 - [x] Write vitest tests for form submission endpoint
+- [x] Send notification to both admins on form submission (via Manus notification API)
+- [x] Update vitest tests for admin notification
+- [x] Send notifications to both admin users on form submission (9KKufeR9VubRandTZ6inrz + mrmkaW2CjMpdjabqiaaGP7)
+- [x] Remove unused Resend code and dependency

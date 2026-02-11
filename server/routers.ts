@@ -3,7 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { insertApplication } from "./db";
-import { notifyOwner } from "./_core/notification";
+import { notifyAdmins } from "./notifyAdmins";
 import { z } from "zod";
 
 const founderTypeLabels: Record<string, string> = {
@@ -61,11 +61,11 @@ export const appRouter = router({
           additionalNotes: input.additionalNotes || null,
         });
 
-        // Notify owner of new application
+        // Notify both admin users of new application
         const typeLabel =
           founderTypeLabels[input.founderType] || input.founderType;
         try {
-          await notifyOwner({
+          await notifyAdmins({
             title: `New Vibe House Application: ${input.fullName}`,
             content: [
               `**Name:** ${input.fullName}`,
@@ -81,7 +81,7 @@ export const appRouter = router({
               .join("\n"),
           });
         } catch (err) {
-          console.warn("[Application] Failed to send owner notification:", err);
+          console.warn("[Application] Failed to send admin notifications:", err);
         }
 
         return { success: true } as const;

@@ -7,9 +7,9 @@ vi.mock("./db", () => ({
   insertApplication: vi.fn().mockResolvedValue(undefined),
 }));
 
-// Mock the notification module
-vi.mock("./_core/notification", () => ({
-  notifyOwner: vi.fn().mockResolvedValue(true),
+// Mock the notifyAdmins module
+vi.mock("./notifyAdmins", () => ({
+  notifyAdmins: vi.fn().mockResolvedValue(true),
 }));
 
 function createPublicContext(): TrpcContext {
@@ -81,7 +81,7 @@ describe("application.submit", () => {
     });
   });
 
-  it("sends owner notification on successful submission", async () => {
+  it("sends admin notifications on successful submission", async () => {
     const ctx = createPublicContext();
     const caller = appRouter.createCaller(ctx);
 
@@ -91,13 +91,31 @@ describe("application.submit", () => {
       founderType: "technical_founder",
     });
 
-    const { notifyOwner } = await import("./_core/notification");
-    expect(notifyOwner).toHaveBeenCalledOnce();
-    expect(notifyOwner).toHaveBeenCalledWith(
+    const { notifyAdmins } = await import("./notifyAdmins");
+    expect(notifyAdmins).toHaveBeenCalledOnce();
+    expect(notifyAdmins).toHaveBeenCalledWith(
       expect.objectContaining({
         title: "New Vibe House Application: Alice Builder",
       })
     );
+  });
+
+  it("still succeeds even if admin notification fails", async () => {
+    const { notifyAdmins } = await import("./notifyAdmins");
+    (notifyAdmins as any).mockRejectedValueOnce(
+      new Error("Notification failed")
+    );
+
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+
+    const result = await caller.application.submit({
+      fullName: "Test User",
+      email: "test@example.com",
+      founderType: "other",
+    });
+
+    expect(result).toEqual({ success: true });
   });
 
   it("rejects submission with missing full name", async () => {
@@ -148,22 +166,6 @@ describe("application.submit", () => {
       email: "test@example.com",
       founderType: "superfounders_member",
       linkedinUrl: "",
-    });
-
-    expect(result).toEqual({ success: true });
-  });
-
-  it("still succeeds even if notification fails", async () => {
-    const { notifyOwner } = await import("./_core/notification");
-    (notifyOwner as any).mockRejectedValueOnce(new Error("Notification failed"));
-
-    const ctx = createPublicContext();
-    const caller = appRouter.createCaller(ctx);
-
-    const result = await caller.application.submit({
-      fullName: "Test User",
-      email: "test@example.com",
-      founderType: "other",
     });
 
     expect(result).toEqual({ success: true });
