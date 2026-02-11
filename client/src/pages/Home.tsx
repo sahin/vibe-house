@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import content from "@/content.yaml";
+import ApplicationForm from "@/components/ApplicationForm";
 
 // Image URLs
 const IMAGES = {
@@ -452,16 +453,8 @@ export default function Home() {
           ))}
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <Button size="lg" className={`bg-foreground text-background hover:bg-foreground/90 ${T.m} rounded-full px-10 py-7`}>
-            {content.join.cta} <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
-        </motion.div>
+        {/* Application Form */}
+        <ApplicationForm />
       </Section>
 
       {/* Footer */}

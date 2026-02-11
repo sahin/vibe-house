@@ -1,0 +1,24 @@
+# Project TODO
+
+- [x] Basic landing page with dictionary-definition style
+- [x] Hero section with animated geometric background
+- [x] About (The Concept) section
+- [x] Why Now section
+- [x] The Vibe section with features
+- [x] Join Us section with requirements
+- [x] Footer
+- [x] Scroll-based navbar (hide on scroll down, show on scroll up)
+- [x] Content driven by YAML (content.yaml)
+- [x] Responsive typography with CSS clamp()
+- [x] Changed CTA to "Join our next event"
+- [x] Renamed "The Space" to "The Vibe"
+- [x] Removed Together and Experience sections
+- [x] Upgraded project with database + server capabilities
+- [x] Resolve merge conflict in Home.tsx (keep existing page content)
+- [x] Add database schema for form submissions (applications table)
+- [x] Create tRPC endpoint for form submission
+- [x] Build application form component (name, email, phone, linkedin, founder type, notes)
+- [x] Integrate form into Join Us section
+- [x] Connect "Join our next event" buttons to scroll to form (already linked to #join)
+- [x] Send owner notification on new form submission
+- [x] Write vitest tests for form submission endpoint

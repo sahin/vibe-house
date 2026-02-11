@@ -1,0 +1,20 @@
+{
+  "query": "SELECT * FROM applications ORDER BY createdAt DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3D81MGBWsy5bzV9.ed95bf78648a --database D66doBaWmncxm5rVMvJ4yM --execute SELECT * FROM applications ORDER BY createdAt DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "1",
+      "fullName": "Test User",
+      "email": "test@example.com",
+      "phone": "NULL",
+      "linkedinUrl": "NULL",
+      "founderType": "exited_founder",
+      "additionalNotes": "NULL",
+      "createdAt": "2026-02-11 03:17:07"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tfullName\temail\tphone\tlinkedinUrl\tfounderType\tadditionalNotes\tcreatedAt\n1\tTest User\ttest@example.com\tNULL\tNULL\texited_founder\tNULL\t2026-02-11 03:17:07\n",
+  "stderr": "",
+  "execution_time_ms": 1995
+}
