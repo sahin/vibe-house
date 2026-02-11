@@ -13,7 +13,7 @@ nav:
       href: "#vibe"
     - label: "Join"
       href: "#join"
-  cta: "Apply Now"
+  cta: "Join our next event"
 
 hero:
   title: "Vibe House"
@@ -67,7 +67,7 @@ join:
       title: "Technical Background"
       description: "You can code. You've shipped."
   closing: "No pitch decks. No networking.\nJust for the builders who want to build again."
-  cta: "Apply Now"
+  cta: "Join our next event"
 
 footer:
   logo: "Vibe House"
