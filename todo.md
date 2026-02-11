@@ -26,3 +26,5 @@
 - [x] Update vitest tests for admin notification
 - [x] Send notifications to both admin users on form submission (9KKufeR9VubRandTZ6inrz + mrmkaW2CjMpdjabqiaaGP7)
 - [x] Remove unused Resend code and dependency
+- [ ] Debug: notifications not being received by admin users on form submission
+- [x] Fix: negative radius error in GeometricBackground canvas arc() call

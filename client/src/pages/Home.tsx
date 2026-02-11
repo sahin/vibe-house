@@ -51,7 +51,7 @@ function GeometricBackground() {
       const cx = canvas.width / 2, cy = canvas.height / 2;
       const maxR = Math.max(canvas.width, canvas.height) * 0.6;
       for (let i = 0; i < 20; i++) {
-        const r = (i / 20) * maxR + Math.sin(time * 0.5 + i * 0.3) * 20;
+        const r = Math.max(0, (i / 20) * maxR + Math.sin(time * 0.5 + i * 0.3) * 20);
         ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
       }
       for (let i = 0; i < 36; i++) {
