@@ -26,7 +26,7 @@ hero:
 
 about:
   title: "The Concept"
-  description: "One room. One big screen. Exited founders with AI agents. You prompt, others riff, you rotate. You build real things together."
+  description: "Show up any day we're open. Vibe code on your own project. Share what's working — the agents, the prompts, the tricks. We also have an ongoing group project that everyone prompts together."
 
 the_why:
   section_label: ""
@@ -62,7 +62,7 @@ join:
       badges:
         - "PEF"
         - "Superfounders"
-      badge_note: "members welcome — no need to apply"
+
     - number: "02"
       title: "Technical Background"
       description: "You can code. You've shipped."

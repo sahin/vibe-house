@@ -48,6 +48,7 @@ export const appRouter = router({
             "technical_founder",
             "other",
           ]),
+          communities: z.array(z.string()).optional(),
           additionalNotes: z.string().max(2000).optional(),
         })
       )
@@ -58,6 +59,7 @@ export const appRouter = router({
           phone: input.phone || null,
           linkedinUrl: input.linkedinUrl || null,
           founderType: input.founderType,
+          communities: input.communities?.length ? JSON.stringify(input.communities) : null,
           additionalNotes: input.additionalNotes || null,
         });
 
@@ -73,6 +75,9 @@ export const appRouter = router({
               input.phone ? `**Phone:** ${input.phone}` : null,
               input.linkedinUrl ? `**LinkedIn:** ${input.linkedinUrl}` : null,
               `**Type:** ${typeLabel}`,
+              input.communities?.length
+                ? `**Communities:** ${input.communities.join(", ")}`
+                : null,
               input.additionalNotes
                 ? `**Notes:** ${input.additionalNotes}`
                 : null,

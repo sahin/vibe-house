@@ -39,6 +39,7 @@ export const applications = mysqlTable("applications", {
     "technical_founder",
     "other",
   ]).notNull(),
+  communities: text("communities"),
   additionalNotes: text("additionalNotes"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });

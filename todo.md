@@ -29,3 +29,10 @@
 - [ ] Debug: notifications not being received by admin users on form submission
 - [x] Fix: negative radius error in GeometricBackground canvas arc() call
 - [x] Remove "Learn more" button from the site
+- [x] Update Vibe section copy: emphasize technical founders vibe coding together multiple times a week
+- [x] Remove "members welcome — no need to apply" badge_note from Join section
+- [x] Add "Your Communities" multi-select field to application form with logos
+- [x] Communities: Inception, Founders Institute, 500 Startups, Betaworks, StartX, PEF, PEF Ultra, Antler
+- [x] Update database schema to store selected communities
+- [x] Update tRPC endpoint to accept communities field
+- [x] Update vitest tests for communities field

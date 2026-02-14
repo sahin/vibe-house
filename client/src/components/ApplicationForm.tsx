@@ -17,6 +17,49 @@ const FOUNDER_TYPES = [
   { value: "other", label: "Other" },
 ] as const;
 
+const COMMUNITIES = [
+  {
+    value: "inception",
+    label: "Inception",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/uVkvLCPtekwvThTO.jpg",
+  },
+  {
+    value: "founders_institute",
+    label: "Founders Institute",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/lUJjYQvUvEqWmmrN.png",
+  },
+  {
+    value: "500_startups",
+    label: "500 Startups",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/kUGBhQAgdNmaCEZe.png",
+  },
+  {
+    value: "betaworks",
+    label: "Betaworks",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/RZLIjfhtqqzSDTSp.jpeg",
+  },
+  {
+    value: "startx",
+    label: "StartX",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/KQhGvtcVDVSDbDVW.jpg",
+  },
+  {
+    value: "pef",
+    label: "PEF",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/rSSkRKsfgiIwmbFh.jpg",
+  },
+  {
+    value: "pef_ultra",
+    label: "PEF Ultra",
+    logo: null,
+  },
+  {
+    value: "antler",
+    label: "Antler",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/qxmzJRmdbiEJSvnY.png",
+  },
+] as const;
+
 type FounderType = (typeof FOUNDER_TYPES)[number]["value"];
 
 export default function ApplicationForm() {
@@ -25,16 +68,24 @@ export default function ApplicationForm() {
   const [phone, setPhone] = useState("");
   const [linkedinUrl, setLinkedinUrl] = useState("");
   const [founderType, setFounderType] = useState<FounderType | "">("");
+  const [communities, setCommunities] = useState<string[]>([]);
   const [additionalNotes, setAdditionalNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  const toggleCommunity = (value: string) => {
+    setCommunities((prev) =>
+      prev.includes(value)
+        ? prev.filter((c) => c !== value)
+        : [...prev, value]
+    );
+  };
 
   const submitMutation = trpc.application.submit.useMutation({
     onSuccess: () => {
       setSubmitted(true);
     },
     onError: (error) => {
-      // Parse zod validation errors if available
       if ((error.data as any)?.zodError) {
         const zodErrors = (error.data as any).zodError.fieldErrors;
         const mapped: Record<string, string> = {};
@@ -70,6 +121,7 @@ export default function ApplicationForm() {
       phone: phone.trim() || undefined,
       linkedinUrl: linkedinUrl.trim() || undefined,
       founderType: founderType as FounderType,
+      communities: communities.length > 0 ? communities : undefined,
       additionalNotes: additionalNotes.trim() || undefined,
     });
   };
@@ -245,6 +297,59 @@ export default function ApplicationForm() {
               </motion.p>
             )}
           </AnimatePresence>
+        </div>
+
+        {/* Your Communities */}
+        <div>
+          <label className="block text-foreground/40 text-sm tracking-[0.08em] uppercase mb-2">
+            Your Communities
+          </label>
+          <p className="text-foreground/30 text-sm mb-4">
+            Select all that apply
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-2">
+            {COMMUNITIES.map((community) => {
+              const isSelected = communities.includes(community.value);
+              return (
+                <button
+                  key={community.value}
+                  type="button"
+                  onClick={() => toggleCommunity(community.value)}
+                  className={`relative flex flex-col items-center justify-center gap-2 px-4 py-5 rounded-xl border transition-all duration-300 ${
+                    isSelected
+                      ? "bg-foreground/5 border-foreground/30 ring-1 ring-foreground/20"
+                      : "border-foreground/10 hover:border-foreground/20 hover:bg-foreground/[0.02]"
+                  }`}
+                >
+                  {isSelected && (
+                    <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-foreground flex items-center justify-center">
+                      <Check className="w-3 h-3 text-background" />
+                    </div>
+                  )}
+                  {community.logo ? (
+                    <img
+                      src={community.logo}
+                      alt={community.label}
+                      className="h-8 w-auto max-w-[100px] object-contain"
+                    />
+                  ) : (
+                    <span className="text-sm font-semibold text-foreground/70 tracking-wide">
+                      {community.label}
+                    </span>
+                  )}
+                  <span
+                    className={`text-xs tracking-wide ${
+                      isSelected
+                        ? "text-foreground/70"
+                        : "text-foreground/40"
+                    }`}
+                  >
+                    {community.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Additional Notes */}

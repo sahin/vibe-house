@@ -40,6 +40,7 @@ describe("application.submit", () => {
       phone: "+1 555 123 4567",
       linkedinUrl: "https://linkedin.com/in/janedoe",
       founderType: "exited_founder",
+      communities: ["pef", "startx"],
       additionalNotes: "Building an AI startup",
     });
 
@@ -53,6 +54,7 @@ describe("application.submit", () => {
       phone: "+1 555 123 4567",
       linkedinUrl: "https://linkedin.com/in/janedoe",
       founderType: "exited_founder",
+      communities: JSON.stringify(["pef", "startx"]),
       additionalNotes: "Building an AI startup",
     });
   });
@@ -77,6 +79,7 @@ describe("application.submit", () => {
       phone: null,
       linkedinUrl: null,
       founderType: "pef_member",
+      communities: null,
       additionalNotes: null,
     });
   });
@@ -155,6 +158,25 @@ describe("application.submit", () => {
         founderType: "invalid_type" as any,
       })
     ).rejects.toThrow();
+  });
+
+  it("accepts communities array and includes in notification", async () => {
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+
+    await caller.application.submit({
+      fullName: "Community User",
+      email: "community@example.com",
+      founderType: "exited_founder",
+      communities: ["inception", "500_startups", "antler"],
+    });
+
+    const { notifyAdmins } = await import("./notifyAdmins");
+    expect(notifyAdmins).toHaveBeenCalledWith(
+      expect.objectContaining({
+        content: expect.stringContaining("inception, 500_startups, antler"),
+      })
+    );
   });
 
   it("accepts empty string for linkedinUrl", async () => {
