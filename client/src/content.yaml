@@ -9,6 +9,8 @@ nav:
   links:
     - label: "About"
       href: "#about"
+    - label: "Why Now"
+      href: "/why"
     - label: "Vibe"
       href: "#vibe"
     - label: "Join"

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 import content from "@/content.yaml";
 import ApplicationForm from "@/components/ApplicationForm";
 
@@ -139,9 +140,13 @@ export default function Home() {
             {content.nav.logo} <span className="text-foreground/40">{content.nav.logo_suffix}</span>
           </a>
           <div className="hidden md:flex items-center gap-10">
-            {content.nav.links.map((link: any) => (
-              <a key={link.href} href={link.href} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{link.label}</a>
-            ))}
+            {content.nav.links.map((link: any) =>
+              link.href.startsWith('/') ? (
+                <Link key={link.href} href={link.href} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{link.label}</Link>
+              ) : (
+                <a key={link.href} href={link.href} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{link.label}</a>
+              )
+            )}
           </div>
           <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
             <a href="#join">{content.nav.cta}</a>

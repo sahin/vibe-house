@@ -44,3 +44,5 @@
 - [x] Remove meditation/floor seating room image from the site
 - [x] Add "Other" option to communities multi-select grid
 - [x] Remove meditation/floor seating room image from the site
+- [x] Create "Why Now?" page with full editorial narrative
+- [x] Add route and navigation link for Why Now page
