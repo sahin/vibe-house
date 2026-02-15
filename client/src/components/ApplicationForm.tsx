@@ -70,6 +70,11 @@ const COMMUNITIES = [
     label: "Betaworks",
     logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/RZLIjfhtqqzSDTSp.jpeg",
   },
+  {
+    value: "other",
+    label: "Other",
+    logo: null,
+  },
 ] as const;
 
 type FounderType = (typeof FOUNDER_TYPES)[number]["value"];

@@ -348,22 +348,13 @@ export default function Home() {
         ))}
 
         {/* Images */}
-        <div className="grid md:grid-cols-2 gap-6 mt-20">
+        <div className="mt-20">
           <motion.div
-            className="aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
+            className="aspect-[16/9] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-          >
-            <img src={IMAGES.meditation} alt="Meditation room" className="w-full h-full object-cover" />
-          </motion.div>
-          <motion.div
-            className="aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
           >
             <img src={IMAGES.snacks} alt="Organic nourishment" className="w-full h-full object-cover" />
           </motion.div>
