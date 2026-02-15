@@ -36,3 +36,5 @@
 - [x] Update database schema to store selected communities
 - [x] Update tRPC endpoint to accept communities field
 - [x] Update vitest tests for communities field
+- [x] Reorder communities: Superfounders, PEF, PEF Ultra first, then rest by popularity
+- [x] Add YC (Y Combinator) to communities with logo

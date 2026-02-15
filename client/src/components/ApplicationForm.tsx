@@ -18,30 +18,11 @@ const FOUNDER_TYPES = [
 ] as const;
 
 const COMMUNITIES = [
+  // Priority: Superfounders, PEF, PEF Ultra first
   {
-    value: "inception",
-    label: "Inception",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/uVkvLCPtekwvThTO.jpg",
-  },
-  {
-    value: "founders_institute",
-    label: "Founders Institute",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/lUJjYQvUvEqWmmrN.png",
-  },
-  {
-    value: "500_startups",
-    label: "500 Startups",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/kUGBhQAgdNmaCEZe.png",
-  },
-  {
-    value: "betaworks",
-    label: "Betaworks",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/RZLIjfhtqqzSDTSp.jpeg",
-  },
-  {
-    value: "startx",
-    label: "StartX",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/KQhGvtcVDVSDbDVW.jpg",
+    value: "superfounders",
+    label: "Superfounders",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/riyxpBjYvUrprUxT.png",
   },
   {
     value: "pef",
@@ -53,10 +34,41 @@ const COMMUNITIES = [
     label: "PEF Ultra",
     logo: null,
   },
+  // Then by popularity
+  {
+    value: "yc",
+    label: "Y Combinator",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/NZpHzoYXrIPsAbrX.png",
+  },
+  {
+    value: "500_startups",
+    label: "500 Startups",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/kUGBhQAgdNmaCEZe.png",
+  },
   {
     value: "antler",
     label: "Antler",
     logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/qxmzJRmdbiEJSvnY.png",
+  },
+  {
+    value: "founders_institute",
+    label: "Founders Institute",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/lUJjYQvUvEqWmmrN.png",
+  },
+  {
+    value: "startx",
+    label: "StartX",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/KQhGvtcVDVSDbDVW.jpg",
+  },
+  {
+    value: "inception",
+    label: "Inception",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/uVkvLCPtekwvThTO.jpg",
+  },
+  {
+    value: "betaworks",
+    label: "Betaworks",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/RZLIjfhtqqzSDTSp.jpeg",
   },
 ] as const;
 
