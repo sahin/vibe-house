@@ -40,3 +40,4 @@
 - [x] Add YC (Y Combinator) to communities with logo
 - [x] Fix: excessive vertical spacing between sections (e.g., between The Concept and Why Now)
 - [x] Update Biohacking Built In: blue lotus tea, dandelion tea, essential oils, organic snacks, add more items
+- [x] Replace first meditation room image with style matching the real Vibe House room (warm floor seating, patterned cushions)
