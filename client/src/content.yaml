@@ -7,12 +7,8 @@ nav:
   logo: "Vibe House"
   logo_suffix: "SF"
   links:
-    - label: "About"
-      href: "#about"
     - label: "Why Now"
       href: "/why"
-    - label: "Vibe"
-      href: "#vibe"
     - label: "Join"
       href: "#join"
   cta: "Join our next event"

@@ -95,9 +95,7 @@ export default function WhyNow() {
             Vibe House <span className="text-foreground/40">SF</span>
           </Link>
           <div className="hidden md:flex items-center gap-10">
-            <Link href="/#about" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>About</Link>
             <Link href="/why" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>Why Now</Link>
-            <Link href="/#vibe" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Vibe</Link>
             <Link href="/#join" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Join</Link>
           </div>
           <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
