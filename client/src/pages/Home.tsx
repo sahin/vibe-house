@@ -98,7 +98,7 @@ function Section({
   className?: string;
 }) {
   return (
-    <section id={id} className={`py-28 md:py-40 relative z-10 ${className}`}>
+    <section id={id} className={`py-16 md:py-24 relative z-10 ${className}`}>
       <div className="container">
         <div className="max-w-5xl mx-auto">
           {children}
