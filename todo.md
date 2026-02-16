@@ -48,3 +48,4 @@
 - [x] Add route and navigation link for Why Now page
 - [x] Remove "Vibe" and "About" from top navigation menu
 - [x] Add mobile hamburger (sandwich) menu to navigation on homepage and Why Now page
+- [x] Add --create-project flag to Cloudflare Pages deploy workflow
