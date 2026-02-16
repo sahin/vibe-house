@@ -6,8 +6,9 @@
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Menu, X } from "lucide-react";
 import { Link } from "wouter";
+import { useState } from "react";
 
 // Typography — matching Home.tsx
 const T = {
@@ -86,6 +87,8 @@ function Chapter({
 }
 
 export default function WhyNow() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Navigation */}
@@ -98,10 +101,47 @@ export default function WhyNow() {
             <Link href="/why" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>Why Now</Link>
             <Link href="/#join" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Join</Link>
           </div>
-          <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
-            <Link href="/#join">Join our next event</Link>
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
+              <Link href="/#join">Join our next event</Link>
+            </Button>
+            <button
+              className="md:hidden p-2 text-foreground/70 hover:text-foreground transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <motion.div
+            className="md:hidden bg-background/95 backdrop-blur-md border-t border-foreground/5"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="container py-6 flex flex-col gap-5">
+              <Link
+                href="/why"
+                className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Why Now
+              </Link>
+              <Link
+                href="/#join"
+                className={`${T.nav} text-foreground/60 hover:text-foreground transition-colors duration-300`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Join
+              </Link>
+            </div>
+          </motion.div>
+        )}
       </nav>
 
       {/* Hero */}

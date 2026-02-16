@@ -8,7 +8,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { Link } from "wouter";
 import content from "@/content.yaml";
 import ApplicationForm from "@/components/ApplicationForm";
@@ -111,6 +111,7 @@ function Section({
 
 export default function Home() {
   const [navVisible, setNavVisible] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -148,10 +149,54 @@ export default function Home() {
               )
             )}
           </div>
-          <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
-            <a href="#join">{content.nav.cta}</a>
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
+              <a href="#join">{content.nav.cta}</a>
+            </Button>
+            <button
+              className="md:hidden p-2 text-foreground/70 hover:text-foreground transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <motion.div
+            className="md:hidden bg-background/95 backdrop-blur-md border-t border-foreground/5"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="container py-6 flex flex-col gap-5">
+              {content.nav.links.map((link: any) =>
+                link.href.startsWith('/') ? (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`${T.nav} text-foreground/60 hover:text-foreground transition-colors duration-300`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className={`${T.nav} text-foreground/60 hover:text-foreground transition-colors duration-300`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
+            </div>
+          </motion.div>
+        )}
       </nav>
 
       {/* ============================================ */}
