@@ -49,3 +49,5 @@
 - [x] Remove "Vibe" and "About" from top navigation menu
 - [x] Add mobile hamburger (sandwich) menu to navigation on homepage and Why Now page
 - [x] Add --create-project flag to Cloudflare Pages deploy workflow
+- [x] Replace Superfounders logo with proper one from superfoundersbook.com
+- [x] Fix logos with white backgrounds (make transparent/blend with beige bg)

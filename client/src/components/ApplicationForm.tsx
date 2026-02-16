@@ -22,12 +22,12 @@ const COMMUNITIES = [
   {
     value: "superfounders",
     label: "Superfounders",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/riyxpBjYvUrprUxT.png",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/CvOtEyWvhfOqMkxx.webp",
   },
   {
     value: "pef",
     label: "PEF",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/rSSkRKsfgiIwmbFh.jpg",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/IuxALCzabHWIRIIl.png",
   },
   {
     value: "pef_ultra",
@@ -43,7 +43,7 @@ const COMMUNITIES = [
   {
     value: "500_startups",
     label: "500 Startups",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/kUGBhQAgdNmaCEZe.png",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/JWOQDaLFzLrREeZK.png",
   },
   {
     value: "antler",
@@ -63,12 +63,12 @@ const COMMUNITIES = [
   {
     value: "inception",
     label: "Inception",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/uVkvLCPtekwvThTO.jpg",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/sZmWVqedhklzawXB.png",
   },
   {
     value: "betaworks",
     label: "Betaworks",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/RZLIjfhtqqzSDTSp.jpeg",
+    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/rNiIclyTLOUCYFwf.png",
   },
   {
     value: "other",
