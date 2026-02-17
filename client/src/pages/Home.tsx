@@ -465,12 +465,14 @@ export default function Home() {
             {req.badges && (
               <div className="mt-6 flex flex-wrap gap-3 items-center">
                 {req.badges.map((badge: string) => (
-                  <span key={badge} className={`inline-flex items-center px-5 py-2 rounded-full font-medium ${T.m} bg-foreground text-background`}>
+                  <span key={badge} className="inline-flex items-center px-4 py-1.5 rounded-full text-sm tracking-wide border border-foreground/15 text-foreground/60 font-medium">
                     {badge}
                   </span>
                 ))}
-                <span className={`${T.m} text-foreground/45`}>{req.badge_note}</span>
               </div>
+            )}
+            {req.badge_note && (
+              <p className={`${T.m} text-foreground/45 mt-4 italic`}>{req.badge_note}</p>
             )}
             {i < content.join.requirements.length - 1 && (
               <div className="w-full h-px bg-foreground/5 mt-14" />

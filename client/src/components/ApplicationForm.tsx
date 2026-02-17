@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 
 const T = {
@@ -18,7 +18,6 @@ const FOUNDER_TYPES = [
 ] as const;
 
 const COMMUNITIES = [
-  // Priority: Superfounders, PEF, PEF Ultra first
   {
     value: "superfounders",
     label: "Superfounders",
@@ -34,7 +33,6 @@ const COMMUNITIES = [
     label: "PEF Ultra",
     logo: null,
   },
-  // Then by popularity
   {
     value: "yc",
     label: "Y Combinator",
@@ -79,6 +77,129 @@ const COMMUNITIES = [
 
 type FounderType = (typeof FOUNDER_TYPES)[number]["value"];
 
+/* ── Floating Label Input ── */
+function FloatingInput({
+  id,
+  label,
+  value,
+  onChange,
+  error,
+  type = "text",
+  required = false,
+  inputRef,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  error?: string;
+  type?: string;
+  required?: boolean;
+  inputRef?: React.RefObject<HTMLInputElement | null>;
+}) {
+  const [focused, setFocused] = useState(false);
+  const isActive = focused || value.length > 0;
+
+  return (
+    <div>
+      <div className="relative">
+        <input
+          ref={inputRef}
+          id={id}
+          type={type}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          className={`peer w-full bg-transparent border-b outline-none transition-all duration-300 pt-7 pb-3 font-body text-[clamp(1.15rem,2.5vw,1.5rem)] text-foreground ${
+            error
+              ? "border-red-500"
+              : focused
+                ? "border-foreground/40"
+                : "border-foreground/15"
+          }`}
+          placeholder=""
+          autoComplete="off"
+        />
+        <label
+          htmlFor={id}
+          className={`absolute left-0 transition-all duration-200 pointer-events-none ${
+            isActive
+              ? "top-1 text-xs tracking-[0.08em] uppercase"
+              : "top-5 text-[clamp(1.15rem,2.5vw,1.5rem)]"
+          } ${
+            error
+              ? "text-red-500"
+              : isActive
+                ? "text-foreground/50"
+                : "text-foreground/25"
+          }`}
+        >
+          {label}{required ? " *" : ""}
+        </label>
+      </div>
+      <AnimatePresence>
+        {error && (
+          <motion.p
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="text-red-500 text-sm mt-2"
+          >
+            {error}
+          </motion.p>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* ── Floating Label Textarea ── */
+function FloatingTextarea({
+  id,
+  label,
+  value,
+  onChange,
+  inputRef,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  inputRef?: React.RefObject<HTMLTextAreaElement | null>;
+}) {
+  const [focused, setFocused] = useState(false);
+  const isActive = focused || value.length > 0;
+
+  return (
+    <div className="relative">
+      <textarea
+        ref={inputRef}
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        rows={3}
+        className={`peer w-full bg-transparent border-b outline-none transition-all duration-300 pt-7 pb-3 font-body text-[clamp(1.15rem,2.5vw,1.5rem)] text-foreground resize-none ${
+          focused ? "border-foreground/40" : "border-foreground/15"
+        }`}
+        placeholder=""
+      />
+      <label
+        htmlFor={id}
+        className={`absolute left-0 transition-all duration-200 pointer-events-none ${
+          isActive
+            ? "top-1 text-xs tracking-[0.08em] uppercase text-foreground/50"
+            : "top-5 text-[clamp(1.15rem,2.5vw,1.5rem)] text-foreground/25"
+        }`}
+      >
+        {label}
+      </label>
+    </div>
+  );
+}
+
 export default function ApplicationForm() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -89,6 +210,13 @@ export default function ApplicationForm() {
   const [additionalNotes, setAdditionalNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  // Refs for focusing on validation errors
+  const fullNameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const linkedinRef = useRef<HTMLInputElement>(null);
+  const founderTypeRef = useRef<HTMLDivElement>(null);
 
   const toggleCommunity = (value: string) => {
     setCommunities((prev) =>
@@ -126,6 +254,26 @@ export default function ApplicationForm() {
       errors.linkedinUrl = "Must be a valid URL";
     if (!founderType) errors.founderType = "Please select one";
     setFieldErrors(errors);
+
+    // Focus the first field with an error
+    if (Object.keys(errors).length > 0) {
+      const firstErrorKey = Object.keys(errors)[0];
+      const refMap: Record<string, React.RefObject<HTMLElement | null>> = {
+        fullName: fullNameRef,
+        email: emailRef,
+        phone: phoneRef,
+        linkedinUrl: linkedinRef,
+        founderType: founderTypeRef,
+      };
+      const targetRef = refMap[firstErrorKey];
+      if (targetRef?.current) {
+        targetRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+        if ("focus" in targetRef.current) {
+          setTimeout(() => targetRef.current?.focus(), 300);
+        }
+      }
+    }
+
     return Object.keys(errors).length === 0;
   };
 
@@ -142,9 +290,6 @@ export default function ApplicationForm() {
       additionalNotes: additionalNotes.trim() || undefined,
     });
   };
-
-  const inputBase =
-    "w-full bg-transparent border-b border-foreground/15 focus:border-foreground/40 outline-none transition-colors duration-300 py-4 font-body text-[clamp(1.15rem,2.5vw,1.5rem)] text-foreground placeholder:text-foreground/25";
 
   if (submitted) {
     return (
@@ -176,114 +321,66 @@ export default function ApplicationForm() {
       transition={{ duration: 0.6 }}
       className="pt-10"
     >
-      <div className="space-y-2">
+      <div className="space-y-6">
         {/* Full Name */}
-        <div>
-          <label className="block text-foreground/40 text-sm tracking-[0.08em] uppercase mb-2">
-            Full Name *
-          </label>
-          <input
-            type="text"
-            value={fullName}
-            onChange={(e) => {
-              setFullName(e.target.value);
-              setFieldErrors((prev) => ({ ...prev, fullName: "" }));
-            }}
-            placeholder="Your full name"
-            className={inputBase}
-          />
-          <AnimatePresence>
-            {fieldErrors.fullName && (
-              <motion.p
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="text-red-600/80 text-sm mt-2"
-              >
-                {fieldErrors.fullName}
-              </motion.p>
-            )}
-          </AnimatePresence>
-        </div>
+        <FloatingInput
+          id="fullName"
+          label="Your full name"
+          value={fullName}
+          onChange={(val) => {
+            setFullName(val);
+            setFieldErrors((prev) => ({ ...prev, fullName: "" }));
+          }}
+          error={fieldErrors.fullName}
+          required
+          inputRef={fullNameRef}
+        />
 
         {/* Email */}
-        <div>
-          <label className="block text-foreground/40 text-sm tracking-[0.08em] uppercase mb-2">
-            Email *
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setFieldErrors((prev) => ({ ...prev, email: "" }));
-            }}
-            placeholder="you@example.com"
-            className={inputBase}
-          />
-          <AnimatePresence>
-            {fieldErrors.email && (
-              <motion.p
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="text-red-600/80 text-sm mt-2"
-              >
-                {fieldErrors.email}
-              </motion.p>
-            )}
-          </AnimatePresence>
-        </div>
+        <FloatingInput
+          id="email"
+          label="you@example.com"
+          value={email}
+          onChange={(val) => {
+            setEmail(val);
+            setFieldErrors((prev) => ({ ...prev, email: "" }));
+          }}
+          error={fieldErrors.email}
+          type="email"
+          required
+          inputRef={emailRef}
+        />
 
         {/* Phone */}
-        <div>
-          <label className="block text-foreground/40 text-sm tracking-[0.08em] uppercase mb-2">
-            Phone
-          </label>
-          <input
-            type="tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="+1 (555) 000-0000"
-            className={inputBase}
-          />
-        </div>
+        <FloatingInput
+          id="phone"
+          label="Phone number"
+          value={phone}
+          onChange={(val) => setPhone(val)}
+          type="tel"
+          inputRef={phoneRef}
+        />
 
         {/* LinkedIn */}
-        <div>
-          <label className="block text-foreground/40 text-sm tracking-[0.08em] uppercase mb-2">
-            LinkedIn URL
-          </label>
-          <input
-            type="url"
-            value={linkedinUrl}
-            onChange={(e) => {
-              setLinkedinUrl(e.target.value);
-              setFieldErrors((prev) => ({ ...prev, linkedinUrl: "" }));
-            }}
-            placeholder="https://linkedin.com/in/yourname"
-            className={inputBase}
-          />
-          <AnimatePresence>
-            {fieldErrors.linkedinUrl && (
-              <motion.p
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="text-red-600/80 text-sm mt-2"
-              >
-                {fieldErrors.linkedinUrl}
-              </motion.p>
-            )}
-          </AnimatePresence>
-        </div>
+        <FloatingInput
+          id="linkedinUrl"
+          label="https://linkedin.com/in/yourname"
+          value={linkedinUrl}
+          onChange={(val) => {
+            setLinkedinUrl(val);
+            setFieldErrors((prev) => ({ ...prev, linkedinUrl: "" }));
+          }}
+          error={fieldErrors.linkedinUrl}
+          type="url"
+          inputRef={linkedinRef}
+        />
 
         {/* Founder Type */}
-        <div>
-          <label className="block text-foreground/40 text-sm tracking-[0.08em] uppercase mb-2">
-            Which exited founders' communities are you part of? *
+        <div ref={founderTypeRef}>
+          <label className={`block text-sm tracking-[0.08em] uppercase mb-3 ${fieldErrors.founderType ? "text-red-500" : "text-foreground/40"}`}>
+            Who are you? *
           </label>
-          <div className="flex flex-wrap gap-3 py-4">
+          <div className="flex flex-wrap gap-3 py-2">
             {FOUNDER_TYPES.map((type) => (
               <button
                 key={type.value}
@@ -295,7 +392,9 @@ export default function ApplicationForm() {
                 className={`px-5 py-3 rounded-full border transition-all duration-300 text-[clamp(0.9rem,2vw,1.1rem)] ${
                   founderType === type.value
                     ? "bg-foreground text-background border-foreground"
-                    : "border-foreground/15 text-foreground/60 hover:border-foreground/30 hover:text-foreground/80"
+                    : fieldErrors.founderType
+                      ? "border-red-500/40 text-foreground/60 hover:border-red-500/60 hover:text-foreground/80"
+                      : "border-foreground/15 text-foreground/60 hover:border-foreground/30 hover:text-foreground/80"
                 }`}
               >
                 {type.label}
@@ -308,7 +407,7 @@ export default function ApplicationForm() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="text-red-600/80 text-sm mt-1"
+                className="text-red-500 text-sm mt-2"
               >
                 {fieldErrors.founderType}
               </motion.p>
@@ -319,7 +418,7 @@ export default function ApplicationForm() {
         {/* Your Communities */}
         <div>
           <label className="block text-foreground/40 text-sm tracking-[0.08em] uppercase mb-2">
-            Your Communities
+            Which exited founders' communities are you part of?
           </label>
           <p className="text-foreground/30 text-sm mb-4">
             Select all that apply
@@ -370,24 +469,18 @@ export default function ApplicationForm() {
         </div>
 
         {/* Additional Notes */}
-        <div>
-          <label className="block text-foreground/40 text-sm tracking-[0.08em] uppercase mb-2">
-            Anything else?
-          </label>
-          <textarea
-            value={additionalNotes}
-            onChange={(e) => setAdditionalNotes(e.target.value)}
-            placeholder="Optional — tell us what you're building, what excites you, etc."
-            rows={3}
-            className={`${inputBase} resize-none`}
-          />
-        </div>
+        <FloatingTextarea
+          id="additionalNotes"
+          label="Anything else? Tell us what you're building..."
+          value={additionalNotes}
+          onChange={(val) => setAdditionalNotes(val)}
+        />
       </div>
 
       {/* Submit */}
       <div className="mt-14">
         {submitMutation.error && !(submitMutation.error.data as any)?.zodError && (
-          <p className="text-red-600/80 text-sm mb-4">
+          <p className="text-red-500 text-sm mb-4">
             Something went wrong. Please try again.
           </p>
         )}
