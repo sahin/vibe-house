@@ -53,7 +53,7 @@ export async function createAirtableRecord(
   const fields: Record<string, unknown> = {
     Name: data.fullName,
     Email: data.email,
-    "Founder Type": { name: founderTypeLabel },
+    "Founder Type": founderTypeLabel,
   };
 
   if (data.phone) {
@@ -65,7 +65,7 @@ export async function createAirtableRecord(
   }
 
   if (communityLabels.length > 0) {
-    fields["Communities"] = communityLabels.map((name) => ({ name }));
+    fields["Communities"] = communityLabels;
   }
 
   if (data.notes) {
@@ -73,7 +73,7 @@ export async function createAirtableRecord(
   }
 
   // Set status to "Todo" for new submissions
-  fields["Status"] = { name: "Todo" };
+  fields["Status"] = "Todo";
 
   const response = await fetch(url, {
     method: "POST",

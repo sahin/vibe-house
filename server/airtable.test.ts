@@ -50,13 +50,10 @@ describe("airtable", () => {
       expect(body.fields["Email"]).toBe("jane@example.com");
       expect(body.fields["Phone"]).toBe("+1 555 1234");
       expect(body.fields["LinkedIn"]).toBe("https://linkedin.com/in/janedoe");
-      expect(body.fields["Founder Type"]).toEqual({ name: "Exited Founder" });
-      expect(body.fields["Communities"]).toEqual([
-        { name: "Superfounders" },
-        { name: "PEF" },
-      ]);
+      expect(body.fields["Founder Type"]).toBe("Exited Founder");
+      expect(body.fields["Communities"]).toEqual(["Superfounders", "PEF"]);
       expect(body.fields["Notes"]).toBe("Building an AI startup");
-      expect(body.fields["Status"]).toEqual({ name: "Todo" });
+      expect(body.fields["Status"]).toBe("Todo");
     });
 
     it("omits optional fields when not provided", async () => {
@@ -75,9 +72,7 @@ describe("airtable", () => {
       const body = JSON.parse(mockFetch.mock.calls[0][1].body);
       expect(body.fields["Name"]).toBe("John Smith");
       expect(body.fields["Email"]).toBe("john@example.com");
-      expect(body.fields["Founder Type"]).toEqual({
-        name: "Technical Founder",
-      });
+      expect(body.fields["Founder Type"]).toBe("Technical Founder");
       expect(body.fields["Phone"]).toBeUndefined();
       expect(body.fields["LinkedIn"]).toBeUndefined();
       expect(body.fields["Communities"]).toBeUndefined();
