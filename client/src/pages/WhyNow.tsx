@@ -323,7 +323,7 @@ export default function WhyNow() {
                 className={`bg-foreground text-background hover:bg-foreground/90 ${T.m} rounded-full px-10 py-7`}
               >
                 <Link href="/#join">
-                  Join the House <ArrowRight className="ml-2 w-5 h-5" />
+                  Join our next event <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
             </FadeIn>
