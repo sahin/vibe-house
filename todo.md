@@ -58,3 +58,17 @@
 - [x] Make Airtable integration handle non-existent columns gracefully (retry without unknown fields)
 - [x] Sync project with latest GitHub changes
 - [x] Sync with GitHub: pull 'Add a new line to README.md' commit and push local changes
+- [x] Update meta tag commit hash to show GitHub commit hash (e.g. 1afac96)
+- [x] Remove "Join" link from navigation header (keep only "Why Now" + CTA button)
+- [x] Make community badges (PEF, Superfounders) look like text, not clickable buttons
+- [x] Add welcome message: "Super founder and exited founder communities are welcome anytime"
+- [x] Remove +1 prefix from phone input field
+- [x] Form validation: show errors in red text, auto-focus first invalid field
+- [x] Form inputs: implement floating label pattern (remove duplicate labels, placeholder becomes floating label on focus)
+- [x] Change "Who are you?" form label to "Which best describes you?"
+- [x] Sync project with latest GitHub changes (pending checkpoint)
+- [x] Adapt tRPC server to Cloudflare Pages Functions (fix 405 error on sfvibehouse.com)
+- [x] Create Cloudflare Pages _worker.js (advanced mode) for /api/trpc routes
+- [x] Update build pipeline: esbuild bundles _worker.ts for Cloudflare edge runtime
+- [x] Update GitHub Actions workflow for Cloudflare Pages advanced mode deployment
+- [x] Test and verify esbuild bundle compiles successfully (586KB)
