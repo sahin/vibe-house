@@ -281,7 +281,7 @@ export default function ApplicationForm() {
         {/* Founder Type */}
         <div>
           <label className="block text-foreground/40 text-sm tracking-[0.08em] uppercase mb-2">
-            Who are you? *
+            Which exited founders' communities are you part of? *
           </label>
           <div className="flex flex-wrap gap-3 py-4">
             {FOUNDER_TYPES.map((type) => (
