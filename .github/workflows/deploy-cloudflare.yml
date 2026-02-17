@@ -12,7 +12,7 @@ jobs:
       contents: read
       deployments: write
     name: Deploy to Cloudflare Pages
-    steps:          
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -27,10 +27,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
+      - name: Build frontend
         run: pnpm build
         env:
           NODE_ENV: production
+
+      - name: Bundle Cloudflare Worker
+        run: |
+          npx esbuild cloudflare/_worker.ts \
+            --bundle \
+            --platform=neutral \
+            --target=es2022 \
+            --format=esm \
+            --outfile=dist/public/_worker.js \
+            --conditions=workerd,worker,browser \
+            --main-fields=browser,module,main
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
