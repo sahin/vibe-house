@@ -72,3 +72,4 @@
 - [x] Update build pipeline: esbuild bundles _worker.ts for Cloudflare edge runtime
 - [x] Update GitHub Actions workflow for Cloudflare Pages advanced mode deployment
 - [x] Test and verify esbuild bundle compiles successfully (586KB)
+- [x] Change "Join the House" to "Join our next event"
