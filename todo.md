@@ -76,3 +76,5 @@
 - [x] Add error fallback UI: show "Something went wrong" message on server-side form submission failure
 - [x] Add backup Airtable form link in error state: https://airtable.com/appqVucbI0ROcWtt5/pagqasZj50JPqUSfk/form
 - [x] Ensure Cloudflare worker returns proper error responses for frontend detection
+- [x] Create "Biological Founder" subpage with all articles from VibeHouseArticles.docx
+- [x] Add route and navigation link for Biological Founder page

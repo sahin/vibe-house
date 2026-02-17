@@ -9,6 +9,8 @@ nav:
   links:
     - label: "Why Now"
       href: "/why"
+    - label: "Biological Founder"
+      href: "/biological-founder"
   cta: "Join our next event"
 
 hero:
