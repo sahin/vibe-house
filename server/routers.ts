@@ -2,6 +2,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
+import { createAirtableRecord } from "./airtable";
 import { insertApplication } from "./db";
 import { notifyAdmins } from "./notifyAdmins";
 import { z } from "zod";
@@ -62,6 +63,21 @@ export const appRouter = router({
           communities: input.communities?.length ? JSON.stringify(input.communities) : null,
           additionalNotes: input.additionalNotes || null,
         });
+
+        // Send to Airtable
+        try {
+          await createAirtableRecord({
+            fullName: input.fullName,
+            email: input.email,
+            phone: input.phone || null,
+            linkedin: input.linkedinUrl || null,
+            founderType: input.founderType,
+            communities: input.communities || [],
+            notes: input.additionalNotes || null,
+          });
+        } catch (err) {
+          console.warn("[Application] Failed to send to Airtable:", err);
+        }
 
         // Notify both admin users of new application
         const typeLabel =
