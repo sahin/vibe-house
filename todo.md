@@ -67,3 +67,8 @@
 - [x] Form inputs: implement floating label pattern (remove duplicate labels, placeholder becomes floating label on focus)
 - [x] Change "Who are you?" form label to "Which best describes you?"
 - [x] Sync project with latest GitHub changes (pending checkpoint)
+- [x] Adapt tRPC server to Cloudflare Pages Functions (fix 405 error on sfvibehouse.com)
+- [x] Create Cloudflare Pages _worker.js (advanced mode) for /api/trpc routes
+- [x] Update build pipeline: esbuild bundles _worker.ts for Cloudflare edge runtime
+- [x] Update GitHub Actions workflow for Cloudflare Pages advanced mode deployment
+- [x] Test and verify esbuild bundle compiles successfully (586KB)
