@@ -78,3 +78,4 @@
 - [x] Ensure Cloudflare worker returns proper error responses for frontend detection
 - [x] Create "Biological Founder" subpage with all articles from VibeHouseArticles.docx
 - [x] Add route and navigation link for Biological Founder page
+- [x] Remove Biological Founder links from WhyNow.tsx navigation (keep Why Now page unchanged)
