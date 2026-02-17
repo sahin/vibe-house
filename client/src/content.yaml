@@ -9,8 +9,6 @@ nav:
   links:
     - label: "Why Now"
       href: "/why"
-    - label: "Join"
-      href: "#join"
   cta: "Join our next event"
 
 hero:

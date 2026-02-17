@@ -58,3 +58,5 @@
 - [x] Make Airtable integration handle non-existent columns gracefully (retry without unknown fields)
 - [x] Sync project with latest GitHub changes
 - [x] Sync with GitHub: pull 'Add a new line to README.md' commit and push local changes
+- [x] Update meta tag commit hash to show GitHub commit hash (e.g. 1afac96)
+- [x] Remove "Join" link from navigation header (keep only "Why Now" + CTA button)
