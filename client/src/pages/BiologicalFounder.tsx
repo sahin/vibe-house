@@ -147,7 +147,7 @@ function TOCItem({ number, title, id }: { number: string; title: string; id: str
 
 export default function BiologicalFounder() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [tocOpen, setTocOpen] = useState(false);
+  const [tocOpen, setTocOpen] = useState(true);
 
   const articles = [
     { number: "I", title: "Engineering Human Flourishing in the Age of AI", id: "article-1" },
