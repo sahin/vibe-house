@@ -2,10 +2,22 @@ import { jsxLocPlugin } from "@builder.io/vite-plugin-jsx-loc";
 import tailwindcss from "@tailwindcss/vite";
 import ViteYaml from "@modyfi/vite-plugin-yaml";
 import react from "@vitejs/plugin-react";
+import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, type Plugin, type ViteDevServer } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
+
+// Get git commit hash at build time
+function getGitCommitHash(): string {
+  try {
+    return execSync("git rev-parse --short HEAD").toString().trim();
+  } catch {
+    return "unknown";
+  }
+}
+
+const GIT_COMMIT_HASH = getGitCommitHash();
 
 // =============================================================================
 // Manus Debug Collector - Vite Plugin
@@ -151,7 +163,19 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), ViteYaml()];
+/**
+ * Vite plugin to inject git commit hash into HTML meta tag
+ */
+function vitePluginGitCommitHash(): Plugin {
+  return {
+    name: "git-commit-hash",
+    transformIndexHtml(html) {
+      return html.replace("__GIT_COMMIT_HASH__", GIT_COMMIT_HASH);
+    },
+  };
+}
+
+const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginGitCommitHash(), ViteYaml()];
 
 export default defineConfig({
   plugins,
