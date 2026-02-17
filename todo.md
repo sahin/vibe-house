@@ -57,3 +57,4 @@
 - [x] Remove reference to deleted "Status" field in Airtable integration
 - [x] Make Airtable integration handle non-existent columns gracefully (retry without unknown fields)
 - [x] Sync project with latest GitHub changes
+- [x] Sync with GitHub: pull 'Add a new line to README.md' commit and push local changes
