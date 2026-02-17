@@ -72,8 +72,6 @@ export async function createAirtableRecord(
     fields["Notes"] = data.notes;
   }
 
-  // Set status to "Todo" for new submissions
-  fields["Status"] = "Todo";
 
   const response = await fetch(url, {
     method: "POST",

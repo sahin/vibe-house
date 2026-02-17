@@ -53,7 +53,7 @@ describe("airtable", () => {
       expect(body.fields["Founder Type"]).toBe("Exited Founder");
       expect(body.fields["Communities"]).toEqual(["Superfounders", "PEF"]);
       expect(body.fields["Notes"]).toBe("Building an AI startup");
-      expect(body.fields["Status"]).toBe("Todo");
+      expect(body.fields["Status"]).toBeUndefined();
     });
 
     it("omits optional fields when not provided", async () => {

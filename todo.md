@@ -54,3 +54,4 @@
 - [x] Integrate Airtable as backend for form submissions
 - [x] Fix grammar on form labels: "Who are you?" and "Which exited founders communities are you part of?"
 - [x] Add git commit hash as meta tag in HTML header
+- [x] Remove reference to deleted "Status" field in Airtable integration
