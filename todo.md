@@ -56,3 +56,4 @@
 - [x] Add git commit hash as meta tag in HTML header
 - [x] Remove reference to deleted "Status" field in Airtable integration
 - [x] Make Airtable integration handle non-existent columns gracefully (retry without unknown fields)
+- [x] Sync project with latest GitHub changes
