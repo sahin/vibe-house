@@ -58,6 +58,7 @@ join:
       badges:
         - "PEF"
         - "Superfounders"
+      badge_note: "Super founder and exited founder communities are welcome anytime."
 
     - number: "02"
       title: "Technical Background"
