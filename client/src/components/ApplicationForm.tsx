@@ -378,7 +378,7 @@ export default function ApplicationForm() {
         {/* Founder Type */}
         <div ref={founderTypeRef}>
           <label className={`block text-sm tracking-[0.08em] uppercase mb-3 ${fieldErrors.founderType ? "text-red-500" : "text-foreground/40"}`}>
-            Who are you? *
+            Which best describes you? *
           </label>
           <div className="flex flex-wrap gap-3 py-2">
             {FOUNDER_TYPES.map((type) => (

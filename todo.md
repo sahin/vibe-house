@@ -65,3 +65,5 @@
 - [x] Remove +1 prefix from phone input field
 - [x] Form validation: show errors in red text, auto-focus first invalid field
 - [x] Form inputs: implement floating label pattern (remove duplicate labels, placeholder becomes floating label on focus)
+- [x] Change "Who are you?" form label to "Which best describes you?"
+- [x] Sync project with latest GitHub changes (pending checkpoint)
