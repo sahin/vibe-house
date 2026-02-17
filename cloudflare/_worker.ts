@@ -8,6 +8,7 @@ import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 
 // ── Types ──
 
@@ -270,7 +271,11 @@ const appRouter = t.router({
             notes: input.additionalNotes || null,
           });
         } catch (err) {
-          console.warn("[Application] Failed to send to Airtable:", err);
+          console.error("[Application] Failed to send to Airtable:", err);
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Failed to submit application. Please try again.",
+          });
         }
 
         // Notify admins

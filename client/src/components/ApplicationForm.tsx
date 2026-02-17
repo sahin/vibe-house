@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
-import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { ArrowRight, Check, Loader2, AlertTriangle } from "lucide-react";
 
 const T = {
   l: "font-display font-normal leading-[1.1] text-[clamp(2.2rem,6vw,4.5rem)]",
@@ -209,6 +209,7 @@ export default function ApplicationForm() {
   const [communities, setCommunities] = useState<string[]>([]);
   const [additionalNotes, setAdditionalNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [serverError, setServerError] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   // Refs for focusing on validation errors
@@ -229,6 +230,7 @@ export default function ApplicationForm() {
   const submitMutation = trpc.application.submit.useMutation({
     onSuccess: () => {
       setSubmitted(true);
+      setServerError(false);
     },
     onError: (error) => {
       if ((error.data as any)?.zodError) {
@@ -240,6 +242,8 @@ export default function ApplicationForm() {
           }
         }
         setFieldErrors(mapped);
+      } else {
+        setServerError(true);
       }
     },
   });
@@ -290,6 +294,35 @@ export default function ApplicationForm() {
       additionalNotes: additionalNotes.trim() || undefined,
     });
   };
+
+  if (serverError) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="py-20"
+      >
+        <div className="flex items-center gap-4 mb-8">
+          <div className="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center">
+            <AlertTriangle className="w-7 h-7 text-red-600" />
+          </div>
+        </div>
+        <h3 className={`${T.l} mb-6`}>Something went wrong.</h3>
+        <p className={`${T.m} text-foreground/55 mb-8`}>
+          We couldn't submit your application right now. Please use the backup form instead.
+        </p>
+        <a
+          href="https://airtable.com/appqVucbI0ROcWtt5/pagqasZj50JPqUSfk/form"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 bg-foreground text-background hover:bg-foreground/90 rounded-full px-8 py-4 font-body text-[clamp(1rem,2vw,1.15rem)] transition-colors duration-300"
+        >
+          Fill out the backup form <ArrowRight className="w-5 h-5" />
+        </a>
+      </motion.div>
+    );
+  }
 
   if (submitted) {
     return (
