@@ -92,3 +92,4 @@
 - [ ] Add category images to Curated Products page
 - [ ] Apply user's negative filter to remove unwanted products
 - [x] Add footer credit "Created by @sahin & Manus" to Curated Products page
+- [x] Enhance Essential Oil Diffusers section with more content around waterless/nebulizing technology

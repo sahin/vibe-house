@@ -175,10 +175,10 @@ const CATEGORIES: Category[] = [
     id: "diffusers",
     title: "Essential Oil Diffusers",
     icon: "Wind",
-    philosophy: "The delivery system matters as much as the oil. Waterless nebulizing diffusers preserve the full molecular complexity of essential oils — no heat degradation, no dilution, just pure therapeutic vapor.",
+    philosophy: "The delivery system matters as much as the oil. Most diffusers use ultrasonic vibration or heat to disperse oils — both methods degrade the delicate terpenes, phenols, and sesquiterpenes that make essential oils therapeutic. Waterless nebulizing diffusers use pressurized air to shatter oils into micro-fine particles, preserving the full molecular complexity. No water dilution, no heat degradation — just pure, concentrated therapeutic vapor that saturates a room in minutes. This is pharmaceutical-grade aromatherapy.",
     products: [
-      { name: "Waterless Nebulizing Diffuser", brand: "Airversa", health: "Nebulizing technology breaks oils into micro-fine particles without heat or water, preserving all therapeutic compounds. Battery-operated for placement anywhere in the house." },
-      { name: "Professional Nebulizing Diffuser", brand: "Minidiva", health: "Full-spectrum oil diffusion without water or heat. Nebulizing preserves volatile compounds like terpenes and phenols that are destroyed by ultrasonic or heat-based diffusers." },
+      { name: "Waterless Nebulizing Diffuser", brand: "Airversa", health: "Uses Bernoulli's principle to atomize pure essential oil into particles under 3 microns — small enough to remain suspended in air for hours and penetrate deep into the respiratory system. No water means no mold risk, no bacterial growth, and no diluted output. Battery-operated and whisper-quiet for placement in meditation rooms, bedrooms, or workspaces without disruption." },
+      { name: "Professional Nebulizing Diffuser", brand: "Minidiva", health: "Clinical-grade nebulization that preserves the complete volatile compound profile — including monoterpenes (limonene, pinene), sesquiterpenes (chamazulene), and phenols (eugenol, thymol) that are destroyed above 40°C by heat-based diffusers. Adjustable output intensity lets you micro-dose aromatherapy throughout the day or saturate a room for deep meditation sessions." },
     ],
   },
   {
