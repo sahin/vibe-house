@@ -93,3 +93,7 @@
 - [ ] Apply user's negative filter to remove unwanted products
 - [x] Add footer credit "Created by @sahin & Manus" to Curated Products page
 - [x] Enhance Essential Oil Diffusers section with more content around waterless/nebulizing technology
+- [x] Enhance Teas section philosophy with health-to-deep-thinking connection
+- [x] Remove Mindful Coffee category entirely
+- [x] Remove products: Propolis Nasal Rinse Spray, Nate's Honey, Nova Maple Cream, Biotin Shampoo, Dried Rose Petals, Green Tea Mattress
+- [x] Update footer credit: @sahin links to Twitter, Manus links to manus.im

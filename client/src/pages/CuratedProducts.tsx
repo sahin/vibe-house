@@ -185,7 +185,7 @@ const CATEGORIES: Category[] = [
     id: "teas",
     title: "Teas & Herbal Infusions",
     icon: "Leaf",
-    philosophy: "Tea is not a beverage — it's a ritual of presence. Every cup is a micro-meditation. We source teas that are both ancient medicine and daily ceremony.",
+    philosophy: "Tea is not a beverage — it's a ritual of presence. Every cup is a micro-meditation. The compounds in these teas — L-theanine, polyphenols, adaptogens — don't just protect the body. They sharpen the mind. When inflammation drops, when blood sugar stabilizes, when the gut-brain axis is nourished, cognition deepens. Better health means better deep thinking. Better deep thinking means better prompts, better code, better decisions. We source teas that are both ancient medicine and daily cognitive infrastructure.",
     products: [
       { name: "Butterfly Pea Flower Tea", brand: "Blue Tea / Real Naturals", health: "Rich in anthocyanins — the same antioxidants found in blueberries. Traditionally used in Ayurveda to enhance memory and neural function. Contains proanthocyanidins that cross the blood-brain barrier." },
       { name: "Dandelion Root Tea", brand: "U.S. Wellness Naturals", health: "Powerful liver detoxifier containing taraxacin and inulin. Supports bile production, acts as a prebiotic for gut microbiome health, and provides potassium for electrolyte balance." },
@@ -199,21 +199,6 @@ const CATEGORIES: Category[] = [
     ],
   },
   {
-    id: "coffee",
-    title: "Mindful Coffee",
-    icon: "Coffee",
-    philosophy: "Coffee is the founder's sacrament — but we choose it intentionally. Mushroom-enhanced blends for neurotropic benefits, Turkish preparation for ritual, and high-quality beans for clean energy without the crash.",
-    products: [
-      { name: "Mushroom Coffee K-Cups", brand: "Kalba", health: "Infused with Lion's Mane (neurogenesis), Chaga (immune modulation), Turkey Tail (gut health), and Nigella Sativa (anti-inflammatory). Functional coffee that supports cognition beyond caffeine." },
-      { name: "Arzum Okka Turkish Coffee Maker", brand: "Arzum Okka", health: "Turkish coffee retains the grounds, delivering higher concentrations of chlorogenic acid (a potent antioxidant) and cafestol. The slow preparation ritual itself reduces cortisol." },
-      { name: "Arzum Tea Tock Turkish Tea Maker", brand: "Arzum", health: "Double-kettle system for traditional Turkish tea preparation. The slow steeping process extracts maximum polyphenols while the ritual of preparation creates mindful transitions between work sessions." },
-      { name: "Kurukahveci Mehmet Efendi Turkish Coffee", brand: "Kurukahveci Mehmet Efendi", health: "Since 1871. Ultra-fine ground Arabica beans. Turkish coffee's unfiltered preparation preserves diterpenes (cafestol and kahweol) which have anti-cancer and anti-inflammatory properties." },
-      { name: "Death Wish Coffee Variety Pack", brand: "Death Wish Coffee", health: "High-caffeine, USDA organic and Fair Trade certified. For founders who need sustained energy — the organic certification ensures no pesticide residues that disrupt endocrine function." },
-      { name: "INTASTING Glass Electric Tea Kettle", brand: "INTASTING", health: "Borosilicate glass with precise temperature control. Glass eliminates BPA and microplastic concerns from plastic kettles. Temperature precision ensures optimal extraction of tea compounds." },
-      { name: "Cosori Electric Kettle", brand: "COSORI", health: "Borosilicate glass body with no plastic contact points on the water path. Eliminates chemical leaching concerns while providing rapid, precise heating for optimal tea and coffee preparation." },
-    ],
-  },
-  {
     id: "supplements",
     title: "Supplements & Superfoods",
     icon: "Pill",
@@ -224,17 +209,14 @@ const CATEGORIES: Category[] = [
       { name: "GEM Calm Bite", brand: "GEM", health: "Magnesium L-Threonate (the only form that crosses the blood-brain barrier), Golden Chlorella, and Lemon Balm. Non-habit forming support for mental clarity and stress resilience." },
       { name: "Organic Haritaki Capsules", brand: "Kailash Herbals", health: "Known as the 'King of Medicines' in Ayurveda. Terminalia chebula supports gut motility, cognitive function, and is rich in tannins with powerful antioxidant activity. Traditionally linked to 'third eye' awakening." },
       { name: "Organic Haritaki Powder", brand: "Jiva Organics", health: "USDA certified organic. Haritaki is one of three fruits in Triphala, the cornerstone of Ayurvedic detoxification. Contains chebulic acid, a potent free radical scavenger." },
-      { name: "Propolis Nasal Rinse Spray", brand: "Beekeeper's Naturals", health: "Bee propolis contains over 300 bioactive compounds including pinocembrin (neuroprotective flavonoid). Combined with eucalyptus and oregano for sinus health and immune defense." },
     ],
   },
   {
     id: "natural-sweeteners",
     title: "Natural Sweeteners & Whole Foods",
     icon: "Honey",
-    philosophy: "Sugar is inflammatory. We replace it with foods that nourish — raw honey for its enzymes, maple cream for its minerals, and whole dried fruit for its fiber-bound sweetness.",
+    philosophy: "Sugar is inflammatory. We replace it with whole foods that nourish — fiber-bound fruit sweetness, mineral-rich sea salt, and single-ingredient snacks that satisfy without spiking blood glucose.",
     products: [
-      { name: "Nate's Organic Raw Unfiltered Honey", brand: "Nate's Honey", health: "USDA organic, raw and unfiltered — preserving bee pollen, propolis, and live enzymes destroyed by pasteurization. Contains hydrogen peroxide and methylglyoxal for natural antimicrobial activity." },
-      { name: "Nova Maple Cream", brand: "Nova Maple Syrup", health: "Pure Grade-A maple cream contains 65+ polyphenols and is rich in manganese (bone health) and zinc (immune function). Lower glycemic index than refined sugar with actual nutritional value." },
       { name: "Solely Organic Dried Mango", brand: "SOLELY", health: "Single ingredient — organic mango. Rich in vitamin C, beta-carotene, and digestive enzymes (amylases). No added sugar means the fiber slows glucose absorption, unlike juice or candy." },
       { name: "Maldon Sea Salt Flakes", brand: "Maldon", health: "Hand-harvested pyramid crystals with a clean mineral profile. Sea salt retains trace minerals (magnesium, potassium, calcium) stripped from table salt. The flake structure means you use less while tasting more." },
     ],
@@ -263,8 +245,6 @@ const CATEGORIES: Category[] = [
       { name: "Organic Castile Liquid Soap (Unscented)", brand: "Brittanie's Thyme", health: "Pure olive oil base — the same formula used since the Crusades. Biodegradable, vegan, and free of the 12 most common skin irritants. Safe for sensitive skin and the environment." },
       { name: "Goat Milk Soap with Honey", brand: "The Soap Haven", health: "Goat milk contains lactic acid (gentle exfoliant), vitamins A and E, and fatty acids that repair the skin barrier. Honey adds humectant and antimicrobial properties. Handmade, SLS and paraben free." },
       { name: "Ruby Grapefruit Hand Soap", brand: "Everyone", health: "Plant-based cleanser with pure essential oils. EWG Verified for safety. Free of synthetic fragrances, parabens, and triclosan — chemicals linked to hormonal disruption and antibiotic resistance." },
-      { name: "Biotin B-Complex Thickening Shampoo", brand: "Avalon Organics", health: "Biotin (B7) supports keratin infrastructure for hair strength. B-complex vitamins nourish hair follicles. Free of sulfates, parabens, and phthalates that strip natural oils and disrupt hormones." },
-      { name: "Dried Rose Petals and Buds", brand: "OneDove", health: "Food-grade rose petals for tea, baths, and aromatherapy. Rose contains geraniol and citronellol — compounds shown to reduce cortisol and promote parasympathetic nervous system activation." },
     ],
   },
   {
@@ -277,7 +257,6 @@ const CATEGORIES: Category[] = [
       { name: "Bamboo Viscose Cooling Sheets", brand: "Sleep Sanctuary", health: "100% bamboo viscose is naturally thermoregulating, wicking moisture 3x faster than cotton. Bamboo fiber is naturally hypoallergenic and antimicrobial, reducing dust mite populations." },
       { name: "Pure Bamboo Duvet Cover", brand: "Pure Bamboo", health: "Genuine 100% organic viscose from bamboo. Bamboo fabric is naturally temperature-regulating and softer than 400-thread-count cotton, promoting uninterrupted sleep cycles." },
       { name: "Serta Goose Feather Down Comforter", brand: "Serta", health: "100% cotton shell with natural goose feather fill. Hypoallergenic construction. Natural down provides superior temperature regulation compared to synthetic fills, supporting the body's circadian rhythm." },
-      { name: "Green Tea Memory Foam Mattress", brand: "Zinus", health: "Infused with green tea extract (natural antioxidant) and activated charcoal to absorb moisture and odors. CertiPUR-US certified foams — free of formaldehyde, mercury, and other heavy metals." },
     ],
   },
   {
@@ -597,7 +576,14 @@ export default function CuratedProducts() {
                   @sahin
                 </a>
                 {" "}&{" "}
-                <span className="text-foreground/40">Manus</span>
+                <a
+                  href="https://manus.im"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground/40 hover:text-foreground transition-colors underline underline-offset-4"
+                >
+                  Manus
+                </a>
               </p>
             </FadeIn>
           </div>
