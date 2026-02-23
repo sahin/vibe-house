@@ -410,7 +410,7 @@ export default function CuratedProducts() {
           <div className="hidden md:flex items-center gap-10">
             <Link href="/why" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Why Now</Link>
             <Link href="/biological-founder" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Biological Founder</Link>
-            <Link href="/biological-founder/curated-products" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>Curated Products</Link>
+            <Link href="/biological-founder/curated-products" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>The Founder's Pharmacy</Link>
           </div>
           <div className="flex items-center gap-3">
             <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
@@ -443,7 +443,7 @@ export default function CuratedProducts() {
                 Biological Founder
               </Link>
               <Link href="/biological-founder/curated-products" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
-                Curated Products
+                The Founder's Pharmacy
               </Link>
             </div>
           </motion.div>
@@ -546,6 +546,38 @@ export default function CuratedProducts() {
       {CATEGORIES.map((category, i) => (
         <CategorySection key={category.id} category={category} index={i} />
       ))}
+
+      {/* Category Index */}
+      <section className="py-20 md:py-32 border-t border-foreground/5">
+        <div className="container">
+          <div className="max-w-5xl mx-auto">
+            <FadeIn>
+              <p className={`${T.nav} text-foreground/30 tracking-[0.2em] mb-16 text-center`}>INDEX</p>
+            </FadeIn>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-12">
+              {CATEGORIES.map((cat, i) => (
+                <FadeIn key={cat.id} delay={i * 0.05}>
+                  <a href={`#${cat.id}`} className="group block">
+                    <div className="flex items-baseline gap-4 mb-2">
+                      <span className="font-display text-[clamp(2rem,4vw,3rem)] leading-none text-foreground/10 group-hover:text-foreground/25 transition-colors">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <h3 className="font-display text-lg text-foreground/50 group-hover:text-foreground transition-colors leading-tight">
+                        {cat.title}
+                      </h3>
+                    </div>
+                    <div className="ml-[calc(2rem+1rem)] md:ml-[calc(3rem+1rem)]">
+                      <p className="text-xs text-foreground/25 tracking-wide">
+                        {cat.products.length} {cat.products.length === 1 ? 'product' : 'products'}
+                      </p>
+                    </div>
+                  </a>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Footer note */}
       <section className="py-20 md:py-32">

@@ -97,3 +97,5 @@
 - [x] Remove Mindful Coffee category entirely
 - [x] Remove products: Propolis Nasal Rinse Spray, Nate's Honey, Nova Maple Cream, Biotin Shampoo, Dried Rose Petals, Green Tea Mattress
 - [x] Update footer credit: @sahin links to Twitter, Manus links to manus.im
+- [x] Add "THE FOUNDER'S PHARMACY →" as nav menu item across all pages (Home, WhyNow, BiologicalFounder)
+- [x] Add typographic category index at the bottom of the Curated Products page

@@ -11,6 +11,8 @@ nav:
       href: "/why"
     - label: "Biological Founder"
       href: "/biological-founder"
+    - label: "The Founder's Pharmacy"
+      href: "/biological-founder/curated-products"
   cta: "Join our next event"
 
 hero:
