@@ -677,6 +677,34 @@ export default function BiologicalFounder() {
         <Em>But more importantly — it feels alive.</Em>
       </Article>
 
+      {/* Curated Products CTA */}
+      <section className="py-16 md:py-24 border-t border-foreground/5">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <FadeIn>
+              <p className={`${T.label} mb-6 text-center`}>Continue Reading</p>
+              <h2 className={`${T.l} text-center mb-4`}>The Founder's Pharmacy</h2>
+              <Divider />
+              <p className={`${T.m} text-foreground/60 text-center mb-10`}>
+                Every product in Vibe House was chosen with intention. Explore the full catalog of what we stock and why — from essential oils to organic sleep textiles.
+              </p>
+              <div className="flex justify-center">
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className={`${T.m} rounded-full px-10 py-7 border-foreground/15 hover:bg-foreground/5`}
+                >
+                  <Link href="/biological-founder/curated-products">
+                    Explore Curated Products <ArrowRight className="ml-2 w-5 h-5" />
+                  </Link>
+                </Button>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 md:py-24 border-t border-foreground/5">
         <div className="container">

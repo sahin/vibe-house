@@ -81,3 +81,8 @@
 - [x] Remove Biological Founder links from WhyNow.tsx navigation (keep Why Now page unchanged)
 - [x] Keep Biological Founder table of contents expanded by default
 - [x] Sync Why Now page header nav to match homepage (add Biological Founder link back)
+- [x] Improve Cloudflare worker to rewrite asset paths for sub-path-mounted sites (fix /about/location on lovie.co)
+- [x] Parse orders CSV and extract unique products
+- [x] Research health benefits for each product
+- [x] Build curated products subpage under Biological Founder
+- [x] Add route and navigation for the curated products page

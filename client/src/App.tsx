@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import WhyNow from "./pages/WhyNow";
 import BiologicalFounder from "./pages/BiologicalFounder";
+import CuratedProducts from "./pages/CuratedProducts";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -15,6 +16,7 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/why"} component={WhyNow} />
       <Route path={"/biological-founder"} component={BiologicalFounder} />
+      <Route path={"/biological-founder/curated-products"} component={CuratedProducts} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
