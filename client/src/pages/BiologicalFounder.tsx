@@ -224,9 +224,15 @@ export default function BiologicalFounder() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <Link href="/" className={`${T.nav} text-foreground/40 hover:text-foreground transition-colors inline-flex items-center gap-2 mb-12`}>
-                <ArrowLeft className="w-3 h-3" /> Back to home
-              </Link>
+              <div className="flex items-center gap-4 mb-12">
+                <Link href="/" className={`${T.nav} text-foreground/40 hover:text-foreground transition-colors inline-flex items-center gap-2`}>
+                  <ArrowLeft className="w-3 h-3" /> Back to home
+                </Link>
+                <span className={`${T.nav} text-foreground/15`}>/</span>
+                <Link href="/biological-founder/curated-products" className={`${T.nav} text-foreground/40 hover:text-foreground transition-colors inline-flex items-center gap-2`}>
+                  The Founder's Pharmacy <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
             </motion.div>
 
             <motion.p

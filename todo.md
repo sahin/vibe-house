@@ -86,3 +86,4 @@
 - [x] Research health benefits for each product
 - [x] Build curated products subpage under Biological Founder
 - [x] Add route and navigation for the curated products page
+- [x] Add "The Founder's Pharmacy" link/section under "Back to home" on BiologicalFounder page
