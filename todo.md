@@ -87,3 +87,8 @@
 - [x] Build curated products subpage under Biological Founder
 - [x] Add route and navigation for the curated products page
 - [x] Add "The Founder's Pharmacy" link/section under "Back to home" on BiologicalFounder page
+- [x] List all products for user to create negative filter
+- [x] Add Amazon links to all products on Curated Products page
+- [ ] Add category images to Curated Products page
+- [ ] Apply user's negative filter to remove unwanted products
+- [x] Add footer credit "Created by @sahin & Manus" to Curated Products page

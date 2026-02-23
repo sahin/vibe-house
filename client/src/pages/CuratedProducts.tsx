@@ -68,7 +68,82 @@ interface Product {
   name: string;
   brand: string;
   health: string;
+  url?: string;
 }
+
+// Amazon product links
+const AMAZON_LINKS: Record<string, string> = {
+  "Frankincense Essential Oil": "https://www.amazon.com/Majestic-Pure-Frankincense-Essential-Natural/dp/B07PRDSY6J",
+  "Rosemary Essential Oil": "https://www.amazon.com/Majestic-Pure-Rosemary-Essential-Oil/dp/B07G8M3DTX",
+  "Peppermint Essential Oil": "https://www.amazon.com/Majestic-Pure-Peppermint-Essential-Therapeutic/dp/B00PV15BPW",
+  "Lemongrass Essential Oil": "https://www.amazon.com/Majestic-Pure-Lemongrass-Essential-Therapeutic/dp/B01BKB3C98",
+  "Lemon Essential Oil": "https://www.amazon.com/Majestic-Pure-Lemon-Essential-Oil/dp/B01LXALVDG",
+  "Cedarwood Essential Oil": "https://www.amazon.com/Majestic-Pure-Cedarwood-Essential-Therapeutic/dp/B01BKB3B1W",
+  "Geranium Essential Oil": "https://www.amazon.com/Majestic-Pure-Geranium-Essential-Therapeutic/dp/B01BKVFNPO",
+  "Basil Essential Oil": "https://www.amazon.com/Majestic-Pure-Basil-Essential-Oil/dp/B07GZLNFHM",
+  "Meditation Essential Oil Set": "https://www.amazon.com/Majestic-Pure-Essential-Aromatherapy-Therapeutic/dp/B0C7LBFPKR",
+  "Waterless Nebulizing Diffuser": "https://www.amazon.com/Airversa-Waterless-Essential-Nebulizing-Aromatherapy/dp/B0CNXPQHGM",
+  "Professional Nebulizing Diffuser": "https://www.amazon.com/Minidiva-Nebulizing-Essential-Aromatherapy-Adjustable/dp/B0BVFXJZ4R",
+  "Butterfly Pea Flower Tea": "https://www.amazon.com/Butterfly-Flower-Dried-Clitoria-Ternatea/dp/B08GFBG3QT",
+  "Dandelion Root Tea": "https://www.amazon.com/Wellness-Naturals-Dandelion-Root-Tea/dp/B07PXKQBHZ",
+  "Soursop Leaves Tea (Guanábana)": "https://www.amazon.com/B-Experts-Soursop-Leaves-Graviola-Guanabana/dp/B0BXWF8KWY",
+  "Çaykur Rize Turkish Black Tea": "https://www.amazon.com/Caykur-Rize-Turkish-Black-500g/dp/B00HQIO5RM",
+  "Organic Whole Coriander Seeds": "https://www.amazon.com/Spicy-Organic-Coriander-Seeds-Whole/dp/B0B5GFHQVF",
+  "Organic Ceylon Cinnamon Sticks": "https://www.amazon.com/52USA-Organic-Ceylon-Cinnamon-Sticks/dp/B07PPWXFP3",
+  "Whole Cloves": "https://www.amazon.com/Anthonys-Organic-Whole-Cloves-Gluten-Free/dp/B07GVJXBZQ",
+  "Star Anise": "https://www.amazon.com/52USA-Star-Anise-Seeds-Whole/dp/B07PQVBMJY",
+  "Tea Strainers for Loose Tea": "https://www.amazon.com/Reinmoson-Strainers-Stainless-Strainer-Steeping/dp/B0D4ZCXLZS",
+  "Mushroom Coffee K-Cups": "https://www.amazon.com/Kalba-Mushroom-Coffee-K-Cups-Chaga/dp/B0D2BNXQJT",
+  "Arzum Okka Turkish Coffee Maker": "https://www.amazon.com/Arzum-Automatic-Turkish-Coffee-Machine/dp/B01DUAWPSI",
+  "Arzum Tea Tock Turkish Tea Maker": "https://www.amazon.com/Arzum-AR3055-Stainless-Electric-Kettle/dp/B0D7QLQFWG",
+  "Kurukahveci Mehmet Efendi Turkish Coffee": "https://www.amazon.com/Kurukahveci-Mehmet-Efendi-Turkish-Coffee/dp/B000JVBR4C",
+  "Death Wish Coffee Variety Pack": "https://www.amazon.com/Death-Wish-Coffee-Variety-Pack/dp/B0DQXHQJCB",
+  "INTASTING Glass Electric Tea Kettle": "https://www.amazon.com/INTASTING-Electric-Kettle-Temperature-Stainless/dp/B0C7FVVJQJ",
+  "Cosori Electric Kettle": "https://www.amazon.com/COSORI-Electric-Stainless-Auto-Off-Protection/dp/B07Y1GVMFP",
+  "GEM Daily Bite": "https://www.amazon.com/GEM-Vitamins-Superfoods-B-Complex-Prebiotics/dp/B0B2ZM3FB2",
+  "GEM Energy Bite": "https://www.amazon.com/GEM-Caffeinated-Sustained-Metabolism-L-Theanine/dp/B0DMQM673G",
+  "GEM Calm Bite": "https://www.amazon.com/GEM-Chill-Out-Magnesium-Non-Habit-Chlorella/dp/B0CLVTSXKG",
+  "Organic Haritaki Capsules": "https://www.amazon.com/Organic-Haritaki-Capsules-Detoxification-Rejuvenation/dp/B01EZW47EI",
+  "Organic Haritaki Powder": "https://www.amazon.com/Organic-Haritaki-Powder-Ounce-Certified/dp/B07N8KV85Y",
+  "Propolis Nasal Rinse Spray": "https://www.amazon.com/Beekeepers-Naturals-Eucalyptus-Congestion-Moisturizes/dp/B0BQ5JJWW4",
+  "Nate's Organic Raw Unfiltered Honey": "https://www.amazon.com/Nature-Nates-Unfiltered-Certified-Wholesome/dp/B00CMQD3VS",
+  "Nova Maple Cream": "https://www.amazon.com/Nova-Maple-Cream-Grade-Butter/dp/B01EM5XUO6",
+  "Solely Organic Dried Mango": "https://www.amazon.com/SOLELY-Organic-Strips-Ingredient-Non-GMO/dp/B0897C8Z4T",
+  "Maldon Sea Salt Flakes": "https://www.amazon.com/Maldon-Natural-Hand-Harvested-Generations-Packaging/dp/B00017028M",
+  "Healing Crystal Wand Set (7 stones)": "https://www.amazon.com/dp/B07T1LNJ3X",
+  "Orgonite Crystal Wand Set": "https://www.amazon.com/Healing-Crystal-Wand-Set-Tourmaline/dp/B07VP1QNLT",
+  "Green Aventurine Tumbled Stones": "https://www.amazon.com/MAIBAOTA-Aventurine-Meditation-Gemstones-Decorative/dp/B09TSTR17C",
+  "Citrine Crystals": "https://www.amazon.com/MAIBAOTA-Citrine-Pendulum-Divination-Spiritual/dp/B0D5TLGS13",
+  "Tiger Eye Stones": "https://www.amazon.com/MAIBAOTA-Crystals-Meditation-Gemstones-Decorative/dp/B09TVX6GH8",
+  "Sacred Geometry Crystal Grid Boards": "https://www.amazon.com/FINGERINSPIRE-Inspirational-Spiritual-Meditation-Decoration/dp/B0F5BSX91Y",
+  "Pure Castile Liquid Soap (Peppermint)": "https://www.amazon.com/Brittanies-Thyme-Castile-Peppermint-Luxurious/dp/B0CKGJPS3F",
+  "Organic Castile Liquid Soap (Unscented)": "https://www.amazon.com/Brittanies-Thyme-Organic-Natural-Unscented/dp/B08QLCRDM9",
+  "Goat Milk Soap with Honey": "https://www.amazon.com/Handmade-Goat-Milk-Honey-Soap/dp/B00SV62QWA",
+  "Ruby Grapefruit Hand Soap": "https://www.amazon.com/Everyone-Grapefruit-Plant-Based-Cleanser-Essential/dp/B082BWTR4X",
+  "Biotin B-Complex Thickening Shampoo": "https://www.amazon.com/Avalon-Organics-B-Complex-Thickening-Shampoo/dp/B008OL3UYK",
+  "Dried Rose Petals and Buds": "https://www.amazon.com/Dried-Rose-Petals-Buds-oz/dp/B0FNPC1D67",
+  "LOFE Organic Pillow": "https://www.amazon.com/Lofe-Standard-Pillowcase-Adjustable-Hypoallergenic/dp/B07KFVQPTW",
+  "Bamboo Viscose Cooling Sheets": "https://www.amazon.com/SLEEP-SANCTUARY-Organic-Viscose-Derived/dp/B0DDV1G96X",
+  "Pure Bamboo Duvet Cover": "https://www.amazon.com/s?k=Pure+Bamboo+Duvet+Cover",
+  "Serta Goose Feather Down Comforter": "https://www.amazon.com/Serta-Thread-Feather-Seasons-Comforter/dp/B082YL5ZT1",
+  "Green Tea Memory Foam Mattress": "https://www.amazon.com/Mattress-Patented-Contour-CertiPUR-US-Certified/dp/B00Q7EPSHI",
+  "Mountain Valley Spring Water (Glass)": "https://www.amazon.com/Mountain-Valley-Spring-Bottle-ounces/dp/B07ZPGDC77",
+  "AquaBliss Shower Filter": "https://www.amazon.com/AquaBliss-Output-12-Stage-Shower-Filter/dp/B01MUBU0YC",
+  "Cobbe Filtered Shower Head": "https://www.amazon.com/Cobbe-Handheld-Pressure-Showerhead-Substance/dp/B0BJDQDZCT",
+  "LUXE Bidet NEO 185": "https://www.amazon.com/LUXE-Bidet-Non-Electric-Attachment-Self-cleaning/dp/B00P2XZIP2",
+  "KIWIBIRD Water Flosser": "https://www.amazon.com/KIWIBIRD-Cordless-Portable-Irrigator-Waterproof/dp/B0DRBBT5F5",
+  "Hooga Grounding Mat": "https://www.amazon.com/Grounding-Hooga-Meditation-Protection-Inflammation/dp/B07VSRK68V",
+  "Puracy Multi-Surface Cleaner": "https://www.amazon.com/Puracy-Natural-Purpose-Concentrate-Streak-Free/dp/B00T56KW8K",
+  "Seventh Generation Disinfecting Cleaner": "https://www.amazon.com/Seventh-Generation-Lemongrass-Disinfecting-Multi-Surface/dp/B0933MCB1J",
+  "ECOLipak Bamboo Toilet Paper": "https://www.amazon.com/ECOLipak-Bamboo-Absorbent-Friendly-Dye-Free/dp/B0DTJY4MWM",
+  "Betterway Bamboo Paper Towels": "https://www.amazon.com/Betterway-Bamboo-Paper-Towels-Compostable/dp/B08L5JSX8R",
+  "CAROTE Nonstick Cookware Set": "https://www.amazon.com/CAROTE-Nonstick-Cookware-Induction-Saucepans/dp/B0C8HPJW4J",
+  "Glass Storage Containers with Bamboo Lids": "https://www.amazon.com/HomArtist-Canisters-Airtight-Storage-Containers/dp/B0BRQDD886",
+  "Glass Water Pitcher": "https://www.amazon.com/Delove-Shatterproof-Stainless-Borosilicate-Beverage/dp/B087M4BCMT",
+  "Wooden Plates": "https://www.amazon.com/4-11inch-Unbreakable-Lightweight-Housewarming-Christmas/dp/B08NFDV9S8",
+  "GreenWorks Compostable Plates": "https://www.amazon.com/GreenWorks-Compostable-Plates-Bagasse-Disposable/dp/B0DMKF5QWJ",
+  "Neoprene Dumbbell (10lb)": "https://www.amazon.com/dp/B01D20PUWW",
+};
 
 interface Category {
   id: string;
@@ -257,11 +332,23 @@ const CATEGORIES: Category[] = [
 
 // Product card component
 function ProductCard({ product }: { product: Product }) {
+  const amazonUrl = product.url || AMAZON_LINKS[product.name];
   return (
     <div className="group py-6 border-b border-foreground/5 last:border-b-0">
       <div className="flex flex-col gap-2">
         <div className="flex items-baseline gap-3">
-          <h4 className={`${T.s} text-foreground/90 font-medium`}>{product.name}</h4>
+          {amazonUrl ? (
+            <a
+              href={amazonUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${T.s} text-foreground/90 font-medium hover:text-foreground underline underline-offset-4 decoration-foreground/15 hover:decoration-foreground/40 transition-colors`}
+            >
+              {product.name}
+            </a>
+          ) : (
+            <h4 className={`${T.s} text-foreground/90 font-medium`}>{product.name}</h4>
+          )}
           <span className={`${T.label} shrink-0`}>{product.brand}</span>
         </div>
         <p className={`${T.s} text-foreground/55 leading-relaxed`}>{product.health}</p>
@@ -498,6 +585,21 @@ export default function CuratedProducts() {
                 </Link>
               </Button>
             </div>
+            <FadeIn delay={0.2}>
+              <p className="text-center text-foreground/25 text-sm mt-16">
+                Created by{" "}
+                <a
+                  href="https://x.com/saaborz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground/40 hover:text-foreground transition-colors underline underline-offset-4"
+                >
+                  @sahin
+                </a>
+                {" "}&{" "}
+                <span className="text-foreground/40">Manus</span>
+              </p>
+            </FadeIn>
           </div>
         </div>
       </section>
