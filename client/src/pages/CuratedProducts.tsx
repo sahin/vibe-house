@@ -6,6 +6,7 @@
 */
 
 import { Button } from "@/components/ui/button";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { ArrowLeft, Menu, X, ChevronDown, Droplets, Wind, Leaf, Coffee, Pill, Sparkles, Gem, Moon, Droplet, ChefHat, Dumbbell } from "lucide-react";
 import { Link } from "wouter";
@@ -401,6 +402,13 @@ export default function CuratedProducts() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO
+        title="The Founder's Pharmacy"
+        description="57 curated products for the biological founder. Essential oils, nebulizing diffusers, ceremonial teas, crystals, organic sleep systems, and clean living infrastructure — each chosen for evidence-based health benefits."
+        path="/biological-founder/curated-products"
+        keywords="founder pharmacy, curated products, essential oils, nebulizing diffuser, ceremonial tea, crystals, organic sleep, clean living, health optimization, biohacking"
+        ogType="article"
+      />
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
         <div className="container flex items-center justify-between h-16 md:h-20">

@@ -5,6 +5,7 @@
 */
 
 import { Button } from "@/components/ui/button";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Menu, X, ChevronDown } from "lucide-react";
 import { Link } from "wouter";
@@ -164,6 +165,13 @@ export default function BiologicalFounder() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO
+        title="The Biological Founder"
+        description="10 essays on engineering human flourishing. From essential oils and tea ceremonies to nervous system design and spiritual infrastructure — a blueprint for founders who build with their biology, not against it."
+        path="/biological-founder"
+        keywords="biological founder, human flourishing, founder health, essential oils, tea ceremony, nervous system, spiritual infrastructure, hacker house"
+        ogType="article"
+      />
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
         <div className="container flex items-center justify-between h-16 md:h-20">

@@ -5,6 +5,7 @@
 */
 
 import { Button } from "@/components/ui/button";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Menu, X } from "lucide-react";
 import { Link } from "wouter";
@@ -91,6 +92,13 @@ export default function WhyNow() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO
+        title="Why Now?"
+        description="The thesis behind Vibe House SF. Why exited founders need a new kind of space — one designed for biology, not just productivity. A manifesto for building without burning out."
+        path="/why"
+        keywords="founder wellness, burnout, hacker house thesis, vibe coding, deep work, biological optimization, San Francisco"
+        ogType="article"
+      />
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
         <div className="container flex items-center justify-between h-16 md:h-20">

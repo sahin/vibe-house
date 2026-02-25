@@ -6,6 +6,7 @@
 */
 
 import { Button } from "@/components/ui/button";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
@@ -132,6 +133,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO
+        title="Vibe House SF — A Hacker House for Exited Founders"
+        description="A new type of hacker house in San Francisco for exited technical founders. Vibe code together in a space designed for deep work, health, and human flourishing."
+        path="/"
+        keywords="hacker house, San Francisco, founders, vibe coding, coliving, deep work, startup, exited founders"
+      />
       <GeometricBackground />
 
       {/* Navigation */}

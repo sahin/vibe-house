@@ -99,3 +99,7 @@
 - [x] Update footer credit: @sahin links to Twitter, Manus links to manus.im
 - [x] Add "THE FOUNDER'S PHARMACY →" as nav menu item across all pages (Home, WhyNow, BiologicalFounder)
 - [x] Add typographic category index at the bottom of the Curated Products page
+- [x] Add meta tags (title, description, OG, Twitter Cards) to Home page
+- [x] Add meta tags (title, description, OG, Twitter Cards) to Why Now page
+- [x] Add meta tags (title, description, OG, Twitter Cards) to Biological Founder page
+- [x] Add meta tags (title, description, OG, Twitter Cards) to Curated Products page
