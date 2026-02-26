@@ -112,7 +112,7 @@ function Section({
 }
 
 export default function Home() {
-  const { navSuffix, footerText } = useBranding();
+  const { navSuffix, footerText, href: h } = useBranding();
   const [navVisible, setNavVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
@@ -152,9 +152,9 @@ export default function Home() {
           <div className="hidden md:flex items-center gap-10">
             {content.nav.links.map((link: any) =>
               link.href.startsWith('/') ? (
-                <Link key={link.href} href={link.href} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{link.label}</Link>
+                <Link key={link.href} href={h(link.href)} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{link.label}</Link>
               ) : (
-                <a key={link.href} href={link.href} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{link.label}</a>
+                <a key={link.href} href={h(link.href)} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{link.label}</a>
               )
             )}
           </div>
@@ -186,7 +186,7 @@ export default function Home() {
                 link.href.startsWith('/') ? (
                   <Link
                     key={link.href}
-                    href={link.href}
+                    href={h(link.href)}
                     className={`${T.nav} text-foreground/60 hover:text-foreground transition-colors duration-300`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -195,7 +195,7 @@ export default function Home() {
                 ) : (
                   <a
                     key={link.href}
-                    href={link.href}
+                    href={h(link.href)}
                     className={`${T.nav} text-foreground/60 hover:text-foreground transition-colors duration-300`}
                     onClick={() => setMobileMenuOpen(false)}
                   >

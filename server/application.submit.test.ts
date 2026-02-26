@@ -12,6 +12,11 @@ vi.mock("./notifyAdmins", () => ({
   notifyAdmins: vi.fn().mockResolvedValue(true),
 }));
 
+// Mock the airtable module
+vi.mock("./airtable", () => ({
+  createAirtableRecord: vi.fn().mockResolvedValue(undefined),
+}));
+
 function createPublicContext(): TrpcContext {
   return {
     user: null,

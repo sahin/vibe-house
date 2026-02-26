@@ -382,7 +382,7 @@ function TOCItem({ number, title, id }: { number: string; title: string; id: str
 }
 
 export default function CuratedProducts() {
-  const { navSuffix, footerText } = useBranding();
+  const { navSuffix, footerText, href: h } = useBranding();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [tocOpen, setTocOpen] = useState(true);
 
@@ -405,17 +405,17 @@ export default function CuratedProducts() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
         <div className="container flex items-center justify-between h-16 md:h-20">
-          <Link href="/" className={`${T.nav} font-body font-medium whitespace-nowrap`}>
+          <Link href={h("/")} className={`${T.nav} font-body font-medium whitespace-nowrap`}>
             Vibe House <span className="text-foreground/40">{navSuffix}</span>
           </Link>
           <div className="hidden md:flex items-center gap-10">
-            <Link href="/why" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Why Now</Link>
-            <Link href="/biological-founder" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Biological Founder</Link>
-            <Link href="/the-founders-pharmacy" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>The Founder's Pharmacy</Link>
+            <Link href={h("/why")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Why Now</Link>
+            <Link href={h("/biological-founder")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Biological Founder</Link>
+            <Link href={h("/the-founders-pharmacy")} className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>The Founder's Pharmacy</Link>
           </div>
           <div className="flex items-center gap-3">
             <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
-              <Link href="/#join">Join our next event</Link>
+              <Link href={h("/#join")}>Join our next event</Link>
             </Button>
             <button
               className="md:hidden p-2 text-foreground/70 hover:text-foreground transition-colors"
@@ -437,13 +437,13 @@ export default function CuratedProducts() {
             transition={{ duration: 0.2 }}
           >
             <div className="container py-6 flex flex-col gap-5">
-              <Link href="/why" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
+              <Link href={h("/why")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
                 Why Now
               </Link>
-              <Link href="/biological-founder" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
+              <Link href={h("/biological-founder")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
                 Biological Founder
               </Link>
-              <Link href="/the-founders-pharmacy" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
+              <Link href={h("/the-founders-pharmacy")} className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
                 The Founder's Pharmacy
               </Link>
             </div>
@@ -466,7 +466,7 @@ export default function CuratedProducts() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <Link href="/biological-founder" className={`${T.nav} text-foreground/40 hover:text-foreground transition-colors inline-flex items-center gap-2 mb-12`}>
+              <Link href={h("/biological-founder")} className={`${T.nav} text-foreground/40 hover:text-foreground transition-colors inline-flex items-center gap-2 mb-12`}>
                 <ArrowLeft className="w-3 h-3" /> Back to Biological Founder
               </Link>
             </motion.div>
@@ -592,7 +592,7 @@ export default function CuratedProducts() {
             </FadeIn>
             <div className="flex justify-center mt-12">
               <Button asChild variant="outline" className={`${T.nav} rounded-full px-8 py-6 border-foreground/15 hover:bg-foreground/5`}>
-                <Link href="/biological-founder">
+                <Link href={h("/biological-founder")}>
                   <ArrowLeft className="w-3 h-3 mr-2" /> Back to Articles
                 </Link>
               </Button>

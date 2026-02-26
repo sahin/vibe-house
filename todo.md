@@ -109,3 +109,4 @@
 - [x] Make "Lovie HQ" branding conditional — only show when URL contains lovie.co, otherwise show "SF"
 - [x] Remove Movement & Fitness section from Curated Products page
 - [x] Change URL from /biological-founder/curated-products to /the-founders-pharmacy across all pages
+- [x] Fix internal links to use /about/location prefix when served from lovie.co
