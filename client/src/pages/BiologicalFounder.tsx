@@ -183,7 +183,7 @@ export default function BiologicalFounder() {
           <div className="hidden md:flex items-center gap-10">
             <Link href="/why" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Why Now</Link>
             <Link href="/biological-founder" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>Biological Founder</Link>
-            <Link href="/biological-founder/curated-products" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>The Founder's Pharmacy</Link>
+            <Link href="/the-founders-pharmacy" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>The Founder's Pharmacy</Link>
           </div>
           <div className="flex items-center gap-3">
             <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
@@ -215,7 +215,7 @@ export default function BiologicalFounder() {
               <Link href="/biological-founder" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
                 Biological Founder
               </Link>
-              <Link href="/biological-founder/curated-products" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/the-founders-pharmacy" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
                 The Founder's Pharmacy
               </Link>
             </div>
@@ -243,7 +243,7 @@ export default function BiologicalFounder() {
                   <ArrowLeft className="w-3 h-3" /> Back to home
                 </Link>
                 <span className={`${T.nav} text-foreground/15`}>/</span>
-                <Link href="/biological-founder/curated-products" className={`${T.nav} text-foreground/40 hover:text-foreground transition-colors inline-flex items-center gap-2`}>
+                <Link href="/the-founders-pharmacy" className={`${T.nav} text-foreground/40 hover:text-foreground transition-colors inline-flex items-center gap-2`}>
                   The Founder's Pharmacy <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
@@ -715,7 +715,7 @@ export default function BiologicalFounder() {
                   size="lg"
                   className={`${T.m} rounded-full px-10 py-7 border-foreground/15 hover:bg-foreground/5`}
                 >
-                  <Link href="/biological-founder/curated-products">
+                  <Link href="/the-founders-pharmacy">
                     Explore Curated Products <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>

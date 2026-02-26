@@ -107,3 +107,5 @@
 - [x] Update nav header from "Vibe House SF" to "Vibe House | Lovie HQ" across all pages
 - [x] Update footer branding to "VIBE HOUSE SF | Lovie HQ" across all pages
 - [x] Make "Lovie HQ" branding conditional — only show when URL contains lovie.co, otherwise show "SF"
+- [x] Remove Movement & Fitness section from Curated Products page
+- [x] Change URL from /biological-founder/curated-products to /the-founders-pharmacy across all pages

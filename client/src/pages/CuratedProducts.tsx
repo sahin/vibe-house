@@ -8,7 +8,7 @@
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
-import { ArrowLeft, Menu, X, ChevronDown, Droplets, Wind, Leaf, Coffee, Pill, Sparkles, Gem, Moon, Droplet, ChefHat, Dumbbell } from "lucide-react";
+import { ArrowLeft, Menu, X, ChevronDown, Droplets, Wind, Leaf, Coffee, Pill, Sparkles, Gem, Moon, Droplet, ChefHat } from "lucide-react";
 import { Link } from "wouter";
 import { useState, useMemo } from "react";
 import { useBranding } from "@/hooks/useBranding";
@@ -25,7 +25,7 @@ const T = {
 
 // Icon map
 const ICONS: Record<string, React.ElementType> = {
-  Droplets, Wind, Leaf, Coffee, Pill, Sparkles, Gem, Moon, Droplet, ChefHat, Dumbbell,
+  Droplets, Wind, Leaf, Coffee, Pill, Sparkles, Gem, Moon, Droplet, ChefHat,
   Honey: Droplets,
 };
 
@@ -144,7 +144,6 @@ const AMAZON_LINKS: Record<string, string> = {
   "Glass Water Pitcher": "https://www.amazon.com/Delove-Shatterproof-Stainless-Borosilicate-Beverage/dp/B087M4BCMT",
   "Wooden Plates": "https://www.amazon.com/4-11inch-Unbreakable-Lightweight-Housewarming-Christmas/dp/B08NFDV9S8",
   "GreenWorks Compostable Plates": "https://www.amazon.com/GreenWorks-Compostable-Plates-Bagasse-Disposable/dp/B0DMKF5QWJ",
-  "Neoprene Dumbbell (10lb)": "https://www.amazon.com/dp/B01D20PUWW",
 };
 
 interface Category {
@@ -300,15 +299,7 @@ const CATEGORIES: Category[] = [
       { name: "GreenWorks Compostable Plates", brand: "GreenWorks", health: "Unbleached bamboo fiber plates — fully compostable and free of PFAS coatings found in many 'eco-friendly' disposable plates. No chlorine bleaching means no dioxin residues." },
     ],
   },
-  {
-    id: "movement",
-    title: "Movement & Fitness",
-    icon: "Dumbbell",
-    philosophy: "The body is the founder's first instrument. We keep weights accessible — not in a gym, but in the living space — because movement should be woven into the day, not scheduled around it.",
-    products: [
-      { name: "Neoprene Dumbbell (10lb)", brand: "Gaiam", health: "Resistance training increases bone density, improves insulin sensitivity, and boosts BDNF (brain-derived neurotrophic factor) — the protein that grows new neurons. Keeping weights visible reduces friction to movement." },
-    ],
-  },
+
 ];
 
 // Product card component
@@ -407,7 +398,7 @@ export default function CuratedProducts() {
       <SEO
         title="The Founder's Pharmacy"
         description="57 curated products for the biological founder. Essential oils, nebulizing diffusers, ceremonial teas, crystals, organic sleep systems, and clean living infrastructure — each chosen for evidence-based health benefits."
-        path="/biological-founder/curated-products"
+        path="/the-founders-pharmacy"
         keywords="founder pharmacy, curated products, essential oils, nebulizing diffuser, ceremonial tea, crystals, organic sleep, clean living, health optimization, biohacking"
         ogType="article"
       />
@@ -420,7 +411,7 @@ export default function CuratedProducts() {
           <div className="hidden md:flex items-center gap-10">
             <Link href="/why" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Why Now</Link>
             <Link href="/biological-founder" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Biological Founder</Link>
-            <Link href="/biological-founder/curated-products" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>The Founder's Pharmacy</Link>
+            <Link href="/the-founders-pharmacy" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>The Founder's Pharmacy</Link>
           </div>
           <div className="flex items-center gap-3">
             <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
@@ -452,7 +443,7 @@ export default function CuratedProducts() {
               <Link href="/biological-founder" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
                 Biological Founder
               </Link>
-              <Link href="/biological-founder/curated-products" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/the-founders-pharmacy" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
                 The Founder's Pharmacy
               </Link>
             </div>
