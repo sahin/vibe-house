@@ -103,3 +103,6 @@
 - [x] Add meta tags (title, description, OG, Twitter Cards) to Why Now page
 - [x] Add meta tags (title, description, OG, Twitter Cards) to Biological Founder page
 - [x] Add meta tags (title, description, OG, Twitter Cards) to Curated Products page
+- [x] Update SEO base URL to https://www.lovie.co/about/location
+- [x] Update nav header from "Vibe House SF" to "Vibe House | Lovie HQ" across all pages
+- [x] Update footer branding to "VIBE HOUSE SF | Lovie HQ" across all pages

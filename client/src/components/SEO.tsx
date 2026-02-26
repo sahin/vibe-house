@@ -22,7 +22,7 @@ export default function SEO({
   keywords,
 }: SEOProps) {
   const fullUrl = `${BASE_URL}${path}`;
-  const fullTitle = path === "/" ? title : `${title} — Vibe House SF`;
+  const fullTitle = path === "/" ? title : `${title} — Vibe House | Lovie HQ`;
 
   return (
     <Helmet>
@@ -38,7 +38,7 @@ export default function SEO({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage} />
-      <meta property="og:site_name" content="Vibe House SF" />
+      <meta property="og:site_name" content="Vibe House | Lovie HQ" />
       <meta property="og:locale" content="en_US" />
 
       {/* Twitter */}
@@ -51,7 +51,7 @@ export default function SEO({
 
       {/* Additional */}
       <meta name="robots" content="index, follow" />
-      <meta name="author" content="Vibe House SF" />
+      <meta name="author" content="Vibe House | Lovie HQ" />
     </Helmet>
   );
 }

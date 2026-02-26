@@ -5,7 +5,7 @@
 
 nav:
   logo: "Vibe House"
-  logo_suffix: "SF"
+  logo_suffix: "| Lovie HQ"
   links:
     - label: "Why Now"
       href: "/why"
@@ -72,5 +72,5 @@ join:
 
 footer:
   logo: "Vibe House"
-  logo_suffix: "SF"
+  logo_suffix: "SF | Lovie HQ"
   location: "San Francisco, California"
