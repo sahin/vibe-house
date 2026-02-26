@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Menu, X } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
+import { useBranding } from "@/hooks/useBranding";
 
 // Typography — matching Home.tsx
 const T = {
@@ -88,6 +89,7 @@ function Chapter({
 }
 
 export default function WhyNow() {
+  const { navSuffix, footerText } = useBranding();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -103,7 +105,7 @@ export default function WhyNow() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
         <div className="container flex items-center justify-between h-16 md:h-20">
           <Link href="/" className={`${T.nav} font-body font-medium whitespace-nowrap`}>
-            Vibe House <span className="text-foreground/40">| Lovie HQ</span>
+            Vibe House <span className="text-foreground/40">{navSuffix}</span>
           </Link>
           <div className="hidden md:flex items-center gap-10">
             <Link href="/why" className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>Why Now</Link>
@@ -359,7 +361,7 @@ export default function WhyNow() {
         <div className="container">
           <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <p className={`${T.nav} text-foreground/30`}>
-               Vibe House SF | Lovie HQ
+               {footerText}
 
             </p>
             <p className={`${T.nav} text-foreground/30`}>

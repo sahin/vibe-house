@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { useBranding } from "@/hooks/useBranding";
 
 interface SEOProps {
   title: string;
@@ -10,8 +11,6 @@ interface SEOProps {
   keywords?: string;
 }
 
-const BASE_URL = "https://www.lovie.co/about/location";
-
 export default function SEO({
   title,
   description,
@@ -21,8 +20,9 @@ export default function SEO({
   twitterHandle = "@saaborz",
   keywords,
 }: SEOProps) {
-  const fullUrl = `${BASE_URL}${path}`;
-  const fullTitle = path === "/" ? title : `${title} — Vibe House | Lovie HQ`;
+  const { siteName, baseUrl } = useBranding();
+  const fullUrl = `${baseUrl}${path}`;
+  const fullTitle = path === "/" ? title : `${title} — ${siteName}`;
 
   return (
     <Helmet>
@@ -38,7 +38,7 @@ export default function SEO({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage} />
-      <meta property="og:site_name" content="Vibe House | Lovie HQ" />
+      <meta property="og:site_name" content={siteName} />
       <meta property="og:locale" content="en_US" />
 
       {/* Twitter */}
@@ -51,7 +51,7 @@ export default function SEO({
 
       {/* Additional */}
       <meta name="robots" content="index, follow" />
-      <meta name="author" content="Vibe House | Lovie HQ" />
+      <meta name="author" content={siteName} />
     </Helmet>
   );
 }

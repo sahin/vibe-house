@@ -13,6 +13,7 @@ import { ArrowRight, Menu, X } from "lucide-react";
 import { Link } from "wouter";
 import content from "@/content.yaml";
 import ApplicationForm from "@/components/ApplicationForm";
+import { useBranding } from "@/hooks/useBranding";
 
 // Image URLs
 const IMAGES = {
@@ -111,6 +112,7 @@ function Section({
 }
 
 export default function Home() {
+  const { navSuffix, footerText } = useBranding();
   const [navVisible, setNavVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
@@ -134,7 +136,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEO
-        title="Vibe House | Lovie HQ — A Hacker House for Exited Founders"
+        title="Vibe House SF — A Hacker House for Exited Founders"
         description="A new type of hacker house in San Francisco for exited technical founders. Vibe code together in a space designed for deep work, health, and human flourishing."
         path="/"
         keywords="hacker house, San Francisco, founders, vibe coding, coliving, deep work, startup, exited founders"
@@ -145,7 +147,7 @@ export default function Home() {
       <nav className={`fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5 transition-transform duration-300 ${navVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="container flex items-center justify-between h-16 md:h-20">
           <a href="#" className={`${T.nav} font-body font-medium whitespace-nowrap`}>
-            {content.nav.logo} <span className="text-foreground/40">{content.nav.logo_suffix}</span>
+            {content.nav.logo} <span className="text-foreground/40">{navSuffix}</span>
           </a>
           <div className="hidden md:flex items-center gap-10">
             {content.nav.links.map((link: any) =>
@@ -510,7 +512,7 @@ export default function Home() {
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <p className={`${T.m} font-medium tracking-[0.12em] uppercase`}>
-              {content.footer.logo} <span className="text-foreground/40">{content.footer.logo_suffix}</span>
+              {content.footer.logo} <span className="text-foreground/40">{footerText.replace('Vibe House ', '')}</span>
             </p>
             <p className={`${T.m} text-foreground/35`}>
               {content.footer.location}

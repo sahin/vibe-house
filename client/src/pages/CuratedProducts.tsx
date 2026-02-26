@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Menu, X, ChevronDown, Droplets, Wind, Leaf, Coffee, Pill, Sparkles, Gem, Moon, Droplet, ChefHat, Dumbbell } from "lucide-react";
 import { Link } from "wouter";
 import { useState, useMemo } from "react";
+import { useBranding } from "@/hooks/useBranding";
 
 // Typography — matching site-wide system
 const T = {
@@ -390,6 +391,7 @@ function TOCItem({ number, title, id }: { number: string; title: string; id: str
 }
 
 export default function CuratedProducts() {
+  const { navSuffix, footerText } = useBranding();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [tocOpen, setTocOpen] = useState(true);
 
@@ -413,7 +415,7 @@ export default function CuratedProducts() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
         <div className="container flex items-center justify-between h-16 md:h-20">
           <Link href="/" className={`${T.nav} font-body font-medium whitespace-nowrap`}>
-            Vibe House <span className="text-foreground/40">| Lovie HQ</span>
+            Vibe House <span className="text-foreground/40">{navSuffix}</span>
           </Link>
           <div className="hidden md:flex items-center gap-10">
             <Link href="/why" className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Why Now</Link>
