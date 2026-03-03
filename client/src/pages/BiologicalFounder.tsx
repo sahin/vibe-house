@@ -148,7 +148,7 @@ function TOCItem({ number, title, id }: { number: string; title: string; id: str
 }
 
 export default function BiologicalFounder() {
-  const { navSuffix, footerText, href: h } = useBranding();
+  const { navSuffix, footerText, href: h, copy } = useBranding();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [tocOpen, setTocOpen] = useState(true);
 
@@ -169,7 +169,7 @@ export default function BiologicalFounder() {
     <div className="min-h-screen bg-background text-foreground">
       <SEO
         title="The Biological Founder"
-        description="10 essays on engineering human flourishing. From essential oils and tea ceremonies to nervous system design and spiritual infrastructure — a blueprint for founders who build with their biology, not against it."
+        description={copy.seoBioFounderDescription}
         path="/biological-founder"
         keywords="biological founder, human flourishing, founder health, essential oils, tea ceremony, nervous system, spiritual infrastructure, hacker house"
         ogType="article"

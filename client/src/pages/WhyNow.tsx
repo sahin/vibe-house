@@ -89,16 +89,16 @@ function Chapter({
 }
 
 export default function WhyNow() {
-  const { navSuffix, footerText, href: h } = useBranding();
+  const { navSuffix, footerText, href: h, copy } = useBranding();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEO
         title="Why Now?"
-        description="The thesis behind Vibe House SF. Why exited founders need a new kind of space — one designed for biology, not just productivity. A manifesto for building without burning out."
+        description={copy.seoWhyNowDescription}
         path="/why"
-        keywords="founder wellness, burnout, hacker house thesis, vibe coding, deep work, biological optimization, San Francisco"
+        keywords={copy.seoWhyNowKeywords}
         ogType="article"
       />
       {/* Navigation */}
@@ -214,16 +214,10 @@ export default function WhyNow() {
       {/* Chapter 1: The Origin */}
       <Chapter number="01" title="We Were Builders">
         <p className={`${T.s} text-foreground/70`}>
-          Twenty years ago, we were in our 20s. We'd sit together — founders,
-          engineers, dreamers — pulling long nights, building and building and
-          building. We didn't call it work. We called it Tuesday.
+          {copy.whyNow_ch1_p1}
         </p>
         <p className={`${T.s} text-foreground/70`}>
-          Every startup had that story: the garage, the living room, the
-          whiteboard covered in ideas at 3am. Most companies were born in those
-          long nights. Founders who couldn't stop shipping. Teams that lived and
-          breathed the product. The energy was electric — you could feel it in
-          every line of code.
+          {copy.whyNow_ch1_p2}
         </p>
         <p className={`${T.s} text-foreground/70`}>
           That was the original hacker house. Not a brand. Not a concept. Just
@@ -240,10 +234,7 @@ export default function WhyNow() {
           advisors. We went from writing code to writing memos.
         </p>
         <p className={`${T.s} text-foreground/70`}>
-          The garage spirit faded. Building became about fundraising, not making.
-          About decks, not demos. The founders who once couldn't stop shipping
-          found themselves in a world where shipping meant something entirely
-          different.
+          {copy.whyNow_ch2_p2}
         </p>
       </Chapter>
 
@@ -256,10 +247,7 @@ export default function WhyNow() {
           again.
         </p>
         <p className={`${T.s} text-foreground/70`}>
-          Founders in their 30s and 40s — people who exited, who managed teams,
-          who stopped building with their hands — are going back to builder mode.
-          With AI agents, they can build again. And they're building things that
-          would have taken entire teams.
+          {copy.whyNow_ch3_p2}
         </p>
       </Chapter>
 
@@ -286,10 +274,7 @@ export default function WhyNow() {
           impossible to keep up alone.
         </p>
         <p className={`${T.s} text-foreground/70`}>
-          That's exactly why founders and builders need to come together — to
-          build together, to share how they're using AI, to learn from each other
-          in real time. The ones who stay connected to the edge will define what
-          comes next.
+          {copy.whyNow_ch5_p2}
         </p>
       </Chapter>
 
@@ -301,9 +286,7 @@ export default function WhyNow() {
           One person can build what used to take a team of ten.
         </p>
         <p className={`${T.s} text-foreground/70`}>
-          Founders in their 30s and 40s are going back to builder mode — and
-          they're more dangerous than ever. They have the experience, the taste,
-          the network. Now they have the tools too.
+          {copy.whyNow_ch6_p2}
         </p>
       </Chapter>
 
@@ -327,10 +310,7 @@ export default function WhyNow() {
           building. For that feeling.
         </p>
         <p className={`${T.s} text-foreground/70`}>
-          A place where technical founders come together, multiple times a week,
-          to vibe code. You work on your own project. You share your prompts,
-          your workflows, your breakthroughs. And there's an ongoing group
-          project that everyone prompts together.
+          {copy.whyNow_ch8_p2}
         </p>
         <p className={`${T.s} text-foreground/70 font-medium`}>
           Come build with us.

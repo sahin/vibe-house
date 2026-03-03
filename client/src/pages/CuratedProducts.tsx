@@ -330,7 +330,7 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 // Category section
-function CategorySection({ category, index }: { category: Category; index: number }) {
+function CategorySection({ category, index, philosophyOverride }: { category: Category; index: number; philosophyOverride?: string }) {
   const IconComponent = ICONS[category.icon] || Leaf;
   const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII"];
 
@@ -349,7 +349,7 @@ function CategorySection({ category, index }: { category: Category; index: numbe
           </FadeIn>
           <Divider delay={0.2} />
           <FadeIn delay={0.3}>
-            <p className={`${T.m} text-foreground/60 mb-10 italic`}>{category.philosophy}</p>
+            <p className={`${T.m} text-foreground/60 mb-10 italic`}>{philosophyOverride || category.philosophy}</p>
           </FadeIn>
           <FadeIn delay={0.4}>
             <div>
@@ -382,7 +382,7 @@ function TOCItem({ number, title, id }: { number: string; title: string; id: str
 }
 
 export default function CuratedProducts() {
-  const { navSuffix, footerText, href: h } = useBranding();
+  const { navSuffix, footerText, href: h, copy } = useBranding();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [tocOpen, setTocOpen] = useState(true);
 
@@ -396,10 +396,10 @@ export default function CuratedProducts() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEO
-        title="The Founder's Pharmacy"
-        description="57 curated products for the biological founder. Essential oils, nebulizing diffusers, ceremonial teas, crystals, organic sleep systems, and clean living infrastructure — each chosen for evidence-based health benefits."
+        title={copy.seoCuratedTitle}
+        description={copy.seoCuratedDescription}
         path="/the-founders-pharmacy"
-        keywords="founder pharmacy, curated products, essential oils, nebulizing diffuser, ceremonial tea, crystals, organic sleep, clean living, health optimization, biohacking"
+        keywords={copy.seoCuratedKeywords}
         ogType="article"
       />
       {/* Navigation */}
@@ -545,7 +545,12 @@ export default function CuratedProducts() {
 
       {/* Categories */}
       {CATEGORIES.map((category, i) => (
-        <CategorySection key={category.id} category={category} index={i} />
+        <CategorySection
+          key={category.id}
+          category={category}
+          index={i}
+          philosophyOverride={category.id === "kitchen" ? copy.curatedKitchenPhilosophy : undefined}
+        />
       ))}
 
       {/* Category Index */}
@@ -587,7 +592,7 @@ export default function CuratedProducts() {
             <Divider />
             <FadeIn>
               <p className={`${T.m} text-foreground/40 italic text-center`}>
-                This catalog is a living document. As we discover better products, we update the house — and this page. The biological founder never stops optimizing the environment.
+                {copy.curatedBottomNote}
               </p>
             </FadeIn>
             <div className="flex justify-center mt-12">

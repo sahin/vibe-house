@@ -112,7 +112,7 @@ function Section({
 }
 
 export default function Home() {
-  const { navSuffix, footerText, href: h } = useBranding();
+  const { navSuffix, footerText, href: h, copy } = useBranding();
   const [navVisible, setNavVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
@@ -136,10 +136,10 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEO
-        title="Vibe House SF — A Hacker House for Exited Founders"
-        description="A new type of hacker house in San Francisco for exited technical founders. Vibe code together in a space designed for deep work, health, and human flourishing."
+        title={copy.seoHomeTitle}
+        description={copy.seoHomeDescription}
         path="/"
-        keywords="hacker house, San Francisco, founders, vibe coding, coliving, deep work, startup, exited founders"
+        keywords={copy.seoHomeKeywords}
       />
       <GeometricBackground />
 
@@ -251,7 +251,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
             >
-              {content.hero.definition}
+              {copy.heroDefinition}
             </motion.p>
 
             <motion.div
@@ -344,7 +344,7 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.3 }}
         >
-          {content.the_why.description}
+          {copy.whyNowDescription}
         </motion.p>
       </Section>
 
@@ -469,8 +469,8 @@ export default function Home() {
             transition={{ duration: 0.5, delay: i * 0.15 }}
           >
             <span className={`${T.xl} text-foreground/8`}>{req.number}</span>
-            <h3 className={`${T.l} mt-2 mb-3`}>{req.title}</h3>
-            <p className={`${T.m} text-foreground/55`}>{req.description}</p>
+            <h3 className={`${T.l} mt-2 mb-3`}>{req.number === "01" ? copy.joinReq1Title : req.title}</h3>
+            <p className={`${T.m} text-foreground/55`}>{req.number === "01" ? copy.joinReq1Description : req.description}</p>
             {req.badges && (
               <div className="mt-6 flex flex-wrap gap-3 items-center">
                 {req.badges.map((badge: string) => (
@@ -481,7 +481,7 @@ export default function Home() {
               </div>
             )}
             {req.badge_note && (
-              <p className={`${T.m} text-foreground/45 mt-4 italic`}>{req.badge_note}</p>
+              <p className={`${T.m} text-foreground/45 mt-4 italic`}>{req.number === "01" ? copy.joinReq1BadgeNote : req.badge_note}</p>
             )}
             {i < content.join.requirements.length - 1 && (
               <div className="w-full h-px bg-foreground/5 mt-14" />
@@ -498,13 +498,19 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          {content.join.closing.split('\n').map((line: string, i: number) => (
+          {copy.joinClosing.split('\n').map((line: string, i: number) => (
             <span key={i}>{line}{i === 0 && <br />}</span>
           ))}
         </motion.p>
 
         {/* Application Form */}
-        <ApplicationForm />
+        <ApplicationForm
+          founderTypeLabels={{
+            exitedFounder: copy.founderType_exitedFounder,
+            technicalFounder: copy.founderType_technicalFounder,
+          }}
+          communitiesLabel={copy.communitiesLabel}
+        />
       </Section>
 
       {/* Footer */}

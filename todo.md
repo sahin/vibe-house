@@ -110,3 +110,11 @@
 - [x] Remove Movement & Fitness section from Curated Products page
 - [x] Change URL from /biological-founder/curated-products to /the-founders-pharmacy across all pages
 - [x] Fix internal links to use /about/location prefix when served from lovie.co
+- [x] Create content variant system: extend useBranding() with copy dictionary for lovie.co vs default
+- [x] Swap homepage UI copy (hero definition, join section, badges) based on hostname
+- [x] Swap ApplicationForm labels (founder types, community label) based on hostname
+- [x] Swap SEO meta tags (title, description, keywords) based on hostname across all 4 pages
+- [x] Swap WhyNow body prose "founders" → "builders/team" when on lovie.co
+- [x] Swap CuratedProducts "biological founder" → "biological builder" when on lovie.co
+- [x] Update tests and verify all 17 pass
+- [ ] Produce complete substitution table for user reference

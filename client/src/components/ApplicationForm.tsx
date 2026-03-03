@@ -9,7 +9,7 @@ const T = {
   m: "leading-relaxed text-[clamp(1.15rem,2.5vw,1.5rem)]",
 };
 
-const FOUNDER_TYPES = [
+const DEFAULT_FOUNDER_TYPES = [
   { value: "exited_founder", label: "Exited Founder" },
   { value: "pef_member", label: "PEF Member" },
   { value: "superfounders_member", label: "Superfounders Member" },
@@ -75,7 +75,7 @@ const COMMUNITIES = [
   },
 ] as const;
 
-type FounderType = (typeof FOUNDER_TYPES)[number]["value"];
+type FounderType = (typeof DEFAULT_FOUNDER_TYPES)[number]["value"];
 
 /* ── Floating Label Input ── */
 function FloatingInput({
@@ -200,7 +200,21 @@ function FloatingTextarea({
   );
 }
 
-export default function ApplicationForm() {
+export default function ApplicationForm({ founderTypeLabels, communitiesLabel: communitiesLabelProp }: {
+  founderTypeLabels?: { exitedFounder?: string; technicalFounder?: string };
+  communitiesLabel?: string;
+} = {}) {
+  // Build founder types with optional label overrides
+  const FOUNDER_TYPES = DEFAULT_FOUNDER_TYPES.map((ft) => {
+    if (ft.value === "exited_founder" && founderTypeLabels?.exitedFounder) {
+      return { ...ft, label: founderTypeLabels.exitedFounder };
+    }
+    if (ft.value === "technical_founder" && founderTypeLabels?.technicalFounder) {
+      return { ...ft, label: founderTypeLabels.technicalFounder };
+    }
+    return ft;
+  });
+
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -451,7 +465,7 @@ export default function ApplicationForm() {
         {/* Your Communities */}
         <div>
           <label className="block text-foreground/40 text-sm tracking-[0.08em] uppercase mb-2">
-            Which exited founders' communities are you part of?
+            {communitiesLabelProp || "Which exited founders' communities are you part of?"}
           </label>
           <p className="text-foreground/30 text-sm mb-4">
             Select all that apply
