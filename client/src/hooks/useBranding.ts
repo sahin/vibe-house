@@ -46,6 +46,21 @@ export interface BrandingCopy {
   whyNow_ch6_p2: string;
   whyNow_ch8_p2: string;
 
+  // ── Nav labels ──
+  navLabelBioFounder: string;
+  navLabelPharmacy: string;
+
+  // ── Biological Founder page ──
+  bioFounderPageTitle: string;
+  bioFounderPageHeading: string;
+  bioFounderIntro: string;
+  bioFounderSeoKeywords: string;
+  bioFounderArticle2Title: string;
+  bioFounderArticle6Title: string;
+  bioFounderArticle8Title: string;
+  bioFounderArticle10Title: string;
+  bioFounderCtaTitle: string;
+
   // ── SEO: Biological Founder ──
   seoBioFounderDescription: string;
 
@@ -105,6 +120,21 @@ const defaultCopy: BrandingCopy = {
     "Founders in their 30s and 40s are going back to builder mode — and they're more dangerous than ever. They have the experience, the taste, the network. Now they have the tools too.",
   whyNow_ch8_p2:
     "A place where technical founders come together, multiple times a week, to vibe code. You work on your own project. You share your prompts, your workflows, your breakthroughs. And there's an ongoing group project that everyone prompts together.",
+
+  // ── Nav labels ──
+  navLabelBioFounder: "Biological Founder",
+  navLabelPharmacy: "The Founder's Pharmacy",
+
+  // ── Biological Founder page ──
+  bioFounderPageTitle: "The Biological Founder",
+  bioFounderPageHeading: "Designing for the Biological Founder",
+  bioFounderIntro: "Silicon Valley knows how to optimize machines. We optimize inference speed, model performance, capital efficiency. But we rarely optimize the founder. This series explores what happens when you treat the founder's nervous system as infrastructure.",
+  bioFounderSeoKeywords: "biological founder, human flourishing, founder health, essential oils, tea ceremony, nervous system, spiritual infrastructure, hacker house",
+  bioFounderArticle2Title: "Tea, Salt, and the Founder's Immune System",
+  bioFounderArticle6Title: "Designing for the Biological Founder",
+  bioFounderArticle8Title: "The Founder Kitchen: Food as Infrastructure",
+  bioFounderArticle10Title: "Designing a Founder House for Health",
+  bioFounderCtaTitle: "The Founder's Pharmacy",
 
   // ── SEO: Biological Founder ──
   seoBioFounderDescription:
@@ -170,12 +200,27 @@ const lovieCopy: BrandingCopy = {
   whyNow_ch8_p2:
     "A place where the Lovie team comes together, multiple times a week, to vibe code. You work on your own project. You share your prompts, your workflows, your breakthroughs. And there's an ongoing group project that everyone prompts together.",
 
+  // ── Nav labels ──
+  navLabelBioFounder: "Biological Team Member",
+  navLabelPharmacy: "The Team's Pharmacy",
+
+  // ── Biological Founder page ──
+  bioFounderPageTitle: "The Biological Team Member",
+  bioFounderPageHeading: "Designing for the Biological Team Member",
+  bioFounderIntro: "Silicon Valley knows how to optimize machines. We optimize inference speed, model performance, capital efficiency. But we rarely optimize the team member. This series explores what happens when you treat the team's nervous system as infrastructure.",
+  bioFounderSeoKeywords: "biological team member, human flourishing, team health, essential oils, tea ceremony, nervous system, spiritual infrastructure, lovie",
+  bioFounderArticle2Title: "Tea, Salt, and the Team's Immune System",
+  bioFounderArticle6Title: "Designing for the Biological Team Member",
+  bioFounderArticle8Title: "The Team Kitchen: Food as Infrastructure",
+  bioFounderArticle10Title: "Designing a Team House for Health",
+  bioFounderCtaTitle: "The Team's Pharmacy",
+
   // ── SEO: Biological Founder ──
   seoBioFounderDescription:
     "10 essays on engineering human flourishing. From essential oils and tea ceremonies to nervous system design and spiritual infrastructure — a blueprint for those who build with their biology, not against it.",
 
   // ── SEO: Curated Products ──
-  seoCuratedTitle: "The Founder's Pharmacy",
+  seoCuratedTitle: "The Team's Pharmacy",
   seoCuratedDescription:
     "57 curated products for the biological builder. Essential oils, nebulizing diffusers, ceremonial teas, crystals, organic sleep systems, and clean living infrastructure — each chosen for evidence-based health benefits.",
   seoCuratedKeywords:

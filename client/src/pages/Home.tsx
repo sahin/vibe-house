@@ -150,13 +150,16 @@ export default function Home() {
             {content.nav.logo} <span className="text-foreground/40">{navSuffix}</span>
           </a>
           <div className="hidden md:flex items-center gap-10">
-            {content.nav.links.map((link: any) =>
-              link.href.startsWith('/') ? (
-                <Link key={link.href} href={h(link.href)} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{link.label}</Link>
+            {content.nav.links.map((link: any) => {
+              const label = link.href === '/biological-founder' ? copy.navLabelBioFounder
+                : link.href === '/the-founders-pharmacy' ? copy.navLabelPharmacy
+                : link.label;
+              return link.href.startsWith('/') ? (
+                <Link key={link.href} href={h(link.href)} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{label}</Link>
               ) : (
-                <a key={link.href} href={h(link.href)} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{link.label}</a>
-              )
-            )}
+                <a key={link.href} href={h(link.href)} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{label}</a>
+              );
+            })}
           </div>
           <div className="flex items-center gap-3">
             <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
@@ -182,15 +185,18 @@ export default function Home() {
             transition={{ duration: 0.2 }}
           >
             <div className="container py-6 flex flex-col gap-5">
-              {content.nav.links.map((link: any) =>
-                link.href.startsWith('/') ? (
+              {content.nav.links.map((link: any) => {
+                const label = link.href === '/biological-founder' ? copy.navLabelBioFounder
+                  : link.href === '/the-founders-pharmacy' ? copy.navLabelPharmacy
+                  : link.label;
+                return link.href.startsWith('/') ? (
                   <Link
                     key={link.href}
                     href={h(link.href)}
                     className={`${T.nav} text-foreground/60 hover:text-foreground transition-colors duration-300`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {link.label}
+                    {label}
                   </Link>
                 ) : (
                   <a
@@ -199,10 +205,10 @@ export default function Home() {
                     className={`${T.nav} text-foreground/60 hover:text-foreground transition-colors duration-300`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {link.label}
+                    {label}
                   </a>
-                )
-              )}
+                );
+              })}
             </div>
           </motion.div>
         )}

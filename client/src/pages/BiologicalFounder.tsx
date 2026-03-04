@@ -154,24 +154,24 @@ export default function BiologicalFounder() {
 
   const articles = [
     { number: "I", title: "Engineering Human Flourishing in the Age of AI", id: "article-1" },
-    { number: "II", title: "Tea, Salt, and the Founder's Immune System", id: "article-2" },
+    { number: "II", title: copy.bioFounderArticle2Title, id: "article-2" },
     { number: "III", title: "Smudging Palo Santo in the Age of Artificial Intelligence", id: "article-3" },
     { number: "IV", title: "Silicon Valley Is Optimizing the Wrong System", id: "article-4" },
     { number: "V", title: "The Vibe House Manifesto", id: "article-5" },
-    { number: "VI", title: "Designing for the Biological Founder", id: "article-6" },
+    { number: "VI", title: copy.bioFounderArticle6Title, id: "article-6" },
     { number: "VII", title: "The House as a Nervous System", id: "article-7" },
-    { number: "VIII", title: "The Founder Kitchen: Food as Infrastructure", id: "article-8" },
+    { number: "VIII", title: copy.bioFounderArticle8Title, id: "article-8" },
     { number: "IX", title: "Spiritual Infrastructure for Builders", id: "article-9" },
-    { number: "X", title: "Designing a Founder House for Health", id: "article-10" },
+    { number: "X", title: copy.bioFounderArticle10Title, id: "article-10" },
   ];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEO
-        title="The Biological Founder"
+        title={copy.bioFounderPageTitle}
         description={copy.seoBioFounderDescription}
         path="/biological-founder"
-        keywords="biological founder, human flourishing, founder health, essential oils, tea ceremony, nervous system, spiritual infrastructure, hacker house"
+        keywords={copy.bioFounderSeoKeywords}
         ogType="article"
       />
       {/* Navigation */}
@@ -182,8 +182,8 @@ export default function BiologicalFounder() {
           </Link>
           <div className="hidden md:flex items-center gap-10">
             <Link href={h("/why")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Why Now</Link>
-            <Link href={h("/biological-founder")} className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>Biological Founder</Link>
-            <Link href={h("/the-founders-pharmacy")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>The Founder's Pharmacy</Link>
+            <Link href={h("/biological-founder")} className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>{copy.navLabelBioFounder}</Link>
+            <Link href={h("/the-founders-pharmacy")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{copy.navLabelPharmacy}</Link>
           </div>
           <div className="flex items-center gap-3">
             <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
@@ -213,10 +213,10 @@ export default function BiologicalFounder() {
                 Why Now
               </Link>
               <Link href={h("/biological-founder")} className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
-                Biological Founder
+                {copy.navLabelBioFounder}
               </Link>
               <Link href={h("/the-founders-pharmacy")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`} onClick={() => setMobileMenuOpen(false)}>
-                The Founder's Pharmacy
+                {copy.navLabelPharmacy}
               </Link>
             </div>
           </motion.div>
@@ -244,7 +244,7 @@ export default function BiologicalFounder() {
                 </Link>
                 <span className={`${T.nav} text-foreground/15`}>/</span>
                 <Link href={h("/the-founders-pharmacy")} className={`${T.nav} text-foreground/40 hover:text-foreground transition-colors inline-flex items-center gap-2`}>
-                  The Founder's Pharmacy <ArrowRight className="w-3 h-3" />
+                  {copy.navLabelPharmacy} <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </motion.div>
@@ -264,7 +264,7 @@ export default function BiologicalFounder() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Designing for the Biological Founder
+              {copy.bioFounderPageHeading}
             </motion.h1>
 
             <motion.div
@@ -280,7 +280,7 @@ export default function BiologicalFounder() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5 }}
             >
-              Silicon Valley knows how to optimize machines. We optimize inference speed, model performance, capital efficiency. But we rarely optimize the founder. This series explores what happens when you treat the founder's nervous system as infrastructure.
+              {copy.bioFounderIntro}
             </motion.p>
           </motion.div>
         </div>
@@ -703,7 +703,7 @@ export default function BiologicalFounder() {
           <div className="max-w-4xl mx-auto">
             <FadeIn>
               <p className={`${T.label} mb-6 text-center`}>Continue Reading</p>
-              <h2 className={`${T.l} text-center mb-4`}>The Founder's Pharmacy</h2>
+              <h2 className={`${T.l} text-center mb-4`}>{copy.bioFounderCtaTitle}</h2>
               <Divider />
               <p className={`${T.m} text-foreground/60 text-center mb-10`}>
                 Every product in Vibe House was chosen with intention. Explore the full catalog of what we stock and why — from essential oils to organic sleep textiles.

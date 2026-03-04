@@ -127,3 +127,8 @@
 - [x] Create reusable skill for commit hash meta tag feature
 - [x] Fix 404 on /about/location/why route (and other /about/location/* paths)
 - [x] Update all internal nav links to use base path when on /about/location/ prefix
+- [x] Rename "Biological Founder" → "Biological Team Member" in nav labels on Lovie
+- [x] Rename "The Founder's Pharmacy" → "The Team's Pharmacy" in nav on Lovie
+- [x] Update BiologicalFounder page title/headings/body "founder" → "team member" on Lovie
+- [x] Update CuratedProducts page title "Founder's Pharmacy" → "The Team's Pharmacy" on Lovie
+- [x] Audit and update all remaining "founder" mentions in page content for Lovie version (nav, headings, TOC, breadcrumbs, CTAs — article body kept as editorial)

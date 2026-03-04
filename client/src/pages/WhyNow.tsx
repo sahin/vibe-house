@@ -109,8 +109,8 @@ export default function WhyNow() {
           </Link>
           <div className="hidden md:flex items-center gap-10">
             <Link href={h("/why")} className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>Why Now</Link>
-            <Link href={h("/biological-founder")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Biological Founder</Link>
-            <Link href={h("/the-founders-pharmacy")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>The Founder's Pharmacy</Link>
+            <Link href={h("/biological-founder")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{copy.navLabelBioFounder}</Link>
+            <Link href={h("/the-founders-pharmacy")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{copy.navLabelPharmacy}</Link>
           </div>
           <div className="flex items-center gap-3">
             <Button asChild className={`bg-foreground text-background hover:bg-foreground/90 ${T.nav} rounded-full px-5 py-2`}>
@@ -148,14 +148,14 @@ export default function WhyNow() {
                 className={`${T.nav} text-foreground/60 hover:text-foreground transition-colors duration-300`}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Biological Founder
+                {copy.navLabelBioFounder}
               </Link>
               <Link
                 href={h("/the-founders-pharmacy")}
                 className={`${T.nav} text-foreground/60 hover:text-foreground transition-colors duration-300`}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                The Founder's Pharmacy
+                {copy.navLabelPharmacy}
               </Link>
             </div>
           </motion.div>
