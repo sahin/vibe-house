@@ -613,15 +613,6 @@ export default function CuratedProducts() {
                 >
                   @sahin
                 </a>
-                {" "}&{" "}
-                <a
-                  href="https://manus.im"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/40 hover:text-foreground transition-colors underline underline-offset-4"
-                >
-                  Manus
-                </a>
               </p>
             </FadeIn>
           </div>

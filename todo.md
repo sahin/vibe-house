@@ -135,3 +135,4 @@
 - [x] Persist ?isLovie=true in sessionStorage so Lovie branding persists across page navigation
 - [x] Replace all remaining "founder" mentions in 10 article bodies with team member language on Lovie
 - [x] Save checkpoint for publishing to make changes live
+- [x] Remove "Manus" from "Created by @sahin & Manus" footer credit
