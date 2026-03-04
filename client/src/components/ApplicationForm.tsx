@@ -200,9 +200,10 @@ function FloatingTextarea({
   );
 }
 
-export default function ApplicationForm({ founderTypeLabels, communitiesLabel: communitiesLabelProp }: {
+export default function ApplicationForm({ founderTypeLabels, communitiesLabel: communitiesLabelProp, hideCommunities }: {
   founderTypeLabels?: { exitedFounder?: string; technicalFounder?: string };
   communitiesLabel?: string;
+  hideCommunities?: boolean;
 } = {}) {
   // Build founder types with optional label overrides
   const FOUNDER_TYPES = DEFAULT_FOUNDER_TYPES.map((ft) => {
@@ -462,58 +463,60 @@ export default function ApplicationForm({ founderTypeLabels, communitiesLabel: c
           </AnimatePresence>
         </div>
 
-        {/* Your Communities */}
-        <div>
-          <label className="block text-foreground/40 text-sm tracking-[0.08em] uppercase mb-2">
-            {communitiesLabelProp || "Which exited founders' communities are you part of?"}
-          </label>
-          <p className="text-foreground/30 text-sm mb-4">
-            Select all that apply
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-2">
-            {COMMUNITIES.map((community) => {
-              const isSelected = communities.includes(community.value);
-              return (
-                <button
-                  key={community.value}
-                  type="button"
-                  onClick={() => toggleCommunity(community.value)}
-                  className={`relative flex flex-col items-center justify-center gap-2 px-4 py-5 rounded-xl border transition-all duration-300 ${
-                    isSelected
-                      ? "bg-foreground/5 border-foreground/30 ring-1 ring-foreground/20"
-                      : "border-foreground/10 hover:border-foreground/20 hover:bg-foreground/[0.02]"
-                  }`}
-                >
-                  {isSelected && (
-                    <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-foreground flex items-center justify-center">
-                      <Check className="w-3 h-3 text-background" />
-                    </div>
-                  )}
-                  {community.logo ? (
-                    <img
-                      src={community.logo}
-                      alt={community.label}
-                      className="h-8 w-auto max-w-[100px] object-contain"
-                    />
-                  ) : (
-                    <span className="text-sm font-semibold text-foreground/70 tracking-wide">
-                      {community.label}
-                    </span>
-                  )}
-                  <span
-                    className={`text-xs tracking-wide ${
+        {/* Your Communities — hidden on lovie.co */}
+        {!hideCommunities && (
+          <div>
+            <label className="block text-foreground/40 text-sm tracking-[0.08em] uppercase mb-2">
+              {communitiesLabelProp || "Which exited founders' communities are you part of?"}
+            </label>
+            <p className="text-foreground/30 text-sm mb-4">
+              Select all that apply
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-2">
+              {COMMUNITIES.map((community) => {
+                const isSelected = communities.includes(community.value);
+                return (
+                  <button
+                    key={community.value}
+                    type="button"
+                    onClick={() => toggleCommunity(community.value)}
+                    className={`relative flex flex-col items-center justify-center gap-2 px-4 py-5 rounded-xl border transition-all duration-300 ${
                       isSelected
-                        ? "text-foreground/70"
-                        : "text-foreground/40"
+                        ? "bg-foreground/5 border-foreground/30 ring-1 ring-foreground/20"
+                        : "border-foreground/10 hover:border-foreground/20 hover:bg-foreground/[0.02]"
                     }`}
                   >
-                    {community.label}
-                  </span>
-                </button>
-              );
-            })}
+                    {isSelected && (
+                      <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-foreground flex items-center justify-center">
+                        <Check className="w-3 h-3 text-background" />
+                      </div>
+                    )}
+                    {community.logo ? (
+                      <img
+                        src={community.logo}
+                        alt={community.label}
+                        className="h-8 w-auto max-w-[100px] object-contain"
+                      />
+                    ) : (
+                      <span className="text-sm font-semibold text-foreground/70 tracking-wide">
+                        {community.label}
+                      </span>
+                    )}
+                    <span
+                      className={`text-xs tracking-wide ${
+                        isSelected
+                          ? "text-foreground/70"
+                          : "text-foreground/40"
+                      }`}
+                    >
+                      {community.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Additional Notes */}
         <FloatingTextarea

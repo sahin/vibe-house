@@ -117,4 +117,6 @@
 - [x] Swap WhyNow body prose "founders" → "builders/team" when on lovie.co
 - [x] Swap CuratedProducts "biological founder" → "biological builder" when on lovie.co
 - [x] Update tests and verify all 17 pass
-- [ ] Produce complete substitution table for user reference
+- [x] Produce complete substitution table for user reference
+- [x] Replace communities section on lovie.co with simple "Apply to lovie.co" CTA instead of PEF/Superfounders list
+- [x] Keep original communities list for default domain (sfvibehouse.com)

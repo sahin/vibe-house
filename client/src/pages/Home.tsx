@@ -112,7 +112,7 @@ function Section({
 }
 
 export default function Home() {
-  const { navSuffix, footerText, href: h, copy } = useBranding();
+  const { navSuffix, footerText, href: h, copy, isLovie } = useBranding();
   const [navVisible, setNavVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
@@ -510,6 +510,7 @@ export default function Home() {
             technicalFounder: copy.founderType_technicalFounder,
           }}
           communitiesLabel={copy.communitiesLabel}
+          hideCommunities={isLovie}
         />
       </Section>
 
