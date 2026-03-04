@@ -122,3 +122,6 @@
 - [x] Keep original communities list for default domain (sfvibehouse.com)
 - [x] Add ?isLovie=true query parameter override to useBranding hook for previewing Lovie version on any domain
 - [x] Hide PEF/Superfounders badges in Join section on lovie.co
+- [x] Fix ?isLovie=true not working on published site (sfvibehouse.com) — confirmed working
+- [x] Add git commit hash meta tag to HTML header: <meta name="commit" content="{hash}"> — already implemented
+- [x] Create reusable skill for commit hash meta tag feature
