@@ -234,10 +234,19 @@ const lovieCopy: BrandingCopy = {
 };
 
 export function useBranding() {
-  const isLovie =
-    typeof window !== "undefined" &&
-    (window.location.hostname.includes("lovie.co") ||
-      new URLSearchParams(window.location.search).get("isLovie") === "true");
+  const isLovie = (() => {
+    if (typeof window === "undefined") return false;
+    // Check URL first
+    const fromHostname = window.location.hostname.includes("lovie.co");
+    const fromParam = new URLSearchParams(window.location.search).get("isLovie") === "true";
+    if (fromHostname || fromParam) {
+      // Persist to sessionStorage so it survives navigation
+      try { sessionStorage.setItem("isLovie", "true"); } catch {}
+      return true;
+    }
+    // Fall back to sessionStorage
+    try { return sessionStorage.getItem("isLovie") === "true"; } catch { return false; }
+  })();
 
   /** The base path prefix — "/about/location" on lovie.co, "" elsewhere */
   const basePath = isLovie ? "/about/location" : "";

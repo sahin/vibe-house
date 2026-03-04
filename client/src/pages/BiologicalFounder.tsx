@@ -11,8 +11,63 @@ import { ArrowLeft, ArrowRight, Menu, X, ChevronDown } from "lucide-react";
 import { Link } from "wouter";
 import { useState, useRef } from "react";
 import { useBranding } from "@/hooks/useBranding";
+import React from "react";
 
-// Typography — matching site-wide system
+/**
+ * Recursively walks React children and replaces founder-specific text
+ * with team-member language when isLovie is true.
+ */
+function replaceFounderText(children: React.ReactNode, isLovie: boolean): React.ReactNode {
+  if (!isLovie) return children;
+  if (typeof children === "string") {
+    return children
+      .replace(/\bfounder's nervous system\b/gi, (m) => m[0] === 'F' ? "Team member's nervous system" : "team member's nervous system")
+      .replace(/\bfounder nervous system\b/gi, (m) => m[0] === 'F' ? "Team member nervous system" : "team member nervous system")
+      .replace(/\bfounder immune system\b/gi, (m) => m[0] === 'F' ? "Team member immune system" : "team member immune system")
+      .replace(/\bfounder('s)?\s+house/gi, (m) => m[0] === 'F' ? "team house" : "team house")
+      .replace(/\bfounder houses/gi, (m) => m[0] === 'F' ? "Team houses" : "team houses")
+      .replace(/\bfounder Kitchen/gi, "Team Kitchen")
+      .replace(/\bBurned-out founders\b/g, "Burned-out team members")
+      .replace(/\bRegulated founders\b/g, "Regulated team members")
+      .replace(/\bThe founder is infrastructure\b/g, "The team member is infrastructure")
+      .replace(/\bthe founder\b/g, "the team member")
+      .replace(/\bThe Founder\b/g, "The Team Member")
+      .replace(/\bthe Founder\b/g, "the Team Member")
+      .replace(/\boptimize the founder\b/gi, (m) => m[0] === 'o' ? "optimize the team member" : "Optimize the team member")
+      .replace(/\bfor AI founders\b/gi, "for the AI team")
+      .replace(/\bAI founders\b/gi, "the AI team")
+      .replace(/\bsleep-deprived founders\b/gi, "sleep-deprived team members")
+      .replace(/\bmost founders\b/gi, (m) => m[0] === 'M' ? "Most team members" : "most team members")
+      .replace(/\bfounders gather\b/gi, (m) => m[0] === 'F' ? "Team members gather" : "team members gather")
+      .replace(/\bfounders operate\b/gi, (m) => m[0] === 'F' ? "Team members operate" : "team members operate")
+      .replace(/\bevery founder\b/gi, (m) => m[0] === 'E' ? "Every team member" : "every team member")
+      .replace(/\bfounders who regulate\b/gi, (m) => m[0] === 'F' ? "Team members who regulate" : "team members who regulate")
+      .replace(/\bfounders discussed\b/gi, (m) => m[0] === 'F' ? "Team members discussed" : "team members discussed")
+      .replace(/\bIf founders are infrastructure\b/gi, "If team members are infrastructure")
+      .replace(/\ba founder house\b/gi, "a team house")
+      .replace(/\ba Founder House\b/gi, "a Team House");
+  }
+  if (React.isValidElement(children)) {
+    const el = children as React.ReactElement<any>;
+    if (el.props && el.props.children) {
+      return React.cloneElement(el, {}, replaceFounderText(el.props.children, isLovie));
+    }
+    return children;
+  }
+  if (Array.isArray(children)) {
+    return children.map((child, i) => {
+      const result = replaceFounderText(child, isLovie);
+      // Preserve key for React elements
+      if (React.isValidElement(result) && !result.key) {
+        return React.cloneElement(result as React.ReactElement<any>, { key: i });
+      }
+      return result;
+    });
+  }
+  return children;
+}
+
+// Typography — matching Home.tsxte-wide system
 const T = {
   xl: "font-display font-normal leading-[1.02] text-[clamp(3rem,8vw,7rem)]",
   l: "font-display font-normal leading-[1.1] text-[clamp(2rem,5vw,3.5rem)]",
@@ -148,7 +203,23 @@ function TOCItem({ number, title, id }: { number: string; title: string; id: str
 }
 
 export default function BiologicalFounder() {
-  const { navSuffix, footerText, href: h, copy } = useBranding();
+  const { navSuffix, footerText, href: h, copy, isLovie } = useBranding();
+
+  // Wrap text components to auto-replace founder → team member on Lovie
+  const LP = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
+    <P className={className}>{replaceFounderText(children, isLovie)}</P>
+  );
+  const LEm = ({ children }: { children: React.ReactNode }) => (
+    <Em>{replaceFounderText(children, isLovie)}</Em>
+  );
+  const LLine = ({ children }: { children: React.ReactNode }) => (
+    <Line>{replaceFounderText(children, isLovie)}</Line>
+  );
+  const LArticle = ({ number, title, subtitle, children, id }: { number: string; title: string; subtitle?: string; children: React.ReactNode; id?: string }) => (
+    <Article number={number} title={isLovie ? title.replace(/Founder/g, 'Team Member').replace(/founder/g, 'team member') : title} subtitle={subtitle ? (isLovie ? subtitle.replace(/Founder/g, 'Team Member').replace(/founder/g, 'team member') : subtitle) : undefined} id={id}>
+      {children}
+    </Article>
+  );
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [tocOpen, setTocOpen] = useState(true);
 
@@ -319,383 +390,383 @@ export default function BiologicalFounder() {
       {/* ============================================ */}
       {/* ARTICLE I */}
       {/* ============================================ */}
-      <Article number="Article I" title="Engineering Human Flourishing in the Age of AI" subtitle="The Vibe House" id="article-1">
-        <P>San Francisco has no shortage of hacker houses. There are sleep-deprived founders coding through the night, whiteboards filled with impossible ideas, refrigerators stocked with energy drinks and ambition.</P>
-        <Em>This is not that.</Em>
-        <P>The Vibe House began as a question: If we are building artificial intelligence to advance humanity, shouldn't we begin by advancing ourselves?</P>
-        <P>For me, technology has always been inseparable from human potential. You cannot build systems of intelligence while neglecting your own nervous system. You cannot architect the future on top of burnout.</P>
-        <Em>So we engineered something different.</Em>
-        <P>A house designed not just for productivity — but for vitality.</P>
-        <P>Every room is filled with large and small living plants. NASA research has shown certain houseplants can significantly reduce airborne toxins; we leaned in fully. Within 24 hours, many indoor plants can reduce measurable volatile organic compounds in enclosed spaces. But the benefit is not only chemical. Looking at greenery lowers cortisol. It signals safety to the brain. It restores cognitive bandwidth.</P>
-        <P>There are no harsh white lights. Only warm, yellow-toned lighting that honors circadian rhythms. Light is biology. Cool blue light at night suppresses melatonin, fractures sleep, fragments thinking. We build for longevity — not for adrenaline spikes.</P>
-        <P>The house breathes sunlight. Windows remain open whenever possible. Natural light improves mood, focus, and immune regulation. In the mornings, founders gather barefoot on wooden floors — grounding, literally and neurologically.</P>
-        <P>Even seating is intentional. We often sit on the floor. Floor-sitting improves mobility, hip flexibility, and posture. It subtly resists the sedentary decay of modern work life. You cannot discuss the future of AI while ignoring your own biomechanics.</P>
-        <P>Nature paintings and floral art fill the walls. Studies show viewing natural imagery reduces stress markers and increases creativity. The brain does not distinguish sharply between actual nature and well-rendered depictions. Both soothe.</P>
-        <P>Outside, olive trees and rosemary grow in the garden. A lemon tree leans toward the sun. There is something ancient and stabilizing about tending living things while building digital worlds.</P>
+      <LArticle number="Article I" title="Engineering Human Flourishing in the Age of AI" subtitle="The Vibe House" id="article-1">
+        <LP>San Francisco has no shortage of hacker houses. There are sleep-deprived founders coding through the night, whiteboards filled with impossible ideas, refrigerators stocked with energy drinks and ambition.</LP>
+        <LEm>This is not that.</LEm>
+        <LP>The Vibe House began as a question: If we are building artificial intelligence to advance humanity, shouldn't we begin by advancing ourselves?</LP>
+        <LP>For me, technology has always been inseparable from human potential. You cannot build systems of intelligence while neglecting your own nervous system. You cannot architect the future on top of burnout.</LP>
+        <LEm>So we engineered something different.</LEm>
+        <LP>A house designed not just for productivity — but for vitality.</LP>
+        <LP>Every room is filled with large and small living plants. NASA research has shown certain houseplants can significantly reduce airborne toxins; we leaned in fully. Within 24 hours, many indoor plants can reduce measurable volatile organic compounds in enclosed spaces. But the benefit is not only chemical. Looking at greenery lowers cortisol. It signals safety to the brain. It restores cognitive bandwidth.</LP>
+        <LP>There are no harsh white lights. Only warm, yellow-toned lighting that honors circadian rhythms. Light is biology. Cool blue light at night suppresses melatonin, fractures sleep, fragments thinking. We build for longevity — not for adrenaline spikes.</LP>
+        <LP>The house breathes sunlight. Windows remain open whenever possible. Natural light improves mood, focus, and immune regulation. In the mornings, founders gather barefoot on wooden floors — grounding, literally and neurologically.</LP>
+        <LP>Even seating is intentional. We often sit on the floor. Floor-sitting improves mobility, hip flexibility, and posture. It subtly resists the sedentary decay of modern work life. You cannot discuss the future of AI while ignoring your own biomechanics.</LP>
+        <LP>Nature paintings and floral art fill the walls. Studies show viewing natural imagery reduces stress markers and increases creativity. The brain does not distinguish sharply between actual nature and well-rendered depictions. Both soothe.</LP>
+        <LP>Outside, olive trees and rosemary grow in the garden. A lemon tree leans toward the sun. There is something ancient and stabilizing about tending living things while building digital worlds.</LP>
         <Lines>
-          <Line>The Vibe House is not a retreat from innovation. It is a refinement of it.</Line>
-          <Line>Spiritual meets operational.</Line>
-          <Line>Relaxed meets disciplined.</Line>
-          <Line>Nature meets nurture.</Line>
+          <LLine>The Vibe House is not a retreat from innovation. It is a refinement of it.</LLine>
+          <LLine>Spiritual meets operational.</LLine>
+          <LLine>Relaxed meets disciplined.</LLine>
+          <LLine>Nature meets nurture.</LLine>
         </Lines>
-        <Em>We build intelligence — but we begin with coherence.</Em>
-      </Article>
+        <LEm>We build intelligence — but we begin with coherence.</LEm>
+      </LArticle>
 
       {/* ============================================ */}
       {/* ARTICLE II */}
       {/* ============================================ */}
-      <Article number="Article II" title="Tea, Salt, and the Founder's Immune System" id="article-2">
-        <P>In most startup houses, caffeine is the fuel.</P>
-        <Em>In ours, it's soursop, jasmine green, and butterfly pea.</Em>
-        <P>The kitchen counter reads like an apothecary crossed with a Mediterranean grandmother's pantry.</P>
-        <P>Soursop leaf tea has been studied for its antioxidant compounds. While no tea cures disease — and we are cautious with such claims — antioxidants support cellular repair and immune resilience. Founders operate in cognitive marathons. Oxidative stress is real.</P>
-        <P>Butterfly pea flower tea, that luminous cobalt blue infusion, contains anthocyanins — compounds associated with anti-inflammatory and neuroprotective properties. It sharpens attention without agitation.</P>
-        <P>Clove and anise simmer gently on colder evenings. Both contain antimicrobial properties long recognized in traditional medicine. Dandelion root tea supports liver function — the body's detoxification engine. The liver processes everything: stress hormones, environmental toxins, metabolic waste. Supporting it is not trend; it is infrastructure.</P>
-        <P>Jasmine green tea delivers L-theanine — a compound shown to promote calm alertness. The state every founder claims to want but rarely achieves.</P>
-        <P>There is no Morton's salt in this kitchen. Only mineral-rich sea salts — containing trace elements absent in heavily refined varieties. Electrolytes are not branding; they are cellular communication.</P>
-        <P>Food is simple: no processed sugars, no refined flours. Probiotic-rich yogurt. Fermented vegetables. Olive oil from Urla — my hometown in Turkey — where olive trees have grown longer than most governments have existed. Extra virgin olive oil contains polyphenols associated with cardiovascular and anti-inflammatory benefits.</P>
-        <P>Goat milk soaps in the bathrooms. Plastic-free packaging wherever possible. Non-toxic cleaning supplies. Your skin absorbs what you place upon it; your lungs absorb what you spray.</P>
-        <P>Oscillococcinum, arnica, and other homeopathics sit quietly in drawers — gentle supports, not miracle cures. Colloidal silver is used sparingly and with discernment. We do not worship alternative medicine; we integrate thoughtfully.</P>
-        <P>Organic vitamins fill the gaps modern soil can no longer reliably provide.</P>
-        <Em>Health is not biohacking theater. It is disciplined simplicity.</Em>
+      <LArticle number="Article II" title="Tea, Salt, and the Founder's Immune System" id="article-2">
+        <LP>In most startup houses, caffeine is the fuel.</LP>
+        <LEm>In ours, it's soursop, jasmine green, and butterfly pea.</LEm>
+        <LP>The kitchen counter reads like an apothecary crossed with a Mediterranean grandmother's pantry.</LP>
+        <LP>Soursop leaf tea has been studied for its antioxidant compounds. While no tea cures disease — and we are cautious with such claims — antioxidants support cellular repair and immune resilience. Founders operate in cognitive marathons. Oxidative stress is real.</LP>
+        <LP>Butterfly pea flower tea, that luminous cobalt blue infusion, contains anthocyanins — compounds associated with anti-inflammatory and neuroprotective properties. It sharpens attention without agitation.</LP>
+        <LP>Clove and anise simmer gently on colder evenings. Both contain antimicrobial properties long recognized in traditional medicine. Dandelion root tea supports liver function — the body's detoxification engine. The liver processes everything: stress hormones, environmental toxins, metabolic waste. Supporting it is not trend; it is infrastructure.</LP>
+        <LP>Jasmine green tea delivers L-theanine — a compound shown to promote calm alertness. The state every founder claims to want but rarely achieves.</LP>
+        <LP>There is no Morton's salt in this kitchen. Only mineral-rich sea salts — containing trace elements absent in heavily refined varieties. Electrolytes are not branding; they are cellular communication.</LP>
+        <LP>Food is simple: no processed sugars, no refined flours. Probiotic-rich yogurt. Fermented vegetables. Olive oil from Urla — my hometown in Turkey — where olive trees have grown longer than most governments have existed. Extra virgin olive oil contains polyphenols associated with cardiovascular and anti-inflammatory benefits.</LP>
+        <LP>Goat milk soaps in the bathrooms. Plastic-free packaging wherever possible. Non-toxic cleaning supplies. Your skin absorbs what you place upon it; your lungs absorb what you spray.</LP>
+        <LP>Oscillococcinum, arnica, and other homeopathics sit quietly in drawers — gentle supports, not miracle cures. Colloidal silver is used sparingly and with discernment. We do not worship alternative medicine; we integrate thoughtfully.</LP>
+        <LP>Organic vitamins fill the gaps modern soil can no longer reliably provide.</LP>
+        <LEm>Health is not biohacking theater. It is disciplined simplicity.</LEm>
         <Lines>
-          <Line>The founder immune system is an asset class.</Line>
-          <Line>Protect it.</Line>
+          <LLine>The founder immune system is an asset class.</LLine>
+          <LLine>Protect it.</LLine>
         </Lines>
-      </Article>
+      </LArticle>
 
       {/* ============================================ */}
       {/* ARTICLE III */}
       {/* ============================================ */}
-      <Article number="Article III" title="Smudging Palo Santo in the Age of Artificial Intelligence" id="article-3">
-        <P>You can call it spiritual. You can call it atmospheric engineering.</P>
-        <P>Every few days, we walk through the house with palo santo and sage. The smoke rises, subtle and woody. Windows open. Air shifts.</P>
-        <P>Scientifically, burning certain plant materials has been shown to reduce airborne bacteria for limited periods. Symbolically, it marks reset. In high-performance environments, ritual matters. The nervous system thrives on signals of renewal.</P>
-        <P>There is binaural beats music in the evenings — frequencies shown to influence brainwave states, encouraging focus or deep relaxation depending on the track. Sound alters cognition.</P>
-        <P>Essential oil diffusers hum softly — organic oils only. No synthetic perfumes. Lavender for parasympathetic calm. Rosemary for alertness. Citrus for mood elevation.</P>
-        <P>Mantak Chia's teachings on energy circulation influence some of our morning breathwork sessions. Whether you interpret it through Taoist frameworks or modern vagal tone science, the result is the same: founders who regulate stress outperform those who suppress it.</P>
-        <P>Reiki practitioners occasionally bless the space. Astrology conversations emerge over tea. Skeptics are welcome. Participation is optional. What matters is coherence — psychological safety, emotional fluency, intellectual rigor coexisting.</P>
-        <P>Positive, funny, timeless quotes hang on the walls. Humor lowers stress hormones. Optimism expands cognition. The brain in threat mode cannot innovate.</P>
+      <LArticle number="Article III" title="Smudging Palo Santo in the Age of Artificial Intelligence" id="article-3">
+        <LP>You can call it spiritual. You can call it atmospheric engineering.</LP>
+        <LP>Every few days, we walk through the house with palo santo and sage. The smoke rises, subtle and woody. Windows open. Air shifts.</LP>
+        <LP>Scientifically, burning certain plant materials has been shown to reduce airborne bacteria for limited periods. Symbolically, it marks reset. In high-performance environments, ritual matters. The nervous system thrives on signals of renewal.</LP>
+        <LP>There is binaural beats music in the evenings — frequencies shown to influence brainwave states, encouraging focus or deep relaxation depending on the track. Sound alters cognition.</LP>
+        <LP>Essential oil diffusers hum softly — organic oils only. No synthetic perfumes. Lavender for parasympathetic calm. Rosemary for alertness. Citrus for mood elevation.</LP>
+        <LP>Mantak Chia's teachings on energy circulation influence some of our morning breathwork sessions. Whether you interpret it through Taoist frameworks or modern vagal tone science, the result is the same: founders who regulate stress outperform those who suppress it.</LP>
+        <LP>Reiki practitioners occasionally bless the space. Astrology conversations emerge over tea. Skeptics are welcome. Participation is optional. What matters is coherence — psychological safety, emotional fluency, intellectual rigor coexisting.</LP>
+        <LP>Positive, funny, timeless quotes hang on the walls. Humor lowers stress hormones. Optimism expands cognition. The brain in threat mode cannot innovate.</LP>
         <Lines>
-          <Line>This house is comfortable but intentional.</Line>
-          <Line>Relaxing yet disciplined.</Line>
-          <Line>Grounded yet expansive.</Line>
+          <LLine>This house is comfortable but intentional.</LLine>
+          <LLine>Relaxing yet disciplined.</LLine>
+          <LLine>Grounded yet expansive.</LLine>
         </Lines>
-        <P>We are building AI companies here. But we are also building humans capable of wielding that power wisely.</P>
+        <LP>We are building AI companies here. But we are also building humans capable of wielding that power wisely.</LP>
         <Lines>
-          <Line>The future will not be determined solely by code quality.</Line>
-          <Line>It will be shaped by nervous systems.</Line>
-          <Line>By health.</Line>
-          <Line>By consciousness.</Line>
+          <LLine>The future will not be determined solely by code quality.</LLine>
+          <LLine>It will be shaped by nervous systems.</LLine>
+          <LLine>By health.</LLine>
+          <LLine>By consciousness.</LLine>
         </Lines>
-        <P>The Vibe House is a small experiment. If we can cultivate clarity inside four walls in San Francisco — perhaps we can scale it to society.</P>
-      </Article>
+        <LP>The Vibe House is a small experiment. If we can cultivate clarity inside four walls in San Francisco — perhaps we can scale it to society.</LP>
+      </LArticle>
 
       {/* ============================================ */}
       {/* ARTICLE IV — The Controversial One */}
       {/* ============================================ */}
-      <Article number="Article IV" title="Silicon Valley Is Optimizing the Wrong System" id="article-4">
-        <P>Silicon Valley believes it is building the future.</P>
-        <Em>But most founders are running on nervous systems that are quietly collapsing.</Em>
-        <P>We speak endlessly about optimizing machine learning models — yet ignore sleep cycles. We debate inference costs — while consuming refined sugar at 2 a.m. We fund longevity startups — while living in chronic inflammation.</P>
-        <P>This is not hypocrisy. It is blind spot.</P>
-        <Em>The Vibe House began as a quiet rebellion against performative productivity.</Em>
+      <LArticle number="Article IV" title="Silicon Valley Is Optimizing the Wrong System" id="article-4">
+        <LP>Silicon Valley believes it is building the future.</LP>
+        <LEm>But most founders are running on nervous systems that are quietly collapsing.</LEm>
+        <LP>We speak endlessly about optimizing machine learning models — yet ignore sleep cycles. We debate inference costs — while consuming refined sugar at 2 a.m. We fund longevity startups — while living in chronic inflammation.</LP>
+        <LP>This is not hypocrisy. It is blind spot.</LP>
+        <LEm>The Vibe House began as a quiet rebellion against performative productivity.</LEm>
         <Lines>
-          <Line>No processed food.</Line>
-          <Line>No synthetic fragrances.</Line>
-          <Line>No harsh lighting.</Line>
-          <Line>No chemical cleaning sprays aerosolized into the lungs of people designing civilization's next layer.</Line>
+          <LLine>No processed food.</LLine>
+          <LLine>No synthetic fragrances.</LLine>
+          <LLine>No harsh lighting.</LLine>
+          <LLine>No chemical cleaning sprays aerosolized into the lungs of people designing civilization's next layer.</LLine>
         </Lines>
-        <P>Instead:</P>
+        <LP>Instead:</LP>
         <Lines>
-          <Line>Mineral-rich salt, because electrolytes govern cellular intelligence.</Line>
-          <Line>Fermented foods, because the microbiome influences mood and cognition.</Line>
-          <Line>Dandelion tea for liver support — because detoxification is not aesthetic, it is metabolic.</Line>
-          <Line>Jasmine green tea for calm focus.</Line>
-          <Line>Clove and anise for antimicrobial support.</Line>
+          <LLine>Mineral-rich salt, because electrolytes govern cellular intelligence.</LLine>
+          <LLine>Fermented foods, because the microbiome influences mood and cognition.</LLine>
+          <LLine>Dandelion tea for liver support — because detoxification is not aesthetic, it is metabolic.</LLine>
+          <LLine>Jasmine green tea for calm focus.</LLine>
+          <LLine>Clove and anise for antimicrobial support.</LLine>
         </Lines>
-        <P>We smudge palo santo not because we are naïve — but because ritual regulates the nervous system. And regulated nervous systems build better companies.</P>
-        <P>Large and small living plants in every room. Not decor — filtration. Air quality influences cognitive performance more than most venture decks acknowledge.</P>
+        <LP>We smudge palo santo not because we are naïve — but because ritual regulates the nervous system. And regulated nervous systems build better companies.</LP>
+        <LP>Large and small living plants in every room. Not decor — filtration. Air quality influences cognitive performance more than most venture decks acknowledge.</LP>
         <Lines>
-          <Line>Yellow light at night to protect melatonin.</Line>
-          <Line>Natural light by day to entrain circadian rhythm.</Line>
-          <Line>Bamboo bedding to reduce synthetic off-gassing.</Line>
-          <Line>Goat milk soap. Olive oil soap. Plastic-free bathrooms.</Line>
+          <LLine>Yellow light at night to protect melatonin.</LLine>
+          <LLine>Natural light by day to entrain circadian rhythm.</LLine>
+          <LLine>Bamboo bedding to reduce synthetic off-gassing.</LLine>
+          <LLine>Goat milk soap. Olive oil soap. Plastic-free bathrooms.</LLine>
         </Lines>
-        <P>Is this excessive?</P>
-        <Em>Or is it simply disciplined?</Em>
-        <P>If we are serious about advancing humanity, we must start by eliminating the environmental toxins we have normalized.</P>
+        <LP>Is this excessive?</LP>
+        <LEm>Or is it simply disciplined?</LEm>
+        <LP>If we are serious about advancing humanity, we must start by eliminating the environmental toxins we have normalized.</LP>
         <Lines>
-          <Line>The founder is infrastructure.</Line>
-          <Line>Burned-out founders build brittle systems.</Line>
-          <Line>Regulated founders build resilient ones.</Line>
+          <LLine>The founder is infrastructure.</LLine>
+          <LLine>Burned-out founders build brittle systems.</LLine>
+          <LLine>Regulated founders build resilient ones.</LLine>
         </Lines>
-        <Em>Silicon Valley optimized speed. It is time to optimize coherence.</Em>
-      </Article>
+        <LEm>Silicon Valley optimized speed. It is time to optimize coherence.</LEm>
+      </LArticle>
 
       {/* ============================================ */}
       {/* ARTICLE V — Manifesto */}
       {/* ============================================ */}
-      <Article number="Article V" title="The Vibe House Manifesto" id="article-5">
-        <P className="font-medium">We're building AI companies in San Francisco. But first, we're building humans.</P>
+      <LArticle number="Article V" title="The Vibe House Manifesto" id="article-5">
+        <LP className="font-medium">We're building AI companies in San Francisco. But first, we're building humans.</LP>
         <Lines>
-          <Line>No processed foods.</Line>
-          <Line>No refined sugars.</Line>
-          <Line>No synthetic fragrances.</Line>
-          <Line>No toxic cleaning products.</Line>
+          <LLine>No processed foods.</LLine>
+          <LLine>No refined sugars.</LLine>
+          <LLine>No synthetic fragrances.</LLine>
+          <LLine>No toxic cleaning products.</LLine>
         </Lines>
-        <P>Yes to:</P>
+        <LP>Yes to:</LP>
         <Lines>
-          <Line>Soursop and jasmine green tea.</Line>
-          <Line>Mineral-rich sea salt.</Line>
-          <Line>Fermented foods and probiotics.</Line>
-          <Line>Olive oil from ancient groves.</Line>
-          <Line>Organic vitamins.</Line>
-        </Lines>
-        <Lines>
-          <Line>Yes to plants in every room.</Line>
-          <Line>Yes to natural light and circadian lighting at night.</Line>
-          <Line>Yes to bamboo bedding and plastic-free spaces.</Line>
-          <Line>Yes to palo santo resets and binaural beats.</Line>
-          <Line>Yes to breathwork, energy work, and nervous system regulation.</Line>
-        </Lines>
-        <Em>This isn't aesthetic wellness culture. It's performance architecture.</Em>
-        <Lines>
-          <Line>Your liver processes stress.</Line>
-          <Line>Your microbiome shapes your mood.</Line>
-          <Line>Your lighting impacts your sleep.</Line>
-          <Line>Your environment alters your cognition.</Line>
+          <LLine>Soursop and jasmine green tea.</LLine>
+          <LLine>Mineral-rich sea salt.</LLine>
+          <LLine>Fermented foods and probiotics.</LLine>
+          <LLine>Olive oil from ancient groves.</LLine>
+          <LLine>Organic vitamins.</LLine>
         </Lines>
         <Lines>
-          <Line>We don't separate spiritual from operational.</Line>
-          <Line>We don't separate health from output.</Line>
-          <Line>We don't separate consciousness from code.</Line>
+          <LLine>Yes to plants in every room.</LLine>
+          <LLine>Yes to natural light and circadian lighting at night.</LLine>
+          <LLine>Yes to bamboo bedding and plastic-free spaces.</LLine>
+          <LLine>Yes to palo santo resets and binaural beats.</LLine>
+          <LLine>Yes to breathwork, energy work, and nervous system regulation.</LLine>
+        </Lines>
+        <LEm>This isn't aesthetic wellness culture. It's performance architecture.</LEm>
+        <Lines>
+          <LLine>Your liver processes stress.</LLine>
+          <LLine>Your microbiome shapes your mood.</LLine>
+          <LLine>Your lighting impacts your sleep.</LLine>
+          <LLine>Your environment alters your cognition.</LLine>
         </Lines>
         <Lines>
-          <Line>Nature meets nurture.</Line>
-          <Line>Relaxed meets disciplined.</Line>
-          <Line>Spiritual meets scalable.</Line>
+          <LLine>We don't separate spiritual from operational.</LLine>
+          <LLine>We don't separate health from output.</LLine>
+          <LLine>We don't separate consciousness from code.</LLine>
         </Lines>
-        <Em>If we're going to build artificial intelligence — let's not neglect our own.</Em>
-      </Article>
+        <Lines>
+          <LLine>Nature meets nurture.</LLine>
+          <LLine>Relaxed meets disciplined.</LLine>
+          <LLine>Spiritual meets scalable.</LLine>
+        </Lines>
+        <LEm>If we're going to build artificial intelligence — let's not neglect our own.</LEm>
+      </LArticle>
 
       {/* ============================================ */}
       {/* ARTICLE VI — Series Intro */}
       {/* ============================================ */}
-      <Article number="Article VI" title="Designing for the Biological Founder" subtitle="A New Series on Health, Environment, and Building Without Burning Out" id="article-6">
-        <P>Silicon Valley knows how to optimize machines. We optimize inference speed. We optimize model performance. We optimize capital efficiency.</P>
-        <Em>But we rarely optimize the founder.</Em>
-        <P>We talk about longevity while sleeping five hours. We fund health startups while eating processed food at 11 p.m. We build artificial intelligence inside bodies that are inflamed, overstimulated, and quietly exhausted.</P>
-        <P>That contradiction has been sitting with me for years.</P>
-        <P>So this winter, we tried something different. We designed a founder house in San Francisco — not around aesthetics, not around status, not around trend — but around biology.</P>
+      <LArticle number="Article VI" title="Designing for the Biological Founder" subtitle="A New Series on Health, Environment, and Building Without Burning Out" id="article-6">
+        <LP>Silicon Valley knows how to optimize machines. We optimize inference speed. We optimize model performance. We optimize capital efficiency.</LP>
+        <LEm>But we rarely optimize the founder.</LEm>
+        <LP>We talk about longevity while sleeping five hours. We fund health startups while eating processed food at 11 p.m. We build artificial intelligence inside bodies that are inflamed, overstimulated, and quietly exhausted.</LP>
+        <LP>That contradiction has been sitting with me for years.</LP>
+        <LP>So this winter, we tried something different. We designed a founder house in San Francisco — not around aesthetics, not around status, not around trend — but around biology.</LP>
         <Lines>
-          <Line>Light that protects circadian rhythm.</Line>
-          <Line>Plants in every room to calm the nervous system.</Line>
-          <Line>No synthetic fragrance.</Line>
-          <Line>No toxic cleaning products.</Line>
-          <Line>No processed sugar.</Line>
-          <Line>Mineral-rich salt.</Line>
-          <Line>Herbal teas instead of energy drinks.</Line>
-          <Line>Warm lighting at night.</Line>
-          <Line>Sunlight in the morning.</Line>
-          <Line>Ritual resets.</Line>
-          <Line>Spiritual curiosity without dogma.</Line>
+          <LLine>Light that protects circadian rhythm.</LLine>
+          <LLine>Plants in every room to calm the nervous system.</LLine>
+          <LLine>No synthetic fragrance.</LLine>
+          <LLine>No toxic cleaning products.</LLine>
+          <LLine>No processed sugar.</LLine>
+          <LLine>Mineral-rich salt.</LLine>
+          <LLine>Herbal teas instead of energy drinks.</LLine>
+          <LLine>Warm lighting at night.</LLine>
+          <LLine>Sunlight in the morning.</LLine>
+          <LLine>Ritual resets.</LLine>
+          <LLine>Spiritual curiosity without dogma.</LLine>
         </Lines>
-        <P>It was one of the most joyful design projects I've ever worked on.</P>
-        <P>Because for once, the question wasn't: "What looks good?" It was: "What supports the human organism?"</P>
-        <P>This series explores what happens when you treat the founder's nervous system as infrastructure. When you see the kitchen as medicine. The lighting as hormonal regulation. The plants as stress reduction. The environment as performance architecture.</P>
-        <Em>If we're going to build intelligent systems for the future — we might want to start by stabilizing the humans building them.</Em>
-        <P>Over the next three essays, I'll share how we designed this space, what we learned, and why I believe biological coherence may be the next competitive advantage.</P>
-        <P>Because in the end, the company doesn't run on code. It runs on the founder's nervous system.</P>
-        <Em>Let's start there.</Em>
-      </Article>
+        <LP>It was one of the most joyful design projects I've ever worked on.</LP>
+        <LP>Because for once, the question wasn't: "What looks good?" It was: "What supports the human organism?"</LP>
+        <LP>This series explores what happens when you treat the founder's nervous system as infrastructure. When you see the kitchen as medicine. The lighting as hormonal regulation. The plants as stress reduction. The environment as performance architecture.</LP>
+        <LEm>If we're going to build intelligent systems for the future — we might want to start by stabilizing the humans building them.</LEm>
+        <LP>Over the next three essays, I'll share how we designed this space, what we learned, and why I believe biological coherence may be the next competitive advantage.</LP>
+        <LP>Because in the end, the company doesn't run on code. It runs on the founder's nervous system.</LP>
+        <LEm>Let's start there.</LEm>
+      </LArticle>
 
       {/* ============================================ */}
       {/* ARTICLE VII — Part I */}
       {/* ============================================ */}
-      <Article number="Article VII" title="The House as a Nervous System" subtitle="Designing for the Biological Founder — Part I" id="article-7">
-        <P>When we decided to create a founder house in San Francisco for AI builders, I didn't think about aesthetics first.</P>
-        <Em>I thought about cortisol.</Em>
-        <P>If you're building artificial intelligence, you are operating at high cognitive load almost constantly. Your brain is running inference loops all day. Your stress hormones are quietly elevated. Your sleep is fragile. Your immune system is taxed.</P>
-        <P>And yet most "founder houses" are designed like frat houses with better WiFi.</P>
-        <P>We wanted something different. Not biohacking theater. Not performative wellness. But biological coherence.</P>
-        <Em>So we designed the house as if it were a nervous system.</Em>
+      <LArticle number="Article VII" title="The House as a Nervous System" subtitle="Designing for the Biological Founder — Part I" id="article-7">
+        <LP>When we decided to create a founder house in San Francisco for AI builders, I didn't think about aesthetics first.</LP>
+        <LEm>I thought about cortisol.</LEm>
+        <LP>If you're building artificial intelligence, you are operating at high cognitive load almost constantly. Your brain is running inference loops all day. Your stress hormones are quietly elevated. Your sleep is fragile. Your immune system is taxed.</LP>
+        <LP>And yet most "founder houses" are designed like frat houses with better WiFi.</LP>
+        <LP>We wanted something different. Not biohacking theater. Not performative wellness. But biological coherence.</LP>
+        <LEm>So we designed the house as if it were a nervous system.</LEm>
 
         <p className={`${T.label} mt-12 mb-4`}>Light as Medicine</p>
-        <P>First: light. Natural light everywhere. Big windows. Air moving through the house.</P>
-        <P>Sunlight regulates circadian rhythm, which regulates melatonin, which regulates sleep, which regulates emotional stability, immune resilience, and cognitive clarity.</P>
-        <P>At night, no harsh white LEDs. Only warm yellow lighting. Cool blue light suppresses melatonin and disrupts sleep cycles. If you're building companies long-term, sleep is not optional infrastructure.</P>
+        <LP>First: light. Natural light everywhere. Big windows. Air moving through the house.</LP>
+        <LP>Sunlight regulates circadian rhythm, which regulates melatonin, which regulates sleep, which regulates emotional stability, immune resilience, and cognitive clarity.</LP>
+        <LP>At night, no harsh white LEDs. Only warm yellow lighting. Cool blue light suppresses melatonin and disrupts sleep cycles. If you're building companies long-term, sleep is not optional infrastructure.</LP>
 
         <p className={`${T.label} mt-12 mb-4`}>Plants in Every Room</p>
-        <P>Every room has living plants. Large and small. Plants can reduce volatile organic compounds indoors and measurably reduce stress markers. Even viewing greenery lowers cortisol and increases creative output.</P>
-        <P>The house feels softer because it is alive.</P>
-        <P>Nature paintings and florals fill the walls too. Studies show that even images of nature calm the nervous system.</P>
-        <Em>You cannot innovate in a chronic fight-or-flight state.</Em>
+        <LP>Every room has living plants. Large and small. Plants can reduce volatile organic compounds indoors and measurably reduce stress markers. Even viewing greenery lowers cortisol and increases creative output.</LP>
+        <LP>The house feels softer because it is alive.</LP>
+        <LP>Nature paintings and florals fill the walls too. Studies show that even images of nature calm the nervous system.</LP>
+        <LEm>You cannot innovate in a chronic fight-or-flight state.</LEm>
 
         <p className={`${T.label} mt-12 mb-4`}>No Cutting Corners</p>
-        <P>This was the most fun part.</P>
+        <LP>This was the most fun part.</LP>
         <Lines>
-          <Line>No cheap plastics.</Line>
-          <Line>No synthetic fragrances.</Line>
-          <Line>No toxic cleaning sprays.</Line>
-          <Line>Plastic-free where possible.</Line>
-          <Line>Non-toxic cleaning supplies only.</Line>
-          <Line>Olive oil and goat milk soaps.</Line>
-          <Line>Perfume-free everything.</Line>
-          <Line>Bamboo bedding.</Line>
-          <Line>Organic essential oil diffusers.</Line>
+          <LLine>No cheap plastics.</LLine>
+          <LLine>No synthetic fragrances.</LLine>
+          <LLine>No toxic cleaning sprays.</LLine>
+          <LLine>Plastic-free where possible.</LLine>
+          <LLine>Non-toxic cleaning supplies only.</LLine>
+          <LLine>Olive oil and goat milk soaps.</LLine>
+          <LLine>Perfume-free everything.</LLine>
+          <LLine>Bamboo bedding.</LLine>
+          <LLine>Organic essential oil diffusers.</LLine>
         </Lines>
-        <P>Once you start reading labels, you realize most modern interiors are petrochemical showrooms.</P>
-        <Em>Designing without compromise felt radical and joyful. It felt like designing a body, not a room.</Em>
-      </Article>
+        <LP>Once you start reading labels, you realize most modern interiors are petrochemical showrooms.</LP>
+        <LEm>Designing without compromise felt radical and joyful. It felt like designing a body, not a room.</LEm>
+      </LArticle>
 
       {/* ============================================ */}
       {/* ARTICLE VIII — Part II */}
       {/* ============================================ */}
-      <Article number="Article VIII" title="The Founder Kitchen: Food as Infrastructure" subtitle="Designing for the Biological Founder — Part II" id="article-8">
-        <Em>If the nervous system is the operating system, the gut is the motherboard.</Em>
-        <P>Most startup kitchens are stocked with energy drinks, protein bars, and processed snacks wrapped in plastic.</P>
-        <P>We stocked herbs.</P>
+      <LArticle number="Article VIII" title="The Founder Kitchen: Food as Infrastructure" subtitle="Designing for the Biological Founder — Part II" id="article-8">
+        <LEm>If the nervous system is the operating system, the gut is the motherboard.</LEm>
+        <LP>Most startup kitchens are stocked with energy drinks, protein bars, and processed snacks wrapped in plastic.</LP>
+        <LP>We stocked herbs.</LP>
         <Lines>
-          <Line>Soursop leaf tea.</Line>
-          <Line>Butterfly pea flower tea.</Line>
-          <Line>Dandelion root for liver support.</Line>
-          <Line>Clove and anise.</Line>
-          <Line>Jasmine green tea.</Line>
-          <Line>Cinnamon.</Line>
+          <LLine>Soursop leaf tea.</LLine>
+          <LLine>Butterfly pea flower tea.</LLine>
+          <LLine>Dandelion root for liver support.</LLine>
+          <LLine>Clove and anise.</LLine>
+          <LLine>Jasmine green tea.</LLine>
+          <LLine>Cinnamon.</LLine>
         </Lines>
-        <P>No — these are not miracle cures. But antioxidants matter. Liver support matters. Anti-inflammatory compounds matter. L-theanine from green tea supports calm alertness instead of jittery adrenaline.</P>
-        <P>We use mineral-rich sea salt — not heavily refined table salt stripped of trace elements.</P>
+        <LP>No — these are not miracle cures. But antioxidants matter. Liver support matters. Anti-inflammatory compounds matter. L-theanine from green tea supports calm alertness instead of jittery adrenaline.</LP>
+        <LP>We use mineral-rich sea salt — not heavily refined table salt stripped of trace elements.</LP>
         <Lines>
-          <Line>No processed foods.</Line>
-          <Line>No refined sugars.</Line>
-          <Line>Plenty of probiotics.</Line>
-          <Line>Fermented vegetables.</Line>
-          <Line>Olive oil from Turkey — where olive oil is closer to medicine than condiment.</Line>
+          <LLine>No processed foods.</LLine>
+          <LLine>No refined sugars.</LLine>
+          <LLine>Plenty of probiotics.</LLine>
+          <LLine>Fermented vegetables.</LLine>
+          <LLine>Olive oil from Turkey — where olive oil is closer to medicine than condiment.</LLine>
         </Lines>
-        <P>The liver processes stress hormones. The microbiome influences mood. Blood sugar stability influences decision-making.</P>
-        <Em>There is no neutral food. It either supports clarity — or erodes it.</Em>
+        <LP>The liver processes stress hormones. The microbiome influences mood. Blood sugar stability influences decision-making.</LP>
+        <LEm>There is no neutral food. It either supports clarity — or erodes it.</LEm>
 
         <p className={`${T.label} mt-12 mb-4`}>Gentle Supports</p>
-        <P>In drawers you'll find: arnica, oscillococcinum, homeopathics, organic vitamins. Occasionally colloidal silver (used sparingly and responsibly).</P>
-        <P>We are not anti-medicine. We are pro-support. Functional health isn't fringe — it's preventative.</P>
-        <Em>If founders are infrastructure, their immune systems are assets. Protect them.</Em>
-      </Article>
+        <LP>In drawers you'll find: arnica, oscillococcinum, homeopathics, organic vitamins. Occasionally colloidal silver (used sparingly and responsibly).</LP>
+        <LP>We are not anti-medicine. We are pro-support. Functional health isn't fringe — it's preventative.</LP>
+        <LEm>If founders are infrastructure, their immune systems are assets. Protect them.</LEm>
+      </LArticle>
 
       {/* ============================================ */}
       {/* ARTICLE IX — Part III */}
       {/* ============================================ */}
-      <Article number="Article IX" title="Spiritual Infrastructure for Builders" subtitle="Designing for the Biological Founder — Part III" id="article-9">
-        <Em>Here's where it gets interesting.</Em>
-        <P>Every few days, we walk through the house with palo santo or sage. You can call it spiritual. You can call it ritual. You can call it antimicrobial smoke (which historically it was used for).</P>
-        <Em>But what it really does is signal reset. Ritual regulates the nervous system. In high-performance environments, reset cycles matter.</Em>
+      <LArticle number="Article IX" title="Spiritual Infrastructure for Builders" subtitle="Designing for the Biological Founder — Part III" id="article-9">
+        <LEm>Here's where it gets interesting.</LEm>
+        <LP>Every few days, we walk through the house with palo santo or sage. You can call it spiritual. You can call it ritual. You can call it antimicrobial smoke (which historically it was used for).</LP>
+        <LEm>But what it really does is signal reset. Ritual regulates the nervous system. In high-performance environments, reset cycles matter.</LEm>
 
         <p className={`${T.label} mt-12 mb-4`}>Sound, Energy, and Flow</p>
-        <P>In the evenings, binaural beats play softly — frequencies shown to influence brainwave states. Lavender diffuses for calm. Rosemary for clarity. Citrus for uplift.</P>
-        <P>We encourage floor sitting. It improves mobility, posture, and longevity markers. The ability to move from floor to standing correlates with long-term health outcomes.</P>
-        <P>There's breathwork. A little Mantak Chia energy circulation philosophy. Occasional reiki sessions. Astrology conversations over tea.</P>
-        <P>You don't have to believe in everything. But you cannot deny that humans are more than cognitive processors.</P>
-        <Em>Spiritual and operational can coexist.</Em>
+        <LP>In the evenings, binaural beats play softly — frequencies shown to influence brainwave states. Lavender diffuses for calm. Rosemary for clarity. Citrus for uplift.</LP>
+        <LP>We encourage floor sitting. It improves mobility, posture, and longevity markers. The ability to move from floor to standing correlates with long-term health outcomes.</LP>
+        <LP>There's breathwork. A little Mantak Chia energy circulation philosophy. Occasional reiki sessions. Astrology conversations over tea.</LP>
+        <LP>You don't have to believe in everything. But you cannot deny that humans are more than cognitive processors.</LP>
+        <LEm>Spiritual and operational can coexist.</LEm>
 
         <p className={`${T.label} mt-12 mb-4`}>The Garden</p>
         <Lines>
-          <Line>Outside: olive trees, rosemary, a lemon tree.</Line>
+          <LLine>Outside: olive trees, rosemary, a lemon tree.</LLine>
         </Lines>
-        <P>Tending something living while building artificial intelligence keeps perspective. Technology moves fast. Nature moves wisely.</P>
+        <LP>Tending something living while building artificial intelligence keeps perspective. Technology moves fast. Nature moves wisely.</LP>
 
         <p className={`${T.label} mt-12 mb-4`}>The Thesis</p>
         <Lines>
-          <Line>Comfortable yet mindful.</Line>
-          <Line>Relaxing yet productive.</Line>
-          <Line>Nature meets nurture.</Line>
+          <LLine>Comfortable yet mindful.</LLine>
+          <LLine>Relaxing yet productive.</LLine>
+          <LLine>Nature meets nurture.</LLine>
         </Lines>
-        <P>If we are serious about advancing humanity with AI, we should build environments that support human biology first.</P>
-        <Em>The founder nervous system is not separate from the company. It is the company.</Em>
-        <P>Designing this way wasn't just strategic. It was joyful. No corners cut. No cheap shortcuts. No synthetic compromises. Just coherence.</P>
-        <Em>And honestly? It might be the most powerful productivity hack we've ever built.</Em>
-      </Article>
+        <LP>If we are serious about advancing humanity with AI, we should build environments that support human biology first.</LP>
+        <LEm>The founder nervous system is not separate from the company. It is the company.</LEm>
+        <LP>Designing this way wasn't just strategic. It was joyful. No corners cut. No cheap shortcuts. No synthetic compromises. Just coherence.</LP>
+        <LEm>And honestly? It might be the most powerful productivity hack we've ever built.</LEm>
+      </LArticle>
 
       {/* ============================================ */}
       {/* ARTICLE X — One-Off */}
       {/* ============================================ */}
-      <Article number="Article X" title="Designing a Founder House for Health, Not Just Aesthetics" id="article-10">
-        <P>When most people design a house in San Francisco for AI founders, they think about WiFi speed, standing desks, espresso machines, and maybe a cold plunge if they're feeling ambitious.</P>
+      <LArticle number="Article X" title="Designing a Founder House for Health, Not Just Aesthetics" id="article-10">
+        <LP>When most people design a house in San Francisco for AI founders, they think about WiFi speed, standing desks, espresso machines, and maybe a cold plunge if they're feeling ambitious.</LP>
         <Lines>
-          <Line>We thought about the liver.</Line>
-          <Line>We thought about circadian rhythm.</Line>
-          <Line>We thought about nervous systems.</Line>
-          <Line>We thought about inflammation.</Line>
+          <LLine>We thought about the liver.</LLine>
+          <LLine>We thought about circadian rhythm.</LLine>
+          <LLine>We thought about nervous systems.</LLine>
+          <LLine>We thought about inflammation.</LLine>
         </Lines>
-        <P>We thought about what it actually means to build intelligence — human and artificial — in the same space.</P>
-        <Em>And honestly? It was one of the most fun interior design projects I've ever done. Because this time, we weren't just designing for "vibes." We were designing for biology.</Em>
+        <LP>We thought about what it actually means to build intelligence — human and artificial — in the same space.</LP>
+        <LEm>And honestly? It was one of the most fun interior design projects I've ever done. Because this time, we weren't just designing for "vibes." We were designing for biology.</LEm>
 
         <p className={`${T.label} mt-12 mb-4`}>The Rule: No Cutting Corners</p>
-        <P>I didn't want cheap plastics. I didn't want synthetic fragrance. I didn't want toxic cleaning sprays quietly floating in the air while founders discussed the future of civilization.</P>
-        <Em>If we're building AI companies, we can at least remove endocrine disruptors from the bathroom.</Em>
+        <LP>I didn't want cheap plastics. I didn't want synthetic fragrance. I didn't want toxic cleaning sprays quietly floating in the air while founders discussed the future of civilization.</LP>
+        <LEm>If we're building AI companies, we can at least remove endocrine disruptors from the bathroom.</LEm>
         <Lines>
-          <Line>Plastic-free wherever possible.</Line>
-          <Line>Non-toxic cleaning supplies only.</Line>
-          <Line>Olive oil and goat milk soaps (perfume-free).</Line>
-          <Line>Organic essential oils instead of synthetic scent.</Line>
-          <Line>Bamboo bedding instead of petroleum-based fibers.</Line>
-          <Line>Warm yellow lighting at night to protect melatonin.</Line>
+          <LLine>Plastic-free wherever possible.</LLine>
+          <LLine>Non-toxic cleaning supplies only.</LLine>
+          <LLine>Olive oil and goat milk soaps (perfume-free).</LLine>
+          <LLine>Organic essential oils instead of synthetic scent.</LLine>
+          <LLine>Bamboo bedding instead of petroleum-based fibers.</LLine>
+          <LLine>Warm yellow lighting at night to protect melatonin.</LLine>
         </Lines>
-        <P>It's wild how much of modern "interior design" is just petrochemicals made pretty. When you start reading labels, you realize the average home is off-gassing more than a small laboratory.</P>
+        <LP>It's wild how much of modern "interior design" is just petrochemicals made pretty. When you start reading labels, you realize the average home is off-gassing more than a small laboratory.</LP>
 
         <p className={`${T.label} mt-12 mb-4`}>Plants Everywhere</p>
-        <P>Every single room has real plants. Large ones. Small ones. Trailing ones. There's something magical about walking into a space that feels alive. Beyond beauty, plants can reduce volatile organic compounds in indoor air and measurably lower stress markers. Even looking at greenery lowers cortisol.</P>
-        <P>But the effect is deeper than research studies. The space feels calmer. Softer. More breathable.</P>
-        <P>Nature paintings and florals fill the walls too — because even imagery of nature has been shown to reduce stress and improve focus. The brain responds to these cues of safety.</P>
-        <Em>When you're building ambitious technology, your nervous system needs counterbalance.</Em>
+        <LP>Every single room has real plants. Large ones. Small ones. Trailing ones. There's something magical about walking into a space that feels alive. Beyond beauty, plants can reduce volatile organic compounds in indoor air and measurably lower stress markers. Even looking at greenery lowers cortisol.</LP>
+        <LP>But the effect is deeper than research studies. The space feels calmer. Softer. More breathable.</LP>
+        <LP>Nature paintings and florals fill the walls too — because even imagery of nature has been shown to reduce stress and improve focus. The brain responds to these cues of safety.</LP>
+        <LEm>When you're building ambitious technology, your nervous system needs counterbalance.</LEm>
 
         <p className={`${T.label} mt-12 mb-4`}>Light Is Medicine</p>
-        <P>We prioritized natural light first. The house has large windows, and we keep them open whenever possible. Sunlight regulates circadian rhythm, improves mood, supports vitamin D production, and literally anchors your hormonal cycles.</P>
-        <P>At night, we switch to warm yellow lighting. No harsh overhead blues. No sterile office glow.</P>
-        <Em>Light affects melatonin. Melatonin affects sleep. Sleep affects immune function, emotional regulation, cognition, and resilience. This isn't aesthetic preference. It's biology.</Em>
+        <LP>We prioritized natural light first. The house has large windows, and we keep them open whenever possible. Sunlight regulates circadian rhythm, improves mood, supports vitamin D production, and literally anchors your hormonal cycles.</LP>
+        <LP>At night, we switch to warm yellow lighting. No harsh overhead blues. No sterile office glow.</LP>
+        <LEm>Light affects melatonin. Melatonin affects sleep. Sleep affects immune function, emotional regulation, cognition, and resilience. This isn't aesthetic preference. It's biology.</LEm>
 
         <p className={`${T.label} mt-12 mb-4`}>The Kitchen as Apothecary</p>
-        <P>Instead of stocking energy drinks, we stocked teas:</P>
-        <P><strong>Soursop Leaf</strong> — Immune system, cellular antioxidant defense, digestive tract. Contains acetogenins, alkaloids, and antioxidants. Supports immune resilience and reduces oxidative stress.</P>
-        <P><strong>Butterfly Pea Flower</strong> — Brain and nervous system, skin, eyes, circulation. Contains anthocyanins. Neuroprotective antioxidant support, cognitive clarity, anti-inflammatory properties.</P>
-        <P><strong>Dandelion Root</strong> — Liver, gallbladder, digestive system. Traditionally used as a liver tonic. Supports bile production, kidney function, and helps the liver process toxins.</P>
-        <P><strong>Clove</strong> — Immune system, digestive tract, oral health. Contains eugenol. Antimicrobial, anti-inflammatory, traditionally used for gut health.</P>
-        <P><strong>Anise</strong> — Digestive system, respiratory tract. Relieves gas and bloating, expectorant properties, mild antimicrobial action.</P>
-        <P><strong>Jasmine Green Tea</strong> — Brain, cardiovascular system, immune system. L-theanine promotes calm alertness. Supports cardiovascular health and cellular antioxidant defense.</P>
-        <P><strong>Cinnamon</strong> — Blood sugar regulation, pancreas, cardiovascular system. Improves insulin sensitivity, supports stable blood sugar levels. Stable blood sugar equals stable mood and cognitive clarity.</P>
-        <P>Are these miracle cures? Of course not. But antioxidants matter. Liver support matters. Anti-inflammatory compounds matter.</P>
-        <P>We use mineral-rich sea salt. No processed foods. No refined sugars. Lots of probiotics. Fermented vegetables. Olive oil from Turkey — where it feels like medicine, not just food.</P>
-        <Em>Food is either supporting inflammation or reducing it. There is no neutral.</Em>
+        <LP>Instead of stocking energy drinks, we stocked teas:</LP>
+        <LP><strong>Soursop Leaf</strong> — Immune system, cellular antioxidant defense, digestive tract. Contains acetogenins, alkaloids, and antioxidants. Supports immune resilience and reduces oxidative stress.</LP>
+        <LP><strong>Butterfly Pea Flower</strong> — Brain and nervous system, skin, eyes, circulation. Contains anthocyanins. Neuroprotective antioxidant support, cognitive clarity, anti-inflammatory properties.</LP>
+        <LP><strong>Dandelion Root</strong> — Liver, gallbladder, digestive system. Traditionally used as a liver tonic. Supports bile production, kidney function, and helps the liver process toxins.</LP>
+        <LP><strong>Clove</strong> — Immune system, digestive tract, oral health. Contains eugenol. Antimicrobial, anti-inflammatory, traditionally used for gut health.</LP>
+        <LP><strong>Anise</strong> — Digestive system, respiratory tract. Relieves gas and bloating, expectorant properties, mild antimicrobial action.</LP>
+        <LP><strong>Jasmine Green Tea</strong> — Brain, cardiovascular system, immune system. L-theanine promotes calm alertness. Supports cardiovascular health and cellular antioxidant defense.</LP>
+        <LP><strong>Cinnamon</strong> — Blood sugar regulation, pancreas, cardiovascular system. Improves insulin sensitivity, supports stable blood sugar levels. Stable blood sugar equals stable mood and cognitive clarity.</LP>
+        <LP>Are these miracle cures? Of course not. But antioxidants matter. Liver support matters. Anti-inflammatory compounds matter.</LP>
+        <LP>We use mineral-rich sea salt. No processed foods. No refined sugars. Lots of probiotics. Fermented vegetables. Olive oil from Turkey — where it feels like medicine, not just food.</LP>
+        <LEm>Food is either supporting inflammation or reducing it. There is no neutral.</LEm>
 
         <p className={`${T.label} mt-12 mb-4`}>Ritual, Reset, Nervous System</p>
-        <P>Every few days, we walk through the house with palo santo or sage. Call it spiritual. Call it antimicrobial. Call it nervous system regulation. Ritual matters.</P>
-        <P>We play binaural beats in the evenings. We diffuse organic essential oils — lavender for calm, rosemary for alertness, citrus for uplift.</P>
-        <P>Even the quotes on the walls are intentional. Humor lowers stress hormones. Positive framing expands cognition.</P>
-        <Em>You cannot innovate in a constant stress response.</Em>
+        <LP>Every few days, we walk through the house with palo santo or sage. Call it spiritual. Call it antimicrobial. Call it nervous system regulation. Ritual matters.</LP>
+        <LP>We play binaural beats in the evenings. We diffuse organic essential oils — lavender for calm, rosemary for alertness, citrus for uplift.</LP>
+        <LP>Even the quotes on the walls are intentional. Humor lowers stress hormones. Positive framing expands cognition.</LP>
+        <LEm>You cannot innovate in a constant stress response.</LEm>
 
         <p className={`${T.label} mt-12 mb-4`}>Floor Sitting, Energy, and Wholeness</p>
-        <P>We encourage floor sitting. It improves hip mobility, posture, and longevity markers. It also changes how conversations feel — less rigid, more collaborative.</P>
-        <P>There's breathwork. Some Mantak Chia energy circulation influence. A bit of astrology for fun. Occasional reiki sessions in the home.</P>
-        <P>You don't have to believe in everything. But you do have to acknowledge that humans are more than brains attached to laptops.</P>
-        <Em>Spiritual and operational don't have to be opposites. They can be integrated.</Em>
+        <LP>We encourage floor sitting. It improves hip mobility, posture, and longevity markers. It also changes how conversations feel — less rigid, more collaborative.</LP>
+        <LP>There's breathwork. Some Mantak Chia energy circulation influence. A bit of astrology for fun. Occasional reiki sessions in the home.</LP>
+        <LP>You don't have to believe in everything. But you do have to acknowledge that humans are more than brains attached to laptops.</LP>
+        <LEm>Spiritual and operational don't have to be opposites. They can be integrated.</LEm>
 
         <p className={`${T.label} mt-12 mb-4`}>The Garden</p>
-        <P>Outside we have olive trees, rosemary, a lemon tree. There is something grounding about tending living plants while discussing artificial intelligence. It reminds you what is ancient. What is biological. What is slow and patient.</P>
-        <Em>Technology moves fast. Nature moves wisely.</Em>
+        <LP>Outside we have olive trees, rosemary, a lemon tree. There is something grounding about tending living plants while discussing artificial intelligence. It reminds you what is ancient. What is biological. What is slow and patient.</LP>
+        <LEm>Technology moves fast. Nature moves wisely.</LEm>
 
         <p className={`${T.label} mt-12 mb-4`}>Designing This Way Was Joyful</p>
-        <P>The most surprising part? How fun it was to design without compromise.</P>
-        <P>To not ask: "What's cheaper?" "What's easier?" "What's standard?"</P>
-        <P>But instead: "What supports the human organism?" "What lowers inflammation?" "What increases joy?" "What improves sleep?"</P>
-        <Em>It felt like designing a nervous system, not just a house.</Em>
+        <LP>The most surprising part? How fun it was to design without compromise.</LP>
+        <LP>To not ask: "What's cheaper?" "What's easier?" "What's standard?"</LP>
+        <LP>But instead: "What supports the human organism?" "What lowers inflammation?" "What increases joy?" "What improves sleep?"</LP>
+        <LEm>It felt like designing a nervous system, not just a house.</LEm>
         <Lines>
-          <Line>Comfortable yet mindful.</Line>
-          <Line>Relaxing yet productive.</Line>
-          <Line>Nature meets nurture.</Line>
+          <LLine>Comfortable yet mindful.</LLine>
+          <LLine>Relaxing yet productive.</LLine>
+          <LLine>Nature meets nurture.</LLine>
         </Lines>
-        <P>If we're serious about advancing humanity with AI — maybe we should start by creating spaces that support human flourishing first.</P>
-        <P>And yes. It looks beautiful.</P>
-        <Em>But more importantly — it feels alive.</Em>
-      </Article>
+        <LP>If we're serious about advancing humanity with AI — maybe we should start by creating spaces that support human flourishing first.</LP>
+        <LP>And yes. It looks beautiful.</LP>
+        <LEm>But more importantly — it feels alive.</LEm>
+      </LArticle>
 
       {/* Curated Products CTA */}
       <section className="py-16 md:py-24 border-t border-foreground/5">

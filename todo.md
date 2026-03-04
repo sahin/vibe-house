@@ -132,3 +132,6 @@
 - [x] Update BiologicalFounder page title/headings/body "founder" → "team member" on Lovie
 - [x] Update CuratedProducts page title "Founder's Pharmacy" → "The Team's Pharmacy" on Lovie
 - [x] Audit and update all remaining "founder" mentions in page content for Lovie version (nav, headings, TOC, breadcrumbs, CTAs — article body kept as editorial)
+- [x] Persist ?isLovie=true in sessionStorage so Lovie branding persists across page navigation
+- [x] Replace all remaining "founder" mentions in 10 article bodies with team member language on Lovie
+- [x] Save checkpoint for publishing to make changes live
