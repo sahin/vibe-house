@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch, Router as WouterRouter } from "wouter";
+import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
@@ -9,33 +9,35 @@ import WhyNow from "./pages/WhyNow";
 import BiologicalFounder from "./pages/BiologicalFounder";
 import CuratedProducts from "./pages/CuratedProducts";
 
-const LOVIE_BASE = "/about/location";
-
+/**
+ * Routes are defined at both / and /about/location/ so the same pages
+ * render under both prefixes.  Internal links are handled by the h()
+ * helper from useBranding which adds /about/location when appropriate.
+ * This avoids double-prefixing that would occur with wouter's Router
+ * base prop combined with h().
+ */
 function Routes() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
+      {/* Root routes */}
       <Route path={"/"} component={Home} />
       <Route path={"/why"} component={WhyNow} />
       <Route path={"/biological-founder"} component={BiologicalFounder} />
       <Route path={"/the-founders-pharmacy"} component={CuratedProducts} />
+
+      {/* Lovie routes — same pages served under /about/location/ */}
+      <Route path={"/about/location"} component={Home} />
+      <Route path={"/about/location/"} component={Home} />
+      <Route path={"/about/location/why"} component={WhyNow} />
+      <Route path={"/about/location/biological-founder"} component={BiologicalFounder} />
+      <Route path={"/about/location/the-founders-pharmacy"} component={CuratedProducts} />
+
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
   );
-}
-
-/**
- * Detect whether the current URL starts with /about/location.
- * If so, wouter uses that as the base path so all routes work under both
- * / and /about/location/ prefixes.
- */
-function getBasePath(): string {
-  if (typeof window !== "undefined" && window.location.pathname.startsWith(LOVIE_BASE)) {
-    return LOVIE_BASE;
-  }
-  return "";
 }
 
 // NOTE: About Theme
@@ -44,8 +46,6 @@ function getBasePath(): string {
 // - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
-  const base = getBasePath();
-
   return (
     <ErrorBoundary>
       <ThemeProvider
@@ -54,13 +54,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
-          {base ? (
-            <WouterRouter base={base}>
-              <Routes />
-            </WouterRouter>
-          ) : (
-            <Routes />
-          )}
+          <Routes />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

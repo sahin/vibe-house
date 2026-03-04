@@ -126,3 +126,4 @@
 - [x] Add git commit hash meta tag to HTML header: <meta name="commit" content="{hash}"> — already implemented
 - [x] Create reusable skill for commit hash meta tag feature
 - [x] Fix 404 on /about/location/why route (and other /about/location/* paths)
+- [x] Update all internal nav links to use base path when on /about/location/ prefix
