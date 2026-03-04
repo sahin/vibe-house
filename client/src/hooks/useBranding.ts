@@ -191,7 +191,8 @@ const lovieCopy: BrandingCopy = {
 export function useBranding() {
   const isLovie =
     typeof window !== "undefined" &&
-    window.location.hostname.includes("lovie.co");
+    (window.location.hostname.includes("lovie.co") ||
+      new URLSearchParams(window.location.search).get("isLovie") === "true");
 
   /** The base path prefix — "/about/location" on lovie.co, "" elsewhere */
   const basePath = isLovie ? "/about/location" : "";

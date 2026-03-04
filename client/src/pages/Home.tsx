@@ -471,7 +471,7 @@ export default function Home() {
             <span className={`${T.xl} text-foreground/8`}>{req.number}</span>
             <h3 className={`${T.l} mt-2 mb-3`}>{req.number === "01" ? copy.joinReq1Title : req.title}</h3>
             <p className={`${T.m} text-foreground/55`}>{req.number === "01" ? copy.joinReq1Description : req.description}</p>
-            {req.badges && (
+            {req.badges && !isLovie && (
               <div className="mt-6 flex flex-wrap gap-3 items-center">
                 {req.badges.map((badge: string) => (
                   <span key={badge} className="inline-flex items-center px-4 py-1.5 rounded-full text-sm tracking-wide border border-foreground/15 text-foreground/60 font-medium">

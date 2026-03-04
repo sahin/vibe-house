@@ -120,3 +120,5 @@
 - [x] Produce complete substitution table for user reference
 - [x] Replace communities section on lovie.co with simple "Apply to lovie.co" CTA instead of PEF/Superfounders list
 - [x] Keep original communities list for default domain (sfvibehouse.com)
+- [x] Add ?isLovie=true query parameter override to useBranding hook for previewing Lovie version on any domain
+- [x] Hide PEF/Superfounders badges in Join section on lovie.co
