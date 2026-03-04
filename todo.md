@@ -125,3 +125,4 @@
 - [x] Fix ?isLovie=true not working on published site (sfvibehouse.com) — confirmed working
 - [x] Add git commit hash meta tag to HTML header: <meta name="commit" content="{hash}"> — already implemented
 - [x] Create reusable skill for commit hash meta tag feature
+- [x] Fix 404 on /about/location/why route (and other /about/location/* paths)
