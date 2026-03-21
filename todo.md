@@ -136,3 +136,4 @@
 - [x] Replace all remaining "founder" mentions in 10 article bodies with team member language on Lovie
 - [x] Save checkpoint for publishing to make changes live
 - [x] Remove "Manus" from "Created by @sahin & Manus" footer credit
+- [x] Change "Founders in their 30s and 40s" to "Founders in their 30s–50s" across all pages and copy variants

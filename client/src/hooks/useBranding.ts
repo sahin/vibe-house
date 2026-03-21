@@ -113,11 +113,11 @@ const defaultCopy: BrandingCopy = {
   whyNow_ch2_p2:
     "The garage spirit faded. Building became about fundraising, not making. About decks, not demos. The founders who once couldn't stop shipping found themselves in a world where shipping meant something entirely different.",
   whyNow_ch3_p2:
-    "Founders in their 30s and 40s — people who exited, who managed teams, who stopped building with their hands — are going back to builder mode. With AI agents, they can build again. And they're building things that would have taken entire teams.",
+    "Founders in their 30s–50s — people who exited, who managed teams, who stopped building with their hands — are going back to builder mode. With AI agents, they can build again. And they're building things that would have taken entire teams.",
   whyNow_ch5_p2:
     "That's exactly why founders and builders need to come together — to build together, to share how they're using AI, to learn from each other in real time. The ones who stay connected to the edge will define what comes next.",
   whyNow_ch6_p2:
-    "Founders in their 30s and 40s are going back to builder mode — and they're more dangerous than ever. They have the experience, the taste, the network. Now they have the tools too.",
+    "Founders in their 30s–50s are going back to builder mode — and they're more dangerous than ever. They have the experience, the taste, the network. Now they have the tools too.",
   whyNow_ch8_p2:
     "A place where technical founders come together, multiple times a week, to vibe code. You work on your own project. You share your prompts, your workflows, your breakthroughs. And there's an ongoing group project that everyone prompts together.",
 
@@ -192,11 +192,11 @@ const lovieCopy: BrandingCopy = {
   whyNow_ch2_p2:
     "The garage spirit faded. Building became about fundraising, not making. About decks, not demos. The builders who once couldn't stop shipping found themselves in a world where shipping meant something entirely different.",
   whyNow_ch3_p2:
-    "People in their 30s and 40s — people who built great things, who managed teams, who stopped building with their hands — are going back to builder mode. With AI agents, they can build again. And they're building things that would have taken entire teams.",
+    "People in their 30s–50s — people who built great things, who managed teams, who stopped building with their hands — are going back to builder mode. With AI agents, they can build again. And they're building things that would have taken entire teams.",
   whyNow_ch5_p2:
     "That's exactly why builders and team members need to come together — to build together, to share how they're using AI, to learn from each other in real time. The ones who stay connected to the edge will define what comes next.",
   whyNow_ch6_p2:
-    "Builders in their 30s and 40s are going back to builder mode — and they're more dangerous than ever. They have the experience, the taste, the network. Now they have the tools too.",
+    "Builders in their 30s–50s are going back to builder mode — and they're more dangerous than ever. They have the experience, the taste, the network. Now they have the tools too.",
   whyNow_ch8_p2:
     "A place where the Lovie team comes together, multiple times a week, to vibe code. You work on your own project. You share your prompts, your workflows, your breakthroughs. And there's an ongoing group project that everyone prompts together.",
 
