@@ -11,7 +11,7 @@ interface SEOProps {
   keywords?: string;
 }
 
-const DEFAULT_OG_IMAGE = "https://private-us-east-1.manuscdn.com/sessionFile/EYUEGdEJ1P4CEaW2SLZOhC/sandbox/lgQvb1oSQa2zmHxYUjbe3V-img-5_1770340079000_na1fn_dmliZS1ob3VzZS1leHRlcmlvcg.png?x-oss-process=image/resize,w_1200,h_630/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvRVlVRUdkRUoxUDRDRWFXMlNMWk9oQy9zYW5kYm94L2xnUXZiMW9TUWEyem1IeFlVamJlM1YtaW1nLTVfMTc3MDM0MDA3OTAwMF9uYTFmbl9kbWxpWlMxb2IzVnpaUzFsZUhSbGNtbHZjZy5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=N9aUG0~YgaU6ZOYuM8J63sTmTl3m51P5pzuKxDGt~q~5WeA7ynrYHUzXL2HK40jgG6wYdlu7AodQO2S3uB5sIu8YkzFJPTR2ZeB7c2XLtAf6YTI-LD6NC191txILp2oUVPlZhVC4I0RJTvlKm6MEe~LXWY2B-hx7pOlW6udVY16HhevR1EqGORB5RromOtc0N21CjrRc40M9LlnC~LE~rxSW0UCnoDRCJEH32n1QYoEkCTe0JXZTxXBGM3gyRaW5p95vs0kHGklHoId-yrkdAkU5ByuNJIQPCklyFzUVuDxmOHl7-V7RdVOnxfza-uWLSyiX2fIOWr~v7xKk9nXeFg__";
+const DEFAULT_OG_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/vibe-house-og-image-v2_55312207.png";
 
 export default function SEO({
   title,
@@ -19,13 +19,75 @@ export default function SEO({
   path,
   ogImage,
   ogType = "website",
-  twitterHandle = "@saaborz",
+  twitterHandle = "@sahin",
   keywords,
 }: SEOProps) {
-  const { siteName, baseUrl, ogImage: brandingOgImage } = useBranding();
+  const { isLovie, siteName, baseUrl, ogImage: brandingOgImage } = useBranding();
   const fullUrl = `${baseUrl}${path}`;
   const fullTitle = path === "/" ? title : `${title} — ${siteName}`;
   const resolvedOgImage = ogImage || brandingOgImage || DEFAULT_OG_IMAGE;
+
+  const organizationJsonLd = isLovie
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Vibe House | Lovie HQ",
+        alternateName: "Lovie",
+        url: "https://www.lovie.co/about/location",
+        logo: "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/lovie-favicon-192_4c6f1eeb.png",
+        description:
+          "A new kind of home base for the Lovie team to vibe code together.",
+        sameAs: [
+          "https://x.com/@sahin",
+          "https://www.linkedin.com/in/sahinboydas",
+          "https://www.lovie.co",
+        ],
+        founder: {
+          "@type": "Person",
+          name: "Sahin Boydas",
+          url: "https://www.linkedin.com/in/sahinboydas",
+          sameAs: [
+            "https://x.com/@sahin",
+            "https://www.linkedin.com/in/sahinboydas",
+          ],
+        },
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "San Francisco",
+          addressRegion: "CA",
+          addressCountry: "US",
+        },
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Vibe House SF",
+        alternateName: "SF Vibe House",
+        url: "https://www.sfvibehouse.com",
+        logo: "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/superfounders-favicon-192_324dd3cb.png",
+        description:
+          "A new type of hacker house for exited technical founders to vibe code together in San Francisco.",
+        sameAs: [
+          "https://x.com/@sahin",
+          "https://www.linkedin.com/in/sahinboydas",
+          "https://www.superfoundersbook.com",
+        ],
+        founder: {
+          "@type": "Person",
+          name: "Sahin Boydas",
+          url: "https://www.linkedin.com/in/sahinboydas",
+          sameAs: [
+            "https://x.com/@sahin",
+            "https://www.linkedin.com/in/sahinboydas",
+          ],
+        },
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "San Francisco",
+          addressRegion: "CA",
+          addressCountry: "US",
+        },
+      };
 
   return (
     <Helmet>
@@ -55,6 +117,11 @@ export default function SEO({
       {/* Additional */}
       <meta name="robots" content="index, follow" />
       <meta name="author" content={siteName} />
+
+      {/* JSON-LD Organization Structured Data */}
+      <script type="application/ld+json">
+        {JSON.stringify(organizationJsonLd)}
+      </script>
     </Helmet>
   );
 }

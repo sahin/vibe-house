@@ -142,3 +142,6 @@
 - [x] Update HTML page title dynamically for Lovie mode ("Vibe House | Lovie HQ")
 - [x] Add Open Graph images (og:image) for default and Lovie versions
 - [x] Save checkpoint for publishing
+- [x] Update Twitter handle from @saaborz to @sahin in SEO component
+- [x] Add JSON-LD Organization structured data for both brand versions
+- [x] Create custom 1200x630 OG image with Vibe House branding on exterior photo
