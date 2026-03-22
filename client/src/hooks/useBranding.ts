@@ -268,7 +268,7 @@ export function useBranding() {
   /** Content copy — switches between founder language and team language */
   const copy: BrandingCopy = isLovie ? lovieCopy : defaultCopy;
 
-  /** Dynamically switch favicon based on branding */
+  /** Dynamically switch favicon and page title based on branding */
   useEffect(() => {
     if (typeof document === "undefined") return;
     const favicon = document.getElementById("favicon") as HTMLLinkElement | null;
@@ -276,6 +276,7 @@ export function useBranding() {
     if (isLovie) {
       if (favicon) favicon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/lovie-favicon-32_0d26ce06.png";
       if (appleTouchIcon) appleTouchIcon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/lovie-favicon-192_4c6f1eeb.png";
+      document.title = "Vibe House | Lovie HQ";
     } else {
       if (favicon) favicon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/superfounders-favicon-32_6ac09631.png";
       if (appleTouchIcon) appleTouchIcon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/superfounders-favicon-192_324dd3cb.png";
@@ -296,6 +297,10 @@ export function useBranding() {
       siteName: isLovie ? "Vibe House | Lovie HQ" : "Vibe House SF",
       /** SEO base URL */
       baseUrl: isLovie ? "https://www.lovie.co/about/location" : "",
+      /** Default OG image — Lovie logo for lovie.co, exterior photo for default */
+      ogImage: isLovie
+        ? "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/lovie-og-image_ca46b039.png"
+        : undefined,
     }),
     [isLovie, basePath, href, copy],
   );

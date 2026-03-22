@@ -139,3 +139,6 @@
 - [x] Change "Founders in their 30s and 40s" to "Founders in their 30s–50s" across all pages and copy variants
 - [x] Set Superfounders book favicon as the default site favicon
 - [x] Add Lovie Om favicon that switches when in Lovie mode
+- [x] Update HTML page title dynamically for Lovie mode ("Vibe House | Lovie HQ")
+- [x] Add Open Graph images (og:image) for default and Lovie versions
+- [x] Save checkpoint for publishing
