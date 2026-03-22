@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, useEffect } from "react";
 
 /**
  * Detects whether the site is being accessed via lovie.co
@@ -267,6 +267,20 @@ export function useBranding() {
 
   /** Content copy — switches between founder language and team language */
   const copy: BrandingCopy = isLovie ? lovieCopy : defaultCopy;
+
+  /** Dynamically switch favicon based on branding */
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const favicon = document.getElementById("favicon") as HTMLLinkElement | null;
+    const appleTouchIcon = document.getElementById("apple-touch-icon") as HTMLLinkElement | null;
+    if (isLovie) {
+      if (favicon) favicon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/lovie-favicon-32_0d26ce06.png";
+      if (appleTouchIcon) appleTouchIcon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/lovie-favicon-192_4c6f1eeb.png";
+    } else {
+      if (favicon) favicon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/superfounders-favicon-32_6ac09631.png";
+      if (appleTouchIcon) appleTouchIcon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/superfounders-favicon-192_324dd3cb.png";
+    }
+  }, [isLovie]);
 
   return useMemo(
     () => ({
