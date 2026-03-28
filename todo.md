@@ -146,3 +146,5 @@
 - [x] Add JSON-LD Organization structured data for both brand versions
 - [x] Create custom 1200x630 OG image with Vibe House branding on exterior photo
 - [x] Replace Superfounders favicon with custom text-based "Vibe House" stacked favicon (dark bg, light text)
+- [x] Regenerate Vibe House favicon with much larger/bolder "VH" monogram filling the entire square
+- [x] Update favicon across all pages (index.html + useBranding dynamic switching)
