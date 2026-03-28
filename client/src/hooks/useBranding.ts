@@ -278,8 +278,8 @@ export function useBranding() {
       if (appleTouchIcon) appleTouchIcon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/lovie-favicon-192_4c6f1eeb.png";
       document.title = "Vibe House | Lovie HQ";
     } else {
-      if (favicon) favicon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/superfounders-favicon-32_6ac09631.png";
-      if (appleTouchIcon) appleTouchIcon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/superfounders-favicon-192_324dd3cb.png";
+      if (favicon) favicon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/vh-favicon-dark-32_831ef1c4.png";
+      if (appleTouchIcon) appleTouchIcon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/vh-favicon-dark-192_268ed36b.png";
     }
   }, [isLovie]);
 

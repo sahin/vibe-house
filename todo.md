@@ -145,3 +145,4 @@
 - [x] Update Twitter handle from @saaborz to @sahin in SEO component
 - [x] Add JSON-LD Organization structured data for both brand versions
 - [x] Create custom 1200x630 OG image with Vibe House branding on exterior photo
+- [x] Replace Superfounders favicon with custom text-based "Vibe House" stacked favicon (dark bg, light text)
