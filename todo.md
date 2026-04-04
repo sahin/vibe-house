@@ -153,3 +153,4 @@
 - [x] Upload logos for Tiger 21, EO, YPO
 - [x] Update cloudflare worker community labels
 - [x] Create Airtable "Healthy Products" table with 130 unique products from Amazon orders + new discoveries
+- [x] Add all 130 products to Founder's Pharmacy page (name, category, short description, Amazon link)
