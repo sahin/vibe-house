@@ -39,19 +39,24 @@ const COMMUNITIES = [
     logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/NZpHzoYXrIPsAbrX.png",
   },
   {
-    value: "500_startups",
-    label: "500 Startups",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/JWOQDaLFzLrREeZK.png",
+    value: "tiger_21",
+    label: "Tiger 21",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/DqpMVx1qidXU_ff072f7f.png",
   },
   {
-    value: "antler",
-    label: "Antler",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/qxmzJRmdbiEJSvnY.png",
+    value: "eo",
+    label: "EO",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/cJxPBUPxPjOA_f8460203.png",
   },
   {
-    value: "founders_institute",
-    label: "Founders Institute",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/120748616/lUJjYQvUvEqWmmrN.png",
+    value: "ypo",
+    label: "YPO",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/khns2Vgf0ogN_1e665b00.png",
+  },
+  {
+    value: "longsdale",
+    label: "Longsdale",
+    logo: null,
   },
   {
     value: "startx",

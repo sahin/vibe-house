@@ -148,3 +148,8 @@
 - [x] Replace Superfounders favicon with custom text-based "Vibe House" stacked favicon (dark bg, light text)
 - [x] Regenerate Vibe House favicon with much larger/bolder "VH" monogram filling the entire square
 - [x] Update favicon across all pages (index.html + useBranding dynamic switching)
+- [x] Remove FI, 500 Startups, Antler from community options
+- [x] Add Tiger 21, EO, YPO, Longsdale to community options
+- [x] Upload logos for Tiger 21, EO, YPO
+- [x] Update cloudflare worker community labels
+- [x] Create Airtable "Healthy Products" table with 130 unique products from Amazon orders + new discoveries
