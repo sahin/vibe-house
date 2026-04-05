@@ -154,3 +154,8 @@
 - [x] Update cloudflare worker community labels
 - [x] Create Airtable "Healthy Products" table with 130 unique products from Amazon orders + new discoveries
 - [x] Add all 130 products to Founder's Pharmacy page (name, category, short description, Amazon link)
+- [x] Add Amazon affiliate tag (lovie084-20) to all 198 product links (129 inline + 69 legacy map)
+- [x] Generate 16 unique category images
+- [x] Upload category images to CDN and add to page
+- [x] Implement search bar for products
+- [x] Implement category filtering options
