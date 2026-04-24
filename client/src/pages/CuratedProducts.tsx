@@ -10,7 +10,7 @@ import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { ArrowLeft, Menu, X, ChevronDown, Droplets, Wind, Leaf, Coffee, Pill, Sparkles, Gem, Moon, Droplet, ChefHat, Search } from "lucide-react";
 import { Link } from "wouter";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useBranding } from "@/hooks/useBranding";
 
 // Typography — matching site-wide system
@@ -462,12 +462,11 @@ function ProductCard({ product }: { product: Product }) {
 // Category section
 function CategorySection({ category, index, philosophyOverride }: { category: Category; index: number; philosophyOverride?: string }) {
   const IconComponent = ICONS[category.icon] || Leaf;
-  const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV"];
+  const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI"];
 
   return (
     <section id={category.id} className="py-16 md:py-24">
-      <div className="container">
-        <div className="max-w-4xl mx-auto">
+      <div>
           <FadeIn>
             <div className="flex items-center gap-3 mb-4">
               <IconComponent className="w-4 h-4 text-foreground/30" />
@@ -500,7 +499,6 @@ function CategorySection({ category, index, philosophyOverride }: { category: Ca
               ))}
             </div>
           </FadeIn>
-        </div>
       </div>
     </section>
   );
@@ -529,8 +527,29 @@ export default function CuratedProducts() {
   const [tocOpen, setTocOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [activeSectionId, setActiveSectionId] = useState<string>("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV"];
+  // Track which section is currently in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSectionId(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-20% 0px -60% 0px", threshold: 0 }
+    );
+    CATEGORIES.forEach((cat) => {
+      const el = document.getElementById(cat.id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI"];
 
   const totalProducts = useMemo(
     () => CATEGORIES.reduce((sum, cat) => sum + cat.products.length, 0),
@@ -758,71 +777,107 @@ export default function CuratedProducts() {
         </div>
       </section>
 
-      {/* Table of Contents */}
-      <section className="py-8">
-        <div className="container">
-          <div className="max-w-4xl mx-auto">
-            <button
-              className={`${T.label} flex items-center gap-2 mb-6 hover:text-foreground/60 transition-colors cursor-pointer`}
-              onClick={() => setTocOpen(!tocOpen)}
-            >
-              Table of Contents
-              <ChevronDown
-                className={`w-3 h-3 transition-transform duration-300 ${tocOpen ? "rotate-180" : ""}`}
-              />
-            </button>
+      {/* Two-column layout: Sticky Sidebar + Main Content */}
+      <div className="container">
+        <div className="flex gap-0 lg:gap-8 relative">
+          {/* Mobile TOC toggle button */}
+          <button
+            className="lg:hidden fixed bottom-6 right-6 z-40 bg-foreground text-background rounded-full p-4 shadow-lg hover:bg-foreground/90 transition-colors"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            aria-label="Toggle table of contents"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
 
-            {tocOpen && (
-              <motion.div
-                className="border-l border-foreground/10 pl-6 space-y-1"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                transition={{ duration: 0.3 }}
-              >
-                {CATEGORIES.map((cat, i) => (
-                  <TOCItem
-                    key={cat.id}
-                    number={romanNumerals[i]}
-                    title={cat.title}
-                    id={cat.id}
-                  />
-                ))}
-              </motion.div>
-            )}
-          </div>
-        </div>
-      </section>
+          {/* Mobile sidebar overlay */}
+          {sidebarOpen && (
+            <div
+              className="lg:hidden fixed inset-0 bg-black/30 z-40"
+              onClick={() => setSidebarOpen(false)}
+            />
+          )}
 
-      {/* Categories */}
-      {filteredCategories.map((category, i) => (
-        <CategorySection
-          key={category.id}
-          category={category}
-          index={CATEGORIES.findIndex(c => c.id === category.id)}
-          philosophyOverride={category.id === "kitchen" ? copy.curatedKitchenPhilosophy : undefined}
-        />
-      ))}
-
-      {/* No results */}
-      {filteredCategories.length === 0 && isFiltering && (
-        <section className="py-20 md:py-32">
-          <div className="container">
-            <div className="max-w-4xl mx-auto text-center">
-              <p className={`${T.l} text-foreground/30 mb-4`}>No products found</p>
-              <p className={`${T.m} text-foreground/40 mb-8`}>
-                Try a different search term or clear your filters.
-              </p>
-              <Button
-                variant="outline"
-                onClick={() => { setSearchQuery(""); setActiveCategory(null); }}
-                className={`${T.nav} rounded-full px-6 py-4 border-foreground/15`}
-              >
-                Clear all filters
-              </Button>
+          {/* Left Sidebar — Sticky TOC */}
+          <aside
+            className={`
+              fixed lg:sticky top-0 lg:top-20 left-0 lg:left-auto
+              h-screen lg:h-[calc(100vh-5rem)]
+              w-72 lg:w-56 xl:w-64 shrink-0
+              bg-background lg:bg-transparent
+              z-50 lg:z-10
+              transform transition-transform duration-300 lg:transform-none
+              ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+              overflow-y-auto overscroll-contain
+              border-r border-foreground/5 lg:border-r-0
+              pt-20 lg:pt-2 pb-8
+              px-6 lg:px-0
+            `}
+          >
+            <div className="flex items-center justify-between mb-4 lg:hidden">
+              <p className={`${T.label}`}>Contents</p>
+              <button onClick={() => setSidebarOpen(false)} className="p-1 text-foreground/40 hover:text-foreground">
+                <X className="w-4 h-4" />
+              </button>
             </div>
-          </div>
-        </section>
-      )}
+            <p className={`${T.label} mb-4 hidden lg:block`}>Contents</p>
+            <nav className="border-l border-foreground/10 pl-4 space-y-0.5">
+              {CATEGORIES.map((cat, i) => (
+                <a
+                  key={cat.id}
+                  href={`#${cat.id}`}
+                  className={`block py-1.5 text-[13px] leading-snug transition-colors duration-200 ${
+                    activeSectionId === cat.id
+                      ? "text-foreground font-medium"
+                      : "text-foreground/40 hover:text-foreground/70"
+                  }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth" });
+                    setSidebarOpen(false);
+                  }}
+                >
+                  <span className={`mr-2 text-[11px] ${
+                    activeSectionId === cat.id ? "text-foreground/60" : "text-foreground/25"
+                  }`}>{romanNumerals[i] || String(i + 1)}</span>
+                  {cat.title}
+                </a>
+              ))}
+            </nav>
+          </aside>
+
+          {/* Right — Main Content */}
+          <main className="flex-1 min-w-0">
+            {/* Categories */}
+            {filteredCategories.map((category, i) => (
+              <CategorySection
+                key={category.id}
+                category={category}
+                index={CATEGORIES.findIndex(c => c.id === category.id)}
+                philosophyOverride={category.id === "kitchen" ? copy.curatedKitchenPhilosophy : undefined}
+              />
+            ))}
+
+            {/* No results */}
+            {filteredCategories.length === 0 && isFiltering && (
+              <section className="py-20 md:py-32">
+                <div className="text-center">
+                  <p className={`${T.l} text-foreground/30 mb-4`}>No products found</p>
+                  <p className={`${T.m} text-foreground/40 mb-8`}>
+                    Try a different search term or clear your filters.
+                  </p>
+                  <Button
+                    variant="outline"
+                    onClick={() => { setSearchQuery(""); setActiveCategory(null); }}
+                    className={`${T.nav} rounded-full px-6 py-4 border-foreground/15`}
+                  >
+                    Clear all filters
+                  </Button>
+                </div>
+              </section>
+            )}
+          </main>
+        </div>
+      </div>
 
       {/* Category Index */}
       <section className="py-20 md:py-32 border-t border-foreground/5">

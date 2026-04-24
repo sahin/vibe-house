@@ -159,3 +159,4 @@
 - [x] Upload category images to CDN and add to page
 - [x] Implement search bar for products
 - [x] Implement category filtering options
+- [x] Convert Table of Contents to sticky left sidebar (always visible while scrolling)
