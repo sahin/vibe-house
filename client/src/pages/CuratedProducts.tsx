@@ -210,6 +210,10 @@ const CATEGORIES: Category[] = [
       { name: "Pour Over Coffee Dripper (Stainless Steel)", brand: "LHS", health: "Stainless steel paperless coffee filter. Zero waste brewing, no microplastic leaching.", url: "https://www.amazon.com/dp/B07MX87HH9?tag=lovie084-20" },
       { name: "MUD/WTR Morning Ritual Starter Kit", brand: "MUD/WTR", health: "Mushroom-based coffee alternative with lion's mane, chaga, reishi. 1/7th the caffeine.", url: "https://www.amazon.com/dp/B0BXKZQJ8P?tag=lovie084-20" },
       { name: "RYZE Mushroom Coffee", brand: "RYZE", health: "6-mushroom blend coffee with adaptogens. Sustained energy without jitters or crash.", url: "https://www.amazon.com/dp/B09RQGZQHP?tag=lovie084-20" },
+      { name: "Four Sigmatic Gut Health Coffee", brand: "Four Sigmatic", health: "Organic medium roast with turkey tail & chaga mushrooms plus probiotics for gut health and immune support.", url: "https://www.amazon.com/dp/B087YHP3HQ?tag=lovie084-20" },
+      { name: "Four Sigmatic Focus Coffee", brand: "Four Sigmatic", health: "Organic ground coffee with lion's mane & chaga mushrooms for enhanced focus and cognitive performance.", url: "https://www.amazon.com/dp/B0756D1D39?tag=lovie084-20" },
+      { name: "Four Sigmatic Calm Decaf Coffee", brand: "Four Sigmatic", health: "Swiss water decaf with reishi & chaga mushroom extracts for relaxation without caffeine.", url: "https://www.amazon.com/dp/B077YJ8L65?tag=lovie084-20" },
+      { name: "Four Sigmatic Balance Adaptogen Coffee", brand: "Four Sigmatic", health: "Medium roast with ashwagandha, chaga, eleuthero & tulsi for balanced energy and stress resilience.", url: "https://www.amazon.com/dp/B081R15GB2?tag=lovie084-20" },
     ],
   },
   {
@@ -321,6 +325,11 @@ const CATEGORIES: Category[] = [
     products: [
       { name: "Propolis Nasal Rinse Spray", brand: "Beekeeper's Naturals", health: "Bee propolis nasal spray — natural immune defense and sinus support.", url: "https://www.amazon.com/dp/B0BQ5JJWW4?tag=lovie084-20" },
       { name: "Mushroom Elixir Mix with Reishi", brand: "Four Sigmatic", health: "Reishi mushroom elixir for deep sleep and stress relief — adaptogenic nightcap.", url: "https://www.amazon.com/dp/B078WQXJ8P?tag=lovie084-20" },
+      { name: "Belladonna 30C Homeopathic Pellets", brand: "Boiron", health: "Classical homeopathic remedy for fever and inflammation. 80 pellets, no side effects or drug interactions.", url: "https://www.amazon.com/dp/B078NF6QB9?tag=lovie084-20" },
+      { name: "Aconitum Napellus 30C (3-Pack)", brand: "Boiron", health: "Homeopathic fever remedy — 240 pellets. First-line response for sudden onset symptoms.", url: "https://www.amazon.com/dp/B089BGC8BF?tag=lovie084-20" },
+      { name: "Sulphur Iodatum 9C", brand: "Boiron", health: "Homeopathic support for nasal discharge during cold and flu convalescence.", url: "https://www.amazon.com/dp/B004LFJVZ0?tag=lovie084-20" },
+      { name: "Chestal Honey Children's Cough Syrup", brand: "Boiron", health: "Homeopathic honey-based cough syrup for congestion, runny nose, and sore throat. 6.7 fl oz.", url: "https://www.amazon.com/dp/B012ROWMF2?tag=lovie084-20" },
+      { name: "Kids Ear Oil", brand: "Herb Pharm", health: "Herbal ear oil with garlic and mullein for natural ear comfort and immune support in children.", url: "https://www.amazon.com/dp/B00Y271VC8?tag=lovie084-20" },
     ],
   },
   {
@@ -352,6 +361,8 @@ const CATEGORIES: Category[] = [
       { name: "Biotin B-Complex Thickening Shampoo", brand: "Avalon Organics", health: "Organic biotin shampoo for hair health — plant-derived ingredients.", url: "https://www.amazon.com/dp/B008OL3UYK?tag=lovie084-20" },
       { name: "Hair/Skin/Nails Ultra Supplement", brand: "Pure Encapsulations", health: "Advanced beauty supplement with biotin, collagen, and hyaluronic acid.", url: "https://www.amazon.com/dp/B0063X0JL8?tag=lovie084-20" },
       { name: "Magnetic Bentonite Clay Bath", brand: "Enviromedica", health: "Detox bath therapy — draws out toxins through skin absorption.", url: "https://www.amazon.com/dp/B00X7RCW4A?tag=lovie084-20" },
+      { name: "Bali Secrets Natural Deodorant — THE PURE", brand: "Bali Secrets", health: "Fragrance-free, organic & vegan deodorant. No synthetic aluminum, clean formula for sensitive skin.", url: "https://www.amazon.com/dp/B0F9XDMMCS?tag=lovie084-20" },
+      { name: "Bali Secrets Natural Deodorant — THE ZESTY", brand: "Bali Secrets", health: "Citrus-scented organic & vegan deodorant. No synthetic aluminum, strong odor protection.", url: "https://www.amazon.com/dp/B0F9XDMQHL?tag=lovie084-20" },
     ],
   },
   {
@@ -427,6 +438,7 @@ const CATEGORIES: Category[] = [
       { name: "Hooga Red Light Therapy Panel", brand: "Hooga", health: "Red and near-infrared light therapy for cellular repair, skin health, and recovery.", url: "https://www.amazon.com/dp/B0CGC8HB5P?tag=lovie084-20" },
       { name: "Oura Ring Gen 4", brand: "Oura", health: "Gold standard sleep and HRV tracker — tracks readiness, sleep stages, and recovery.", url: "https://www.amazon.com/dp/B0DH8KXQZP?tag=lovie084-20" },
       { name: "Theragun Mini 3.0", brand: "Therabody", health: "Portable percussive therapy for muscle recovery — used by biohackers and athletes.", url: "https://www.amazon.com/dp/B0DKXQJ8PP?tag=lovie084-20" },
+      { name: "RENPHO Thermacool Massage Gun", brand: "RENPHO", health: "Deep tissue percussion massager with heat and cold therapy heads. Charging stand included. Pain relief and muscle recovery.", url: "https://www.amazon.com/dp/B0D6GK13XM?tag=lovie084-20" },
     ],
   },
 

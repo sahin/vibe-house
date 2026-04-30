@@ -160,3 +160,4 @@
 - [x] Implement search bar for products
 - [x] Implement category filtering options
 - [x] Convert Table of Contents to sticky left sidebar (always visible while scrolling)
+- [x] Add 12 new health products to Founder's Pharmacy page (Bali Secrets deodorants, RENPHO massage gun, Boiron homeopathics, Herb Pharm ear oil, Four Sigmatic coffees)
