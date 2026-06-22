@@ -26,6 +26,10 @@ const COMMUNITY_LABELS: Record<string, string> = {
   "500_startups": "500 Startups",
   antler: "Antler",
   founders_institute: "Founders Institute",
+  tiger_21: "Tiger21",
+  eo: "EO",
+  ypo: "YPO",
+  longsdale: "Longsdale",
   startx: "StartX",
   inception: "Inception",
   betaworks: "Betaworks",
@@ -148,6 +152,29 @@ export async function createAirtableRecord(
         delete fields[unknownField];
         skippedFields.push(unknownField);
         continue;
+      }
+
+      // Handle invalid select option errors (e.g., community value not in Airtable options)
+      try {
+        const parsed = JSON.parse(result.body);
+        if (
+          parsed?.error?.type === "INVALID_MULTIPLE_CHOICE_OPTIONS" ||
+          parsed?.error?.type === "INVALID_VALUE_FOR_COLUMN" ||
+          result.body.includes("INVALID") ||
+          result.body.includes("invalid")
+        ) {
+          // If Communities field has invalid options, remove it and retry
+          if (fields["Communities"] && Array.isArray(fields["Communities"])) {
+            console.log(
+              `[Airtable] Invalid select options in Communities field, removing and retrying (attempt ${attempt + 1}/${MAX_RETRIES})`
+            );
+            delete fields["Communities"];
+            skippedFields.push("Communities");
+            continue;
+          }
+        }
+      } catch {
+        // Not valid JSON, fall through
       }
     }
 
