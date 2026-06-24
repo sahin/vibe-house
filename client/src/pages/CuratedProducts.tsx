@@ -122,7 +122,6 @@ const AMAZON_LINKS: Record<string, string> = {
   "Organic Castile Liquid Soap (Unscented)": "https://www.amazon.com/Brittanies-Thyme-Organic-Natural-Unscented/dp/B08QLCRDM9?tag=lovie084-20",
   "Goat Milk Soap with Honey": "https://www.amazon.com/Handmade-Goat-Milk-Honey-Soap/dp/B00SV62QWA?tag=lovie084-20",
   "Ruby Grapefruit Hand Soap": "https://www.amazon.com/Everyone-Grapefruit-Plant-Based-Cleanser-Essential/dp/B082BWTR4X?tag=lovie084-20",
-  "Biotin B-Complex Thickening Shampoo": "https://www.amazon.com/Avalon-Organics-B-Complex-Thickening-Shampoo/dp/B008OL3UYK?tag=lovie084-20",
   "Dried Rose Petals and Buds": "https://www.amazon.com/Dried-Rose-Petals-Buds-oz/dp/B0FNPC1D67?tag=lovie084-20",
   "LOFE Organic Pillow": "https://www.amazon.com/Lofe-Standard-Pillowcase-Adjustable-Hypoallergenic/dp/B07KFVQPTW?tag=lovie084-20",
   "Bamboo Viscose Cooling Sheets": "https://www.amazon.com/SLEEP-SANCTUARY-Organic-Viscose-Derived/dp/B0DDV1G96X?tag=lovie084-20",
@@ -130,7 +129,6 @@ const AMAZON_LINKS: Record<string, string> = {
   "Serta Goose Feather Down Comforter": "https://www.amazon.com/Serta-Thread-Feather-Seasons-Comforter/dp/B082YL5ZT1?tag=lovie084-20",
   "Green Tea Memory Foam Mattress": "https://www.amazon.com/Mattress-Patented-Contour-CertiPUR-US-Certified/dp/B00Q7EPSHI?tag=lovie084-20",
   "Mountain Valley Spring Water (Glass)": "https://www.amazon.com/Mountain-Valley-Spring-Bottle-ounces/dp/B07ZPGDC77?tag=lovie084-20",
-  "AquaBliss Shower Filter": "https://www.amazon.com/AquaBliss-Output-12-Stage-Shower-Filter/dp/B01MUBU0YC?tag=lovie084-20",
   "Cobbe Filtered Shower Head": "https://www.amazon.com/Cobbe-Handheld-Pressure-Showerhead-Substance/dp/B0BJDQDZCT?tag=lovie084-20",
   "LUXE Bidet NEO 185": "https://www.amazon.com/LUXE-Bidet-Non-Electric-Attachment-Self-cleaning/dp/B00P2XZIP2?tag=lovie084-20",
   "KIWIBIRD Water Flosser": "https://www.amazon.com/KIWIBIRD-Cordless-Portable-Irrigator-Waterproof/dp/B0DRBBT5F5?tag=lovie084-20",
@@ -140,10 +138,8 @@ const AMAZON_LINKS: Record<string, string> = {
   "ECOLipak Bamboo Toilet Paper": "https://www.amazon.com/ECOLipak-Bamboo-Absorbent-Friendly-Dye-Free/dp/B0DTJY4MWM?tag=lovie084-20",
   "Betterway Bamboo Paper Towels": "https://www.amazon.com/Betterway-Bamboo-Paper-Towels-Compostable/dp/B08L5JSX8R?tag=lovie084-20",
   "CAROTE Nonstick Cookware Set": "https://www.amazon.com/CAROTE-Nonstick-Cookware-Induction-Saucepans/dp/B0C8HPJW4J?tag=lovie084-20",
-  "Glass Storage Containers with Bamboo Lids": "https://www.amazon.com/HomArtist-Canisters-Airtight-Storage-Containers/dp/B0BRQDD886?tag=lovie084-20",
   "Glass Water Pitcher": "https://www.amazon.com/Delove-Shatterproof-Stainless-Borosilicate-Beverage/dp/B087M4BCMT?tag=lovie084-20",
   "Wooden Plates": "https://www.amazon.com/4-11inch-Unbreakable-Lightweight-Housewarming-Christmas/dp/B08NFDV9S8?tag=lovie084-20",
-  "GreenWorks Compostable Plates": "https://www.amazon.com/GreenWorks-Compostable-Plates-Bagasse-Disposable/dp/B0DMKF5QWJ?tag=lovie084-20",
 };
 
 interface Category {
@@ -289,12 +285,6 @@ const CATEGORIES: Category[] = [
     products: [
       { name: "Mountain Valley Spring Water (Glass, 33oz)", brand: "Mountain Valley", health: "Sourced from a protected spring since 1871. Naturally alkaline with balanced mineral content. Glass bottles.", url: "https://www.amazon.com/dp/B07GJPG6HW?tag=lovie084-20" },
       { name: "Mountain Valley Spring Water (Glass, 16oz)", brand: "Mountain Valley", health: "Premium natural spring water in glass bottles — mineral-rich hydration.", url: "https://www.amazon.com/dp/B07ZPGDC77?tag=lovie084-20" },
-      { name: "S.Pellegrino Sparkling Mineral Water", brand: "S.Pellegrino", health: "Premium natural mineral water with trace minerals from Italian Alps.", url: "https://www.amazon.com/dp/B07G6KHNXH?tag=lovie084-20" },
-      { name: "La Croix Sparkling Water (Grapefruit)", brand: "La Croix", health: "Zero calorie, zero sweetener sparkling water with natural flavors.", url: "https://www.amazon.com/dp/B00EEN4OI8?tag=lovie084-20" },
-      { name: "La Croix Sparkling Water (Lemon)", brand: "La Croix", health: "Zero calorie, zero sweetener sparkling water with natural flavors.", url: "https://www.amazon.com/dp/B00O79SKCU?tag=lovie084-20" },
-      { name: "La Croix Sparkling Water (Strawberry Peach)", brand: "La Croix", health: "Zero calorie, zero sweetener sparkling water with natural flavors.", url: "https://www.amazon.com/dp/B0DKG4KR1V?tag=lovie084-20" },
-      { name: "Spindrift Lemonade Variety Pack", brand: "Spindrift", health: "Made with real squeezed fruit — no artificial sweeteners or flavors.", url: "https://www.amazon.com/dp/B09NYBTP1N?tag=lovie084-20" },
-      { name: "Spindrift Sparkling Water", brand: "Spindrift", health: "Sparkling water made with real squeezed fruit — clean and refreshing.", url: "https://www.amazon.com/dp/B07FCQKZ4F?tag=lovie084-20" },
       { name: "C2O Coconut Water (Mango)", brand: "C2O", health: "Fresh coconut water with natural electrolytes and mango flavor.", url: "https://www.amazon.com/dp/B07692NZXB?tag=lovie084-20" },
       { name: "C2O Coconut Water (Original)", brand: "C2O", health: "Pure coconut water — natural electrolytes and potassium for hydration.", url: "https://www.amazon.com/dp/B00FS35V1W?tag=lovie084-20" },
       { name: "C2O Organic Coconut Water", brand: "C2O", health: "USDA organic coconut water — clean hydration with natural minerals.", url: "https://www.amazon.com/dp/B0DX2MSXPV?tag=lovie084-20" },
@@ -328,8 +318,6 @@ const CATEGORIES: Category[] = [
       { name: "Belladonna 30C Homeopathic Pellets", brand: "Boiron", health: "Classical homeopathic remedy for fever and inflammation. 80 pellets, no side effects or drug interactions.", url: "https://www.amazon.com/dp/B078NF6QB9?tag=lovie084-20" },
       { name: "Aconitum Napellus 30C (3-Pack)", brand: "Boiron", health: "Homeopathic fever remedy — 240 pellets. First-line response for sudden onset symptoms.", url: "https://www.amazon.com/dp/B089BGC8BF?tag=lovie084-20" },
       { name: "Sulphur Iodatum 9C", brand: "Boiron", health: "Homeopathic support for nasal discharge during cold and flu convalescence.", url: "https://www.amazon.com/dp/B004LFJVZ0?tag=lovie084-20" },
-      { name: "Chestal Honey Children's Cough Syrup", brand: "Boiron", health: "Homeopathic honey-based cough syrup for congestion, runny nose, and sore throat. 6.7 fl oz.", url: "https://www.amazon.com/dp/B012ROWMF2?tag=lovie084-20" },
-      { name: "Kids Ear Oil", brand: "Herb Pharm", health: "Herbal ear oil with garlic and mullein for natural ear comfort and immune support in children.", url: "https://www.amazon.com/dp/B00Y271VC8?tag=lovie084-20" },
     ],
   },
   {
@@ -358,11 +346,7 @@ const CATEGORIES: Category[] = [
       { name: "Organic Castile Liquid Soap (Olive Oil)", brand: "Brittanie's Thyme", health: "Pure olive oil base — biodegradable, vegan, and free of the 12 most common skin irritants.", url: "https://www.amazon.com/dp/B08QLCRDM9?tag=lovie084-20" },
       { name: "Goat Milk Soap with Honey", brand: "The Soap Haven", health: "Goat milk lactic acid + honey humectant. Handmade, SLS and paraben free.", url: "https://www.amazon.com/dp/B00SV62QWA?tag=lovie084-20" },
       { name: "Ruby Grapefruit Hand Soap", brand: "Everyone", health: "Plant-based cleanser with pure essential oils. EWG Verified for safety.", url: "https://www.amazon.com/dp/B085S7TSXK?tag=lovie084-20" },
-      { name: "Biotin B-Complex Thickening Shampoo", brand: "Avalon Organics", health: "Organic biotin shampoo for hair health — plant-derived ingredients.", url: "https://www.amazon.com/dp/B008OL3UYK?tag=lovie084-20" },
-      { name: "Hair/Skin/Nails Ultra Supplement", brand: "Pure Encapsulations", health: "Advanced beauty supplement with biotin, collagen, and hyaluronic acid.", url: "https://www.amazon.com/dp/B0063X0JL8?tag=lovie084-20" },
       { name: "Magnetic Bentonite Clay Bath", brand: "Enviromedica", health: "Detox bath therapy — draws out toxins through skin absorption.", url: "https://www.amazon.com/dp/B00X7RCW4A?tag=lovie084-20" },
-      { name: "Bali Secrets Natural Deodorant — THE PURE", brand: "Bali Secrets", health: "Fragrance-free, organic & vegan deodorant. No synthetic aluminum, clean formula for sensitive skin.", url: "https://www.amazon.com/dp/B0F9XDMMCS?tag=lovie084-20" },
-      { name: "Bali Secrets Natural Deodorant — THE ZESTY", brand: "Bali Secrets", health: "Citrus-scented organic & vegan deodorant. No synthetic aluminum, strong odor protection.", url: "https://www.amazon.com/dp/B0F9XDMQHL?tag=lovie084-20" },
     ],
   },
   {
@@ -384,7 +368,6 @@ const CATEGORIES: Category[] = [
     image: "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/cat-water-wellness-ivbWtnMB6DPT37rG7RWUDM.webp",
     philosophy: "Water quality is the foundation of biological health. We filter what touches our skin, purify what we drink, and choose glass over plastic.",
     products: [
-      { name: "AquaBliss Shower Filter", brand: "AquaBliss", health: "Removes chlorine, heavy metals, and sediment from shower water.", url: "https://www.amazon.com/dp/B01MUBU0YC?tag=lovie084-20" },
       { name: "Cobbe Filtered Shower Head", brand: "Cobbe", health: "20-stage filtration removes chlorine, fluoride, and heavy metals.", url: "https://www.amazon.com/dp/B0BVFXJZ4V?tag=lovie084-20" },
       { name: "LUXE Bidet NEO 185", brand: "LUXE Bidet", health: "Dual-nozzle bidet reduces toilet paper use by 80% with superior hygiene.", url: "https://www.amazon.com/dp/B00A0RHSJO?tag=lovie084-20" },
       { name: "KIWIBIRD Water Flosser", brand: "KIWIBIRD", health: "Cordless oral irrigator with UVC sterilization. Oral health linked to cardiovascular health.", url: "https://www.amazon.com/dp/B0F18SLN5B?tag=lovie084-20" },
@@ -417,10 +400,6 @@ const CATEGORIES: Category[] = [
     philosophy: "The kitchen is the pharmacy of the biological founder. We chose non-toxic cookware, glass storage, and natural wood — materials that do not leach chemicals into the food that becomes your body.",
     products: [
       { name: "Caraway Non-Toxic Ceramic Cookware Set", brand: "Caraway", health: "Non-toxic ceramic-coated cookware — no PTFE, PFOA, or other chemicals leaching into food.", url: "https://www.amazon.com/dp/B08KXQJ8PP?tag=lovie084-20" },
-      { name: "Non-Stick Ceramic Baking Sheet Set", brand: "BRONYPRO", health: "Non-toxic ceramic bakeware — PFOA/PTFE free cooking.", url: "https://www.amazon.com/dp/B0D5YHNRGM?tag=lovie084-20" },
-      { name: "Glass Storage Containers with Lids", brand: "ComSaf", health: "Glass food storage — eliminates plastic containers and BPA exposure.", url: "https://www.amazon.com/dp/B0CV3W2CG8?tag=lovie084-20" },
-      { name: "Glass Meal Prep Containers (10-Pack)", brand: "M MCIRCO", health: "Glass meal prep — no chemical migration regardless of temperature.", url: "https://www.amazon.com/dp/B0CY8VQXHR?tag=lovie084-20" },
-      { name: "GreenWorks Compostable Plates", brand: "GreenWorks", health: "Unbleached bamboo fiber plates — fully compostable and free of PFAS coatings.", url: "https://www.amazon.com/dp/B0B9HDFDVN?tag=lovie084-20" },
       { name: "Unbleached Parchment Paper", brand: "AMFOCUS", health: "Unbleached parchment for clean baking — no chemicals.", url: "https://www.amazon.com/dp/B0C6KDWL3W?tag=lovie084-20" },
       { name: "Traeger Ironwood 885 Grill", brand: "Traeger", health: "All-natural wood pellet grill for clean smoke cooking.", url: "https://www.amazon.com/dp/B0822BJSSJ?tag=lovie084-20" },
       { name: "Traeger Signature Blend Wood Pellets", brand: "Traeger", health: "100% all-natural wood pellets — no fillers, binders, or additives.", url: "https://www.amazon.com/dp/B0DHJ4TY4L?tag=lovie084-20" },
@@ -436,7 +415,6 @@ const CATEGORIES: Category[] = [
       { name: "Hooga Grounding Mat", brand: "Hooga", health: "Conductive carbon mat connects the body to Earth's electrical field. Reduces cortisol and inflammation.", url: "https://www.amazon.com/dp/B07VSRK68V?tag=lovie084-20" },
       { name: "Premium Grounding Sheet", brand: "Premium Grounding", health: "Silver-threaded organic cotton sheet for earthing during sleep — grounded all night.", url: "https://www.amazon.com/dp/B0CXKZQJ8P?tag=lovie084-20" },
       { name: "Hooga Red Light Therapy Panel", brand: "Hooga", health: "Red and near-infrared light therapy for cellular repair, skin health, and recovery.", url: "https://www.amazon.com/dp/B0CGC8HB5P?tag=lovie084-20" },
-      { name: "Oura Ring Gen 4", brand: "Oura", health: "Gold standard sleep and HRV tracker — tracks readiness, sleep stages, and recovery.", url: "https://www.amazon.com/dp/B0DH8KXQZP?tag=lovie084-20" },
       { name: "Theragun Mini 3.0", brand: "Therabody", health: "Portable percussive therapy for muscle recovery — used by biohackers and athletes.", url: "https://www.amazon.com/dp/B0DKXQJ8PP?tag=lovie084-20" },
       { name: "RENPHO Thermacool Massage Gun", brand: "RENPHO", health: "Deep tissue percussion massager with heat and cold therapy heads. Charging stand included. Pain relief and muscle recovery.", url: "https://www.amazon.com/dp/B0D6GK13XM?tag=lovie084-20" },
     ],
