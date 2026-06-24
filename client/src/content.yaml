@@ -9,6 +9,8 @@ nav:
   links:
     - label: "Why Now"
       href: "/why"
+    - label: "Events Series"
+      href: "/events-series"
     - label: "Biological Founder"
       href: "/biological-founder"
     - label: "The Founder's Pharmacy"

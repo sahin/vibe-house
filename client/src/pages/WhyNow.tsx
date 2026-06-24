@@ -109,6 +109,7 @@ export default function WhyNow() {
           </Link>
           <div className="hidden md:flex items-center gap-10">
             <Link href={h("/why")} className={`${T.nav} text-foreground hover:text-foreground transition-colors duration-300`}>Why Now</Link>
+            <Link href={h("/events-series")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>Events Series</Link>
             <Link href={h("/biological-founder")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{copy.navLabelBioFounder}</Link>
             <Link href={h("/the-founders-pharmacy")} className={`${T.nav} text-foreground/50 hover:text-foreground transition-colors duration-300`}>{copy.navLabelPharmacy}</Link>
           </div>
@@ -142,6 +143,13 @@ export default function WhyNow() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Why Now
+              </Link>
+              <Link
+                href={h("/events-series")}
+                className={`${T.nav} text-foreground/60 hover:text-foreground transition-colors duration-300`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Events Series
               </Link>
               <Link
                 href={h("/biological-founder")}

@@ -89,8 +89,8 @@
 - [x] Add "The Founder's Pharmacy" link/section under "Back to home" on BiologicalFounder page
 - [x] List all products for user to create negative filter
 - [x] Add Amazon links to all products on Curated Products page
-- [ ] Add category images to Curated Products page
-- [ ] Apply user's negative filter to remove unwanted products
+- [x] Add category images to Curated Products page
+- [x] Apply user's negative filter to remove unwanted products
 - [x] Add footer credit "Created by @sahin & Manus" to Curated Products page
 - [x] Enhance Essential Oil Diffusers section with more content around waterless/nebulizing technology
 - [x] Enhance Teas section philosophy with health-to-deep-thinking connection
@@ -163,3 +163,6 @@
 - [x] Add 12 new health products to Founder's Pharmacy page (Bali Secrets deodorants, RENPHO massage gun, Boiron homeopathics, Herb Pharm ear oil, Four Sigmatic coffees)
 - [x] Remove 18 products from Founder's Pharmacy (Oura Ring, ceramic baking, glass containers, compostable plates, shower filter, Bali Secrets deodorants, shampoo, hair supplement, children's cough syrup, kids ear oil, Spindrift, S.Pellegrino, La Croix)
 - [x] Create negative filter list for future Amazon order processing
+- [x] Create Events Series page with 5 events (Vibe Night Demos, Legal AI Vibe Lab, Women Who Build with AI, Post-Exit Founder Breakfast, Vibe House Talks)
+- [x] Add "Events Series" to top navigation menu across all pages
+- [x] Add route for /events-series in App.tsx
