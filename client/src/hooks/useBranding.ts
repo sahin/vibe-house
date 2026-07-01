@@ -77,7 +77,7 @@ export interface BrandingCopy {
 const defaultCopy: BrandingCopy = {
   // ── Homepage ──
   heroDefinition:
-    "A new type of hacker house for exited technical founders to vibe code together.",
+    "A new type of hacker house for exited founders to vibe code together.",
   whyNowDescription:
     "The tools are evolving daily. The founders who master them first will define what comes next.",
   joinReq1Title: "Exited Founder",
@@ -95,7 +95,7 @@ const defaultCopy: BrandingCopy = {
   // ── SEO: Home ──
   seoHomeTitle: "Vibe House SF — A Hacker House for Exited Founders",
   seoHomeDescription:
-    "A new type of hacker house in San Francisco for exited technical founders. Vibe code together in a space designed for deep work, health, and human flourishing.",
+    "A new type of hacker house in San Francisco for exited founders. Vibe code together in a space designed for deep work, health, and human flourishing.",
   seoHomeKeywords:
     "hacker house, San Francisco, founders, vibe coding, coliving, deep work, startup, exited founders",
 

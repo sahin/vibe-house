@@ -66,7 +66,7 @@ export default function SEO({
         url: "https://www.sfvibehouse.com",
         logo: "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/superfounders-favicon-192_324dd3cb.png",
         description:
-          "A new type of hacker house for exited technical founders to vibe code together in San Francisco.",
+          "A new type of hacker house for exited founders to vibe code together in San Francisco.",
         sameAs: [
           "https://x.com/@sahin",
           "https://www.linkedin.com/in/sahinboydas",

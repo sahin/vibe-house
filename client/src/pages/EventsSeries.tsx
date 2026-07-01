@@ -85,7 +85,7 @@ export default function EventsSeries() {
     <div className="min-h-screen bg-background text-foreground">
       <SEO
         title="Events Series — Vibe House SF"
-        description="Recurring events for exited technical founders: Vibe Night Demos, Legal AI Vibe Lab, Women Who Build with AI, Post-Exit Founder Breakfast, and Vibe House Talks."
+        description="Recurring events for exited founders: Vibe Night Demos, Legal AI Vibe Lab, Women Who Build with AI, Post-Exit Founder Breakfast, and Vibe House Talks."
         keywords="events, founders, vibe coding, demos, AI, legal tech, women in tech, post-exit, talks, San Francisco"
         path="/events-series"
         ogType="website"
@@ -179,7 +179,7 @@ export default function EventsSeries() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
             >
-              Recurring gatherings for exited technical founders. Each event is designed around a specific energy — from rapid-fire demos to quiet morning conversations.
+              Recurring gatherings for exited founders. Each event is designed around a specific energy — from rapid-fire demos to quiet morning conversations.
             </motion.p>
           </motion.div>
         </div>
