@@ -166,3 +166,6 @@
 - [x] Create Events Series page with 5 events (Vibe Night Demos, Legal AI Vibe Lab, Women Who Build with AI, Post-Exit Founder Breakfast, Vibe House Talks)
 - [x] Add "Events Series" to top navigation menu across all pages
 - [x] Add route for /events-series in App.tsx
+- [x] Create Brand Guidelines page with logo and cover photo assets
+- [x] Add Brand Guidelines link to footer
+- [x] Add route for /brand in App.tsx

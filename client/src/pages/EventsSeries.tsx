@@ -230,6 +230,7 @@ export default function EventsSeries() {
               Created by{" "}
               <a href="https://x.com/sahin" target="_blank" rel="noopener noreferrer" className="hover:text-foreground/50 transition-colors">@sahin</a>
             </p>
+            <Link href={h("/brand")} className="text-xs text-foreground/30 hover:text-foreground/50 transition-colors">Brand</Link>
           </div>
         </div>
       </footer>

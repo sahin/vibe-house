@@ -824,7 +824,10 @@ export default function BiologicalFounder() {
         <div className="container">
           <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <p className={`${T.nav} text-foreground/30`}>{footerText}</p>
-            <p className={`${T.nav} text-foreground/30`}>San Francisco, California</p>
+            <div className="flex items-center gap-4">
+              <Link href={h("/brand")} className={`${T.nav} text-foreground/30 hover:text-foreground/50 transition-colors`}>Brand</Link>
+              <p className={`${T.nav} text-foreground/30`}>San Francisco, California</p>
+            </div>
           </div>
         </div>
       </footer>

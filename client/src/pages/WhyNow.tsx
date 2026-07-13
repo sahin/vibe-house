@@ -352,9 +352,14 @@ export default function WhyNow() {
                {footerText}
 
             </p>
-            <p className={`${T.nav} text-foreground/30`}>
-              San Francisco, California
-            </p>
+            <div className="flex items-center gap-4">
+              <Link href={h("/brand")} className={`${T.nav} text-foreground/30 hover:text-foreground/50 transition-colors`}>
+                Brand
+              </Link>
+              <p className={`${T.nav} text-foreground/30`}>
+                San Francisco, California
+              </p>
+            </div>
           </div>
         </div>
       </footer>

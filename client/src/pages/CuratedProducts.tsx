@@ -923,17 +923,21 @@ export default function CuratedProducts() {
               </Button>
             </div>
             <FadeIn delay={0.2}>
-              <p className="text-center text-foreground/25 text-sm mt-16">
-                Created by{" "}
-                <a
-                  href="https://x.com/saaborz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/40 hover:text-foreground transition-colors underline underline-offset-4"
-                >
-                  @sahin
-                </a>
-              </p>
+              <div className="flex items-center justify-center gap-4 mt-16">
+                <Link href={h("/brand")} className="text-foreground/25 text-sm hover:text-foreground/50 transition-colors">Brand</Link>
+                <span className="text-foreground/15">|</span>
+                <p className="text-foreground/25 text-sm">
+                  Created by{" "}
+                  <a
+                    href="https://x.com/saaborz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground/40 hover:text-foreground transition-colors underline underline-offset-4"
+                  >
+                    @sahin
+                  </a>
+                </p>
+              </div>
             </FadeIn>
           </div>
         </div>

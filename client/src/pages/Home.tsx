@@ -527,9 +527,14 @@ export default function Home() {
             <p className={`${T.m} font-medium tracking-[0.12em] uppercase`}>
               {content.footer.logo} <span className="text-foreground/40">{footerText.replace('Vibe House ', '')}</span>
             </p>
-            <p className={`${T.m} text-foreground/35`}>
-              {content.footer.location}
-            </p>
+            <div className="flex items-center gap-6">
+              <Link href={h("/brand")} className={`${T.m} text-foreground/35 hover:text-foreground/60 transition-colors`}>
+                Brand Guidelines
+              </Link>
+              <p className={`${T.m} text-foreground/35`}>
+                {content.footer.location}
+              </p>
+            </div>
           </div>
         </div>
       </footer>

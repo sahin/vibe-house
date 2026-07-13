@@ -9,6 +9,7 @@ import WhyNow from "./pages/WhyNow";
 import BiologicalFounder from "./pages/BiologicalFounder";
 import CuratedProducts from "./pages/CuratedProducts";
 import EventsSeries from "./pages/EventsSeries";
+import BrandGuidelines from "./pages/BrandGuidelines";
 
 /**
  * Routes are defined at both / and /about/location/ so the same pages
@@ -27,6 +28,7 @@ function Routes() {
       <Route path={"/biological-founder"} component={BiologicalFounder} />
       <Route path={"/the-founders-pharmacy"} component={CuratedProducts} />
       <Route path={"/events-series"} component={EventsSeries} />
+      <Route path={"/brand"} component={BrandGuidelines} />
 
       {/* Lovie routes — same pages served under /about/location/ */}
       <Route path={"/about/location"} component={Home} />
@@ -35,6 +37,7 @@ function Routes() {
       <Route path={"/about/location/biological-founder"} component={BiologicalFounder} />
       <Route path={"/about/location/the-founders-pharmacy"} component={CuratedProducts} />
       <Route path={"/about/location/events-series"} component={EventsSeries} />
+      <Route path={"/about/location/brand"} component={BrandGuidelines} />
 
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
