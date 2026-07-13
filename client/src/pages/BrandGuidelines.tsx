@@ -24,7 +24,7 @@ const T = {
 // Brand assets
 const ASSETS = {
   logoLight: "/manus-storage/vibe-house-luma-logo-v3_5d9d3117.png",
-  logoDark: "/manus-storage/vibe-house-luma-logo_524db2ed.png",
+  logoDark: "/manus-storage/vibe-house-logo-dark-v2_ccfaf16d.png",
   cover: "/manus-storage/vibe-house-luma-cover_51b287dd.png",
 };
 
