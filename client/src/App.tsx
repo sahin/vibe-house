@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
@@ -10,6 +10,32 @@ import BiologicalFounder from "./pages/BiologicalFounder";
 import CuratedProducts from "./pages/CuratedProducts";
 import EventsSeries from "./pages/EventsSeries";
 import BrandGuidelines from "./pages/BrandGuidelines";
+import AccommodationCalendar from "./pages/AccommodationCalendar";
+import AccommodationDashboard from "./pages/AccommodationDashboard";
+import AccommodationBookings from "./pages/AccommodationBookings";
+import AccommodationUpcoming from "./pages/AccommodationUpcoming";
+import AccommodationHistory from "./pages/AccommodationHistory";
+import AccommodationLayout from "./components/AccommodationLayout";
+import AccommodationPasswordGate from "./components/AccommodationPasswordGate";
+
+/**
+ * Accommodation sub-app — password-gated with its own layout and sub-routes.
+ */
+function AccommodationApp() {
+  const [location] = useLocation();
+  return (
+    <AccommodationPasswordGate>
+      <AccommodationLayout>
+        {location === "/accommodation" && <AccommodationCalendar />}
+        {location === "/accommodation/calendar" && <AccommodationCalendar />}
+        {location === "/accommodation/dashboard" && <AccommodationDashboard />}
+        {location === "/accommodation/bookings" && <AccommodationBookings />}
+        {location === "/accommodation/upcoming" && <AccommodationUpcoming />}
+        {location === "/accommodation/history" && <AccommodationHistory />}
+      </AccommodationLayout>
+    </AccommodationPasswordGate>
+  );
+}
 
 /**
  * Routes are defined at both / and /about/location/ so the same pages
@@ -38,6 +64,10 @@ function Routes() {
       <Route path={"/about/location/the-founders-pharmacy"} component={CuratedProducts} />
       <Route path={"/about/location/events-series"} component={EventsSeries} />
       <Route path={"/about/location/brand"} component={BrandGuidelines} />
+
+      {/* Accommodation routes — password-protected dashboard */}
+      <Route path="/accommodation" component={AccommodationApp} />
+      <Route path="/accommodation/:rest*" component={AccommodationApp} />
 
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}

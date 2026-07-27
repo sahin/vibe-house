@@ -5,6 +5,7 @@ import { publicProcedure, router } from "./_core/trpc";
 import { createAirtableRecord } from "./airtable";
 import { insertApplication } from "./db";
 import { notifyAdmins } from "./notifyAdmins";
+import { accommodationRouter } from "./accommodationRouter";
 import { z } from "zod";
 
 const founderTypeLabels: Record<string, string> = {
@@ -18,6 +19,7 @@ const founderTypeLabels: Record<string, string> = {
 export const appRouter = router({
   // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
+  accommodation: accommodationRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {

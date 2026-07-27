@@ -169,3 +169,7 @@
 - [x] Create Brand Guidelines page with logo and cover photo assets
 - [x] Add Brand Guidelines link to footer
 - [x] Add route for /brand in App.tsx
+- [x] Build /accommodation page: database schema (rooms + bookings tables)
+- [x] Build /accommodation page: tRPC routers for rooms and bookings CRUD
+- [x] Build /accommodation page: password-protected dashboard with Calendar, Dashboard, Bookings, Upcoming, History views
+- [x] Build /accommodation page: add route in App.tsx and navigation

@@ -46,3 +46,30 @@ export const applications = mysqlTable("applications", {
 
 export type Application = typeof applications.$inferSelect;
 export type InsertApplication = typeof applications.$inferInsert;
+
+// Accommodation rooms table
+export const rooms = mysqlTable("rooms", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 100 }).notNull().unique(),
+  floor: varchar("floor", { length: 50 }).notNull(),
+  notes: text("notes"),
+});
+
+export type Room = typeof rooms.$inferSelect;
+export type InsertRoom = typeof rooms.$inferInsert;
+
+// Accommodation bookings table
+export const bookings = mysqlTable("bookings", {
+  id: int("id").autoincrement().primaryKey(),
+  roomId: int("roomId").notNull(),
+  guestName: varchar("guestName", { length: 255 }).notNull(),
+  guestEmail: varchar("guestEmail", { length: 320 }),
+  checkIn: varchar("checkIn", { length: 10 }).notNull(), // YYYY-MM-DD
+  checkOut: varchar("checkOut", { length: 10 }), // YYYY-MM-DD, nullable for open-ended
+  notes: text("notes"),
+  status: mysqlEnum("status", ["active", "upcoming", "completed", "cancelled"]).default("upcoming").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Booking = typeof bookings.$inferSelect;
+export type InsertBooking = typeof bookings.$inferInsert;
