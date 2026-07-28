@@ -1,6 +1,19 @@
 import { trpc } from "@/lib/trpc";
 import { BookingStatusBadge } from "@/components/OccupancyBadge";
 
+function toDateStr(d: Date | string | null | undefined): string {
+  if (!d) return "";
+  if (typeof d === "string") return d.split("T")[0];
+  return d.toISOString().split("T")[0];
+}
+
+function formatDate(d: Date | string | null | undefined): string {
+  const str = toDateStr(d);
+  if (!str) return "";
+  const [y, m, day] = str.split("-").map(Number);
+  return new Date(y, m - 1, day).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+}
+
 export default function AccommodationUpcoming() {
   const { data: roomsData } = trpc.accommodation.rooms.list.useQuery();
   const { data: bookingsData } = trpc.accommodation.bookings.list.useQuery({ filter: "all" });
@@ -11,20 +24,15 @@ export default function AccommodationUpcoming() {
 
   // Upcoming: checkIn >= today, not cancelled
   const upcomingBookings = allBookings
-    .filter(b => b.status !== "cancelled" && b.checkIn >= today)
-    .sort((a, b) => a.checkIn.localeCompare(b.checkIn));
+    .filter(b => b.status !== "cancelled" && toDateStr(b.checkIn) >= today)
+    .sort((a, b) => toDateStr(a.checkIn).localeCompare(toDateStr(b.checkIn)));
 
   // Currently active (in house now): checkIn <= today AND (checkOut >= today OR null)
   const activeBookings = allBookings
-    .filter(b => b.status !== "cancelled" && b.checkIn <= today && (b.checkOut === null || b.checkOut >= today))
-    .sort((a, b) => a.checkIn.localeCompare(b.checkIn));
+    .filter(b => b.status !== "cancelled" && toDateStr(b.checkIn) <= today && (b.checkOut === null || toDateStr(b.checkOut) >= today))
+    .sort((a, b) => toDateStr(a.checkIn).localeCompare(toDateStr(b.checkIn)));
 
   const getRoomName = (roomId: number) => rooms.find(r => r.id === roomId)?.name ?? "Unknown";
-
-  const formatDate = (dateStr: string) => {
-    const [y, m, d] = dateStr.split("-").map(Number);
-    return new Date(y, m - 1, d).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
-  };
 
   return (
     <div className="p-6">

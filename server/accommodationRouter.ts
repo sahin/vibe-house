@@ -4,6 +4,16 @@ import { getDb } from "./db";
 import { rooms, bookings } from "../drizzle/schema";
 import { eq, and, gte, lt, lte, or, isNull, desc, asc, ne } from "drizzle-orm";
 
+function toDate(dateStr: string): Date {
+  // Parse YYYY-MM-DD as UTC date
+  return new Date(dateStr + "T00:00:00.000Z");
+}
+
+function todayDate(): Date {
+  const now = new Date();
+  return new Date(now.toISOString().split("T")[0] + "T00:00:00.000Z");
+}
+
 export const accommodationRouter = router({
   rooms: router({
     list: publicProcedure.query(async () => {
@@ -24,7 +34,7 @@ export const accommodationRouter = router({
         const db = await getDb();
         if (!db) throw new Error("Database not available");
 
-        const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+        const today = todayDate();
         const filter = input?.filter ?? "all";
 
         if (filter === "current") {
@@ -87,8 +97,8 @@ export const accommodationRouter = router({
           roomId: input.roomId,
           guestName: input.guestName,
           guestEmail: input.guestEmail ?? null,
-          checkIn: input.checkIn,
-          checkOut: input.checkOut ?? null,
+          checkIn: toDate(input.checkIn),
+          checkOut: input.checkOut ? toDate(input.checkOut) : null,
           notes: input.notes ?? null,
           status: input.status,
         });
@@ -122,8 +132,8 @@ export const accommodationRouter = router({
           roomId: input.roomId,
           guestName: input.guestName,
           guestEmail: input.guestEmail ?? null,
-          checkIn: input.checkIn,
-          checkOut: input.checkOut ?? null,
+          checkIn: toDate(input.checkIn),
+          checkOut: input.checkOut ? toDate(input.checkOut) : null,
           notes: input.notes ?? null,
           status: input.status,
         }).where(eq(bookings.id, input.id));

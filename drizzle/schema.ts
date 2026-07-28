@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { datetime, int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -52,7 +52,9 @@ export const rooms = mysqlTable("rooms", {
   id: int("id").autoincrement().primaryKey(),
   name: varchar("name", { length: 100 }).notNull().unique(),
   floor: varchar("floor", { length: 50 }).notNull(),
-  notes: text("notes"),
+  description: text("description"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt"),
 });
 
 export type Room = typeof rooms.$inferSelect;
@@ -64,11 +66,12 @@ export const bookings = mysqlTable("bookings", {
   roomId: int("roomId").notNull(),
   guestName: varchar("guestName", { length: 255 }).notNull(),
   guestEmail: varchar("guestEmail", { length: 320 }),
-  checkIn: varchar("checkIn", { length: 10 }).notNull(), // YYYY-MM-DD
-  checkOut: varchar("checkOut", { length: 10 }), // YYYY-MM-DD, nullable for open-ended
+  checkIn: datetime("checkIn").notNull(),
+  checkOut: datetime("checkOut"),
   notes: text("notes"),
   status: mysqlEnum("status", ["active", "upcoming", "completed", "cancelled"]).default("upcoming").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt"),
 });
 
 export type Booking = typeof bookings.$inferSelect;

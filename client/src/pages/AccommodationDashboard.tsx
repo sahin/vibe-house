@@ -5,6 +5,19 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { AccommodationBookingForm } from "@/components/AccommodationBookingForm";
 
+function toDateStr(d: Date | string | null | undefined): string {
+  if (!d) return "";
+  if (typeof d === "string") return d.split("T")[0];
+  return d.toISOString().split("T")[0];
+}
+
+function formatDate(d: Date | string | null | undefined): string {
+  const str = toDateStr(d);
+  if (!str) return "";
+  const [y, m, day] = str.split("-").map(Number);
+  return new Date(y, m - 1, day).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
 export default function AccommodationDashboard() {
   const { data: roomsData } = trpc.accommodation.rooms.list.useQuery();
   const { data: bookingsData, refetch } = trpc.accommodation.bookings.list.useQuery({ filter: "all" });
@@ -20,21 +33,16 @@ export default function AccommodationDashboard() {
     const current = allBookings.find(b =>
       b.roomId === roomId &&
       b.status !== "cancelled" &&
-      b.checkIn <= today &&
-      (b.checkOut === null || b.checkOut >= today)
+      toDateStr(b.checkIn) <= today &&
+      (b.checkOut === null || toDateStr(b.checkOut) >= today)
     );
 
     // Upcoming: checkIn > today, not cancelled
     const upcoming = allBookings
-      .filter(b => b.roomId === roomId && b.status !== "cancelled" && b.checkIn > today)
-      .sort((a, b) => a.checkIn.localeCompare(b.checkIn));
+      .filter(b => b.roomId === roomId && b.status !== "cancelled" && toDateStr(b.checkIn) > today)
+      .sort((a, b) => toDateStr(a.checkIn).localeCompare(toDateStr(b.checkIn)));
 
     return { current, upcoming };
-  };
-
-  const formatDate = (dateStr: string) => {
-    const [y, m, d] = dateStr.split("-").map(Number);
-    return new Date(y, m - 1, d).toLocaleDateString("en-US", { month: "short", day: "numeric" });
   };
 
   return (
@@ -61,7 +69,7 @@ export default function AccommodationDashboard() {
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h3 className="text-sm font-semibold text-stone-900">{room.name}</h3>
-                  <p className="text-xs text-stone-400 mt-0.5">{room.floor}{room.notes ? ` · ${room.notes}` : ""}</p>
+                  <p className="text-xs text-stone-400 mt-0.5">{room.floor}{room.description ? ` · ${room.description}` : ""}</p>
                 </div>
                 <OccupancyBadge status={occupancy} />
               </div>

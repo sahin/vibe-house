@@ -23,9 +23,11 @@ export default function AccommodationBookings() {
 
   const getRoomName = (roomId: number) => rooms.find(r => r.id === roomId)?.name ?? "Unknown";
 
-  const formatDate = (dateStr: string) => {
-    const [y, m, d] = dateStr.split("-").map(Number);
-    return new Date(y, m - 1, d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  const formatDate = (d: Date | string | null | undefined): string => {
+    if (!d) return "";
+    const str = typeof d === "string" ? d.split("T")[0] : d.toISOString().split("T")[0];
+    const [y, m, day] = str.split("-").map(Number);
+    return new Date(y, m - 1, day).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
   };
 
   const handleDelete = (id: number, name: string) => {

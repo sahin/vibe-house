@@ -18,6 +18,12 @@ function getColor(index: number) {
   return COLORS[index % COLORS.length];
 }
 
+function toDateStr(d: Date | string | null | undefined): string {
+  if (!d) return "";
+  if (typeof d === "string") return d.split("T")[0];
+  return d.toISOString().split("T")[0];
+}
+
 export default function AccommodationCalendar() {
   const [currentMonth, setCurrentMonth] = useState(() => {
     const now = new Date();
@@ -73,9 +79,10 @@ export default function AccommodationCalendar() {
     return allBookings.filter(b => {
       if (b.roomId !== roomId) return false;
       if (b.status === "cancelled") return false;
-      const checkOut = b.checkOut ?? "9999-12-31";
+      const checkInStr = toDateStr(b.checkIn);
+      const checkOutStr = toDateStr(b.checkOut) || "9999-12-31";
       // Booking overlaps if checkIn <= visibleEnd AND checkOut >= visibleStart
-      return b.checkIn <= visibleEnd && checkOut >= visibleStart;
+      return checkInStr <= visibleEnd && checkOutStr >= visibleStart;
     });
   };
 
@@ -138,17 +145,20 @@ export default function AccommodationCalendar() {
                 </div>
                 <div className="flex-1 relative">
                   {roomBookings.map((booking, bIdx) => {
+                    const checkInStr = toDateStr(booking.checkIn);
+                    const checkOutStr = toDateStr(booking.checkOut);
+
                     // Calculate position
-                    const checkInDay = Math.max(startDay, parseInt(booking.checkIn.split("-")[2]));
-                    const checkOutDay = booking.checkOut
-                      ? Math.min(daysInMonth, parseInt(booking.checkOut.split("-")[2]))
+                    const checkInDay = Math.max(startDay, parseInt(checkInStr.split("-")[2]));
+                    const checkOutDay = checkOutStr
+                      ? Math.min(daysInMonth, parseInt(checkOutStr.split("-")[2]))
                       : daysInMonth;
 
                     // Handle cross-month bookings
-                    const bookingMonth = parseInt(booking.checkIn.split("-")[1]) - 1;
-                    const bookingYear = parseInt(booking.checkIn.split("-")[0]);
-                    const checkOutMonth = booking.checkOut ? parseInt(booking.checkOut.split("-")[1]) - 1 : 99;
-                    const checkOutYear = booking.checkOut ? parseInt(booking.checkOut.split("-")[0]) : 9999;
+                    const bookingMonth = parseInt(checkInStr.split("-")[1]) - 1;
+                    const bookingYear = parseInt(checkInStr.split("-")[0]);
+                    const checkOutMonth = checkOutStr ? parseInt(checkOutStr.split("-")[1]) - 1 : 99;
+                    const checkOutYear = checkOutStr ? parseInt(checkOutStr.split("-")[0]) : 9999;
 
                     let startCol = checkInDay - startDay;
                     let endCol = checkOutDay - startDay;
@@ -175,7 +185,7 @@ export default function AccommodationCalendar() {
                           getColor(bIdx + roomIdx)
                         )}
                         style={{ left, width, minWidth: "24px" }}
-                        title={`${booking.guestName} (${booking.checkIn} → ${booking.checkOut || "ongoing"})`}
+                        title={`${booking.guestName} (${checkInStr} → ${checkOutStr || "ongoing"})`}
                       >
                         {booking.guestName}
                       </button>

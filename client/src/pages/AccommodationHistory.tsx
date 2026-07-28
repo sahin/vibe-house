@@ -2,6 +2,19 @@ import { trpc } from "@/lib/trpc";
 import { BookingStatusBadge } from "@/components/OccupancyBadge";
 import { cn } from "@/lib/utils";
 
+function toDateStr(d: Date | string | null | undefined): string {
+  if (!d) return "";
+  if (typeof d === "string") return d.split("T")[0];
+  return d.toISOString().split("T")[0];
+}
+
+function formatDate(d: Date | string | null | undefined): string {
+  const str = toDateStr(d);
+  if (!str) return "";
+  const [y, m, day] = str.split("-").map(Number);
+  return new Date(y, m - 1, day).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
 export default function AccommodationHistory() {
   const { data: roomsData } = trpc.accommodation.rooms.list.useQuery();
   const { data: bookingsData } = trpc.accommodation.bookings.list.useQuery({ filter: "all" });
@@ -12,19 +25,15 @@ export default function AccommodationHistory() {
 
   // History: checkOut < today (past stays), ordered by checkOut desc
   const historyBookings = allBookings
-    .filter(b => b.checkOut && b.checkOut < today)
-    .sort((a, b) => (b.checkOut ?? "").localeCompare(a.checkOut ?? ""));
+    .filter(b => b.checkOut && toDateStr(b.checkOut) < today)
+    .sort((a, b) => toDateStr(b.checkOut).localeCompare(toDateStr(a.checkOut)));
 
   const getRoomName = (roomId: number) => rooms.find(r => r.id === roomId)?.name ?? "Unknown";
 
-  const formatDate = (dateStr: string) => {
-    const [y, m, d] = dateStr.split("-").map(Number);
-    return new Date(y, m - 1, d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-  };
-
   // Group by month
   const grouped = historyBookings.reduce<Record<string, typeof historyBookings>>((acc, b) => {
-    const [y, m] = (b.checkOut ?? "").split("-");
+    const str = toDateStr(b.checkOut);
+    const [y, m] = str.split("-");
     const key = `${y}-${m}`;
     if (!acc[key]) acc[key] = [];
     acc[key].push(b);
@@ -69,7 +78,7 @@ export default function AccommodationHistory() {
                           {b.guestName}
                         </p>
                         <p className="text-xs text-stone-500">
-                          {getRoomName(b.roomId)} · {formatDate(b.checkIn)} → {formatDate(b.checkOut!)}
+                          {getRoomName(b.roomId)} · {formatDate(b.checkIn)} → {formatDate(b.checkOut)}
                         </p>
                       </div>
                     </div>

@@ -18,10 +18,10 @@ describe("Accommodation", () => {
     expect(rooms[5].name).toBe("First Floor");
   });
 
-  it("bookings list API returns empty array initially", async () => {
+  it("bookings list API returns imported bookings", async () => {
     const res = await fetch('http://localhost:3000/api/trpc/accommodation.bookings.list?input=%7B%22json%22%3A%7B%22filter%22%3A%22all%22%7D%7D');
     expect(res.ok).toBe(true);
     const body = await res.json();
-    expect(body.result.data.json).toEqual([]);
+    expect(body.result.data.json.length).toBe(32);
   });
 });
