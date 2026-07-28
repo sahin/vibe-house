@@ -45,11 +45,19 @@ export function AccommodationBookingForm({ open, onClose, onSuccess, initialData
 
   useEffect(() => {
     if (open) {
+      // Convert Date objects or ISO strings to YYYY-MM-DD for date inputs
+      const toDateInput = (val: any): string => {
+        if (!val) return "";
+        if (val instanceof Date) return val.toISOString().split("T")[0];
+        if (typeof val === "string") return val.split("T")[0];
+        return "";
+      };
+
       setForm({
         ...defaultForm,
         ...initialData,
-        checkIn: initialData?.checkIn ?? "",
-        checkOut: initialData?.checkOut ?? "",
+        checkIn: toDateInput(initialData?.checkIn),
+        checkOut: toDateInput(initialData?.checkOut),
         guestEmail: initialData?.guestEmail ?? "",
         notes: initialData?.notes ?? "",
         roomId: initialData?.roomId ?? (rooms[0]?.id ?? 0),
