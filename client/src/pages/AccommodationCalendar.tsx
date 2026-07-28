@@ -158,15 +158,23 @@ export default function AccommodationCalendar() {
                     const checkInStr = toDateStr(booking.checkIn);
                     const checkOutStr = toDateStr(booking.checkOut) || "9999-12-31";
 
-                    // Find the column indices for start and end
-                    let startCol = dateStrs.findIndex(d => d >= checkInStr);
-                    if (startCol === -1) startCol = DAYS_TO_SHOW; // starts after visible range
-                    // Clamp to 0 if booking starts before visible range
-                    if (checkInStr < dateStrs[0]) startCol = 0;
+                    // Determine start column
+                    let startCol: number;
+                    if (checkInStr < dateStrs[0]) {
+                      startCol = 0; // booking started before visible range
+                    } else {
+                      startCol = dateStrs.findIndex(d => d >= checkInStr);
+                      if (startCol === -1) return null; // starts after visible range
+                    }
 
-                    let endCol = dateStrs.findIndex(d => d >= checkOutStr);
-                    if (endCol === -1) endCol = DAYS_TO_SHOW - 1; // ends after visible range
-                    else endCol = Math.max(startCol, endCol); // ensure end >= start
+                    // Determine end column
+                    let endCol: number;
+                    if (checkOutStr > dateStrs[dateStrs.length - 1]) {
+                      endCol = DAYS_TO_SHOW - 1; // booking extends beyond visible range
+                    } else {
+                      const idx = dateStrs.findIndex(d => d >= checkOutStr);
+                      endCol = idx === -1 ? DAYS_TO_SHOW - 1 : Math.max(startCol, idx);
+                    }
 
                     // Skip if completely outside range
                     if (startCol >= DAYS_TO_SHOW) return null;
