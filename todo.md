@@ -173,3 +173,4 @@
 - [x] Build /accommodation page: tRPC routers for rooms and bookings CRUD
 - [x] Build /accommodation page: password-protected dashboard with Calendar, Dashboard, Bookings, Upcoming, History views
 - [x] Build /accommodation page: add route in App.tsx and navigation
+- [x] Calendar: show rolling 30 days starting from today instead of current month only

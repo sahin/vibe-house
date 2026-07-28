@@ -24,11 +24,23 @@ function toDateStr(d: Date | string | null | undefined): string {
   return d.toISOString().split("T")[0];
 }
 
+function addDays(date: Date, days: number): Date {
+  const result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+function formatDateStr(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+const DAYS_TO_SHOW = 30;
+
 export default function AccommodationCalendar() {
-  const [currentMonth, setCurrentMonth] = useState(() => {
-    const now = new Date();
-    return { year: now.getFullYear(), month: now.getMonth() };
-  });
+  const [offset, setOffset] = useState(0); // offset in days from today
   const [showForm, setShowForm] = useState(false);
   const [editingBooking, setEditingBooking] = useState<any>(null);
 
@@ -38,50 +50,39 @@ export default function AccommodationCalendar() {
   const allBookings = bookingsData ?? [];
 
   const today = new Date();
-  const todayStr = today.toISOString().split("T")[0];
+  const todayStr = formatDateStr(today);
 
-  const daysInMonth = new Date(currentMonth.year, currentMonth.month + 1, 0).getDate();
+  // Generate the array of dates to display
+  const dates = useMemo(() => {
+    const startDate = addDays(today, offset);
+    return Array.from({ length: DAYS_TO_SHOW }, (_, i) => addDays(startDate, i));
+  }, [offset]);
 
-  // Determine start day for display
-  const startDay = useMemo(() => {
-    if (currentMonth.year === today.getFullYear() && currentMonth.month === today.getMonth()) {
-      return Math.max(1, today.getDate() - 4);
-    }
-    return 1;
-  }, [currentMonth, today]);
+  const dateStrs = useMemo(() => dates.map(formatDateStr), [dates]);
 
-  const days = Array.from({ length: daysInMonth - startDay + 1 }, (_, i) => startDay + i);
+  // Header label showing date range
+  const rangeLabel = useMemo(() => {
+    const start = dates[0];
+    const end = dates[dates.length - 1];
+    const startLabel = start.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    const endLabel = end.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    return `${startLabel} — ${endLabel}`;
+  }, [dates]);
 
-  const monthLabel = new Date(currentMonth.year, currentMonth.month).toLocaleDateString("en-US", {
-    month: "long",
-    year: "numeric",
-  });
-
-  const prevMonth = () => {
-    setCurrentMonth(prev => {
-      const d = new Date(prev.year, prev.month - 1);
-      return { year: d.getFullYear(), month: d.getMonth() };
-    });
-  };
-
-  const nextMonth = () => {
-    setCurrentMonth(prev => {
-      const d = new Date(prev.year, prev.month + 1);
-      return { year: d.getFullYear(), month: d.getMonth() };
-    });
-  };
+  const prevPeriod = () => setOffset(prev => prev - 15);
+  const nextPeriod = () => setOffset(prev => prev + 15);
+  const goToToday = () => setOffset(0);
 
   // Get bookings for a specific room that overlap with the visible range
   const getBookingsForRoom = (roomId: number) => {
-    const visibleStart = `${currentMonth.year}-${String(currentMonth.month + 1).padStart(2, "0")}-${String(startDay).padStart(2, "0")}`;
-    const visibleEnd = `${currentMonth.year}-${String(currentMonth.month + 1).padStart(2, "0")}-${String(daysInMonth).padStart(2, "0")}`;
+    const visibleStart = dateStrs[0];
+    const visibleEnd = dateStrs[dateStrs.length - 1];
 
     return allBookings.filter(b => {
       if (b.roomId !== roomId) return false;
       if (b.status === "cancelled") return false;
       const checkInStr = toDateStr(b.checkIn);
       const checkOutStr = toDateStr(b.checkOut) || "9999-12-31";
-      // Booking overlaps if checkIn <= visibleEnd AND checkOut >= visibleStart
       return checkInStr <= visibleEnd && checkOutStr >= visibleStart;
     });
   };
@@ -91,15 +92,20 @@ export default function AccommodationCalendar() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <button onClick={prevMonth} className="p-1.5 rounded-md hover:bg-stone-100 transition-colors">
+          <button onClick={prevPeriod} className="p-1.5 rounded-md hover:bg-stone-100 transition-colors">
             <ChevronLeft className="h-5 w-5 text-stone-600" />
           </button>
           <h1 className="text-xl font-bold text-stone-900" style={{ fontFamily: "'DM Serif Display', serif" }}>
-            {monthLabel}
+            {rangeLabel}
           </h1>
-          <button onClick={nextMonth} className="p-1.5 rounded-md hover:bg-stone-100 transition-colors">
+          <button onClick={nextPeriod} className="p-1.5 rounded-md hover:bg-stone-100 transition-colors">
             <ChevronRight className="h-5 w-5 text-stone-600" />
           </button>
+          {offset !== 0 && (
+            <button onClick={goToToday} className="ml-2 px-3 py-1 text-xs rounded-md bg-stone-100 hover:bg-stone-200 text-stone-600 transition-colors">
+              Today
+            </button>
+          )}
         </div>
         <Button onClick={() => { setEditingBooking(null); setShowForm(true); }} size="sm" className="gap-1.5">
           <Plus className="h-4 w-4" /> New Booking
@@ -115,20 +121,24 @@ export default function AccommodationCalendar() {
               Room
             </div>
             <div className="flex flex-1">
-              {days.map(day => {
-                const dateStr = `${currentMonth.year}-${String(currentMonth.month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+              {dates.map((date, idx) => {
+                const dateStr = dateStrs[idx];
                 const isToday = dateStr === todayStr;
-                const dayOfWeek = new Date(currentMonth.year, currentMonth.month, day).toLocaleDateString("en-US", { weekday: "short" });
+                const dayOfWeek = date.toLocaleDateString("en-US", { weekday: "short" });
+                const dayNum = date.getDate();
+                const isFirstOfMonth = dayNum === 1;
                 return (
                   <div
-                    key={day}
+                    key={dateStr}
                     className={cn(
                       "flex-1 min-w-[36px] px-1 py-2 text-center border-r border-stone-50 last:border-r-0",
                       isToday && "bg-amber-50"
                     )}
                   >
                     <div className={cn("text-[10px] text-stone-400", isToday && "text-amber-600 font-semibold")}>{dayOfWeek}</div>
-                    <div className={cn("text-xs font-medium text-stone-600", isToday && "text-amber-700 font-bold")}>{day}</div>
+                    <div className={cn("text-xs font-medium text-stone-600", isToday && "text-amber-700 font-bold")}>
+                      {isFirstOfMonth ? date.toLocaleDateString("en-US", { month: "short", day: "numeric" }) : dayNum}
+                    </div>
                   </div>
                 );
               })}
@@ -146,35 +156,24 @@ export default function AccommodationCalendar() {
                 <div className="flex-1 relative">
                   {roomBookings.map((booking, bIdx) => {
                     const checkInStr = toDateStr(booking.checkIn);
-                    const checkOutStr = toDateStr(booking.checkOut);
+                    const checkOutStr = toDateStr(booking.checkOut) || "9999-12-31";
 
-                    // Calculate position
-                    const checkInDay = Math.max(startDay, parseInt(checkInStr.split("-")[2]));
-                    const checkOutDay = checkOutStr
-                      ? Math.min(daysInMonth, parseInt(checkOutStr.split("-")[2]))
-                      : daysInMonth;
+                    // Find the column indices for start and end
+                    let startCol = dateStrs.findIndex(d => d >= checkInStr);
+                    if (startCol === -1) startCol = DAYS_TO_SHOW; // starts after visible range
+                    // Clamp to 0 if booking starts before visible range
+                    if (checkInStr < dateStrs[0]) startCol = 0;
 
-                    // Handle cross-month bookings
-                    const bookingMonth = parseInt(checkInStr.split("-")[1]) - 1;
-                    const bookingYear = parseInt(checkInStr.split("-")[0]);
-                    const checkOutMonth = checkOutStr ? parseInt(checkOutStr.split("-")[1]) - 1 : 99;
-                    const checkOutYear = checkOutStr ? parseInt(checkOutStr.split("-")[0]) : 9999;
+                    let endCol = dateStrs.findIndex(d => d >= checkOutStr);
+                    if (endCol === -1) endCol = DAYS_TO_SHOW - 1; // ends after visible range
+                    else endCol = Math.max(startCol, endCol); // ensure end >= start
 
-                    let startCol = checkInDay - startDay;
-                    let endCol = checkOutDay - startDay;
+                    // Skip if completely outside range
+                    if (startCol >= DAYS_TO_SHOW) return null;
 
-                    // If booking starts before visible range
-                    if (bookingYear < currentMonth.year || (bookingYear === currentMonth.year && bookingMonth < currentMonth.month)) {
-                      startCol = 0;
-                    }
-                    // If booking ends after visible range
-                    if (checkOutYear > currentMonth.year || (checkOutYear === currentMonth.year && checkOutMonth > currentMonth.month)) {
-                      endCol = days.length - 1;
-                    }
-
-                    const totalCols = days.length;
+                    const totalCols = DAYS_TO_SHOW;
                     const left = `${(startCol / totalCols) * 100}%`;
-                    const width = `${((endCol - startCol + 1) / totalCols) * 100}%`;
+                    const width = `${(Math.max(1, endCol - startCol + 1) / totalCols) * 100}%`;
 
                     return (
                       <button
@@ -185,7 +184,7 @@ export default function AccommodationCalendar() {
                           getColor(bIdx + roomIdx)
                         )}
                         style={{ left, width, minWidth: "24px" }}
-                        title={`${booking.guestName} (${checkInStr} → ${checkOutStr || "ongoing"})`}
+                        title={`${booking.guestName} (${checkInStr} → ${checkOutStr === "9999-12-31" ? "ongoing" : checkOutStr})`}
                       >
                         {booking.guestName}
                       </button>
