@@ -158,30 +158,45 @@ export default function AccommodationCalendar() {
                     const checkInStr = toDateStr(booking.checkIn);
                     const checkOutStr = toDateStr(booking.checkOut) || "9999-12-31";
 
-                    // Determine start column
+                    const firstVisible = dateStrs[0];
+                    const lastVisible = dateStrs[dateStrs.length - 1];
+
+                    // Determine start column: clamp to 0 if booking started before visible range
                     let startCol: number;
-                    if (checkInStr < dateStrs[0]) {
-                      startCol = 0; // booking started before visible range
+                    if (checkInStr <= firstVisible) {
+                      startCol = 0;
                     } else {
-                      startCol = dateStrs.findIndex(d => d >= checkInStr);
-                      if (startCol === -1) return null; // starts after visible range
+                      startCol = dateStrs.indexOf(checkInStr);
+                      if (startCol === -1) {
+                        // checkIn date is within range but not an exact match (shouldn't happen with daily granularity)
+                        startCol = dateStrs.findIndex(d => d >= checkInStr);
+                        if (startCol === -1) return null; // starts after visible range
+                      }
                     }
 
-                    // Determine end column
+                    // Determine end column: clamp to last column if booking extends beyond visible range
                     let endCol: number;
-                    if (checkOutStr > dateStrs[dateStrs.length - 1]) {
-                      endCol = DAYS_TO_SHOW - 1; // booking extends beyond visible range
+                    if (checkOutStr > lastVisible) {
+                      endCol = DAYS_TO_SHOW - 1;
                     } else {
-                      const idx = dateStrs.findIndex(d => d >= checkOutStr);
-                      endCol = idx === -1 ? DAYS_TO_SHOW - 1 : Math.max(startCol, idx);
+                      // Find the last day the guest is present (checkout day they leave, so bar ends at checkout - 1)
+                      // Actually show the bar up to and including the checkout date column
+                      const idx = dateStrs.indexOf(checkOutStr);
+                      if (idx === -1) {
+                        // Find the closest date
+                        const closestIdx = dateStrs.findIndex(d => d >= checkOutStr);
+                        endCol = closestIdx === -1 ? DAYS_TO_SHOW - 1 : Math.max(startCol, closestIdx);
+                      } else {
+                        endCol = idx;
+                      }
                     }
 
                     // Skip if completely outside range
-                    if (startCol >= DAYS_TO_SHOW) return null;
+                    if (startCol >= DAYS_TO_SHOW || endCol < startCol) return null;
 
                     const totalCols = DAYS_TO_SHOW;
                     const left = `${(startCol / totalCols) * 100}%`;
-                    const width = `${(Math.max(1, endCol - startCol + 1) / totalCols) * 100}%`;
+                    const width = `${((endCol - startCol + 1) / totalCols) * 100}%`;
 
                     return (
                       <button
