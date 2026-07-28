@@ -19,9 +19,17 @@ function getColor(index: number) {
 }
 
 function toDateStr(d: Date | string | null | undefined): string {
-  if (!d) return "";
-  if (typeof d === "string") return d.split("T")[0];
-  return d.toISOString().split("T")[0];
+  if (d === null || d === undefined) return "";
+  if (d instanceof Date) {
+    // Guard against invalid dates (e.g., new Date(null) → epoch 1970)
+    if (isNaN(d.getTime()) || d.getFullYear() < 2000) return "";
+    return d.toISOString().split("T")[0];
+  }
+  if (typeof d === "string") {
+    if (!d || d.length < 10) return "";
+    return d.split("T")[0];
+  }
+  return "";
 }
 
 function addDays(date: Date, days: number): Date {
@@ -40,7 +48,7 @@ function formatDateStr(date: Date): string {
 const DAYS_TO_SHOW = 30;
 
 export default function AccommodationCalendar() {
-  const [offset, setOffset] = useState(0); // offset in days from today
+  const [offset, setOffset] = useState(0);
   const [showForm, setShowForm] = useState(false);
   const [editingBooking, setEditingBooking] = useState<any>(null);
 
@@ -52,7 +60,6 @@ export default function AccommodationCalendar() {
   const today = new Date();
   const todayStr = formatDateStr(today);
 
-  // Generate the array of dates to display
   const dates = useMemo(() => {
     const startDate = addDays(today, offset);
     return Array.from({ length: DAYS_TO_SHOW }, (_, i) => addDays(startDate, i));
@@ -60,7 +67,6 @@ export default function AccommodationCalendar() {
 
   const dateStrs = useMemo(() => dates.map(formatDateStr), [dates]);
 
-  // Header label showing date range
   const rangeLabel = useMemo(() => {
     const start = dates[0];
     const end = dates[dates.length - 1];
@@ -73,7 +79,6 @@ export default function AccommodationCalendar() {
   const nextPeriod = () => setOffset(prev => prev + 15);
   const goToToday = () => setOffset(0);
 
-  // Get bookings for a specific room that overlap with the visible range
   const getBookingsForRoom = (roomId: number) => {
     const visibleStart = dateStrs[0];
     const visibleEnd = dateStrs[dateStrs.length - 1];
@@ -86,6 +91,10 @@ export default function AccommodationCalendar() {
       return checkInStr <= visibleEnd && checkOutStr >= visibleStart;
     });
   };
+
+  // CSS Grid template: fixed room label + equal day columns
+  const gridTemplate = `128px repeat(${DAYS_TO_SHOW}, minmax(36px, 1fr))`;
+  const minTableWidth = 128 + DAYS_TO_SHOW * 36; // 1208px minimum
 
   return (
     <div className="p-6">
@@ -112,48 +121,53 @@ export default function AccommodationCalendar() {
         </Button>
       </div>
 
-      {/* Calendar Grid */}
+      {/* Calendar Grid — CSS Grid ensures header and body columns are always aligned */}
       <div className="overflow-x-auto border border-stone-200 rounded-xl bg-white">
-        <div className="min-w-[900px]">
-          {/* Day headers */}
-          <div className="flex border-b border-stone-200">
-            <div className="w-32 shrink-0 px-3 py-2 text-xs font-medium text-stone-500 uppercase tracking-wider border-r border-stone-100">
-              Room
-            </div>
-            <div className="flex flex-1">
-              {dates.map((date, idx) => {
-                const dateStr = dateStrs[idx];
-                const isToday = dateStr === todayStr;
-                const dayOfWeek = date.toLocaleDateString("en-US", { weekday: "short" });
-                const dayNum = date.getDate();
-                const isFirstOfMonth = dayNum === 1;
-                return (
-                  <div
-                    key={dateStr}
-                    className={cn(
-                      "flex-1 min-w-[36px] px-1 py-2 text-center border-r border-stone-50 last:border-r-0",
-                      isToday && "bg-amber-50"
-                    )}
-                  >
-                    <div className={cn("text-[10px] text-stone-400", isToday && "text-amber-600 font-semibold")}>{dayOfWeek}</div>
-                    <div className={cn("text-xs font-medium text-stone-600", isToday && "text-amber-700 font-bold")}>
-                      {isFirstOfMonth ? date.toLocaleDateString("en-US", { month: "short", day: "numeric" }) : dayNum}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+        <div style={{ display: "grid", gridTemplateColumns: gridTemplate, minWidth: `${minTableWidth}px` }}>
+          {/* ===== Header row ===== */}
+          <div className="px-3 py-2 text-xs font-medium text-stone-500 uppercase tracking-wider border-b border-stone-200 border-r border-r-stone-100 flex items-end">
+            Room
           </div>
+          {dates.map((date, idx) => {
+            const dateStr = dateStrs[idx];
+            const isToday = dateStr === todayStr;
+            const dayOfWeek = date.toLocaleDateString("en-US", { weekday: "short" });
+            const dayNum = date.getDate();
+            const isFirstOfMonth = dayNum === 1;
+            return (
+              <div
+                key={dateStr}
+                className={cn(
+                  "px-1 py-2 text-center border-b border-stone-200",
+                  isToday && "bg-amber-50"
+                )}
+              >
+                <div className={cn("text-[10px] text-stone-400", isToday && "text-amber-600 font-semibold")}>{dayOfWeek}</div>
+                <div className={cn("text-xs font-medium text-stone-600", isToday && "text-amber-700 font-bold")}>
+                  {isFirstOfMonth ? date.toLocaleDateString("en-US", { month: "short", day: "numeric" }) : dayNum}
+                </div>
+              </div>
+            );
+          })}
 
-          {/* Room rows */}
+          {/* ===== Room rows ===== */}
           {rooms.map((room, roomIdx) => {
             const roomBookings = getBookingsForRoom(room.id);
             return (
-              <div key={room.id} className="flex border-b border-stone-100 last:border-b-0 min-h-[48px]">
-                <div className="w-32 shrink-0 px-3 py-3 border-r border-stone-100 flex items-center">
+              <>
+                {/* Room label */}
+                <div
+                  key={`label-${room.id}`}
+                  className="px-3 py-3 border-b border-stone-100 border-r border-r-stone-100 flex items-center min-h-[48px]"
+                >
                   <span className="text-xs font-medium text-stone-700 truncate">{room.name}</span>
                 </div>
-                <div className="flex-1 relative">
+                {/* Booking bar area — spans all day columns */}
+                <div
+                  key={`bars-${room.id}`}
+                  className="relative border-b border-stone-100 min-h-[48px]"
+                  style={{ gridColumn: `2 / -1` }}
+                >
                   {roomBookings.map((booking, bIdx) => {
                     const checkInStr = toDateStr(booking.checkIn);
                     const checkOutStr = toDateStr(booking.checkOut) || "9999-12-31";
@@ -161,29 +175,25 @@ export default function AccommodationCalendar() {
                     const firstVisible = dateStrs[0];
                     const lastVisible = dateStrs[dateStrs.length - 1];
 
-                    // Determine start column: clamp to 0 if booking started before visible range
+                    // Start column
                     let startCol: number;
                     if (checkInStr <= firstVisible) {
                       startCol = 0;
                     } else {
                       startCol = dateStrs.indexOf(checkInStr);
                       if (startCol === -1) {
-                        // checkIn date is within range but not an exact match (shouldn't happen with daily granularity)
                         startCol = dateStrs.findIndex(d => d >= checkInStr);
-                        if (startCol === -1) return null; // starts after visible range
+                        if (startCol === -1) return null;
                       }
                     }
 
-                    // Determine end column: clamp to last column if booking extends beyond visible range
+                    // End column — indefinite bookings always extend to right edge
                     let endCol: number;
                     if (checkOutStr > lastVisible) {
                       endCol = DAYS_TO_SHOW - 1;
                     } else {
-                      // Find the last day the guest is present (checkout day they leave, so bar ends at checkout - 1)
-                      // Actually show the bar up to and including the checkout date column
                       const idx = dateStrs.indexOf(checkOutStr);
                       if (idx === -1) {
-                        // Find the closest date
                         const closestIdx = dateStrs.findIndex(d => d >= checkOutStr);
                         endCol = closestIdx === -1 ? DAYS_TO_SHOW - 1 : Math.max(startCol, closestIdx);
                       } else {
@@ -191,12 +201,10 @@ export default function AccommodationCalendar() {
                       }
                     }
 
-                    // Skip if completely outside range
                     if (startCol >= DAYS_TO_SHOW || endCol < startCol) return null;
 
-                    const totalCols = DAYS_TO_SHOW;
-                    const left = `${(startCol / totalCols) * 100}%`;
-                    const width = `${((endCol - startCol + 1) / totalCols) * 100}%`;
+                    const left = `${(startCol / DAYS_TO_SHOW) * 100}%`;
+                    const width = `${((endCol - startCol + 1) / DAYS_TO_SHOW) * 100}%`;
 
                     return (
                       <button
@@ -214,7 +222,7 @@ export default function AccommodationCalendar() {
                     );
                   })}
                 </div>
-              </div>
+              </>
             );
           })}
         </div>

@@ -174,3 +174,4 @@
 - [x] Build /accommodation page: password-protected dashboard with Calendar, Dashboard, Bookings, Upcoming, History views
 - [x] Build /accommodation page: add route in App.tsx and navigation
 - [x] Calendar: show rolling 30 days starting from today instead of current month only
+- [x] Fix calendar bars not extending to right edge for indefinite/long bookings (bars cut off early)
