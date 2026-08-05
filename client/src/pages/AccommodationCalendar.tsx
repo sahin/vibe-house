@@ -56,10 +56,51 @@ function formatDateDisplay(d: Date | string | null | undefined): string {
 
 const DAYS_TO_SHOW = 30;
 
+type StatusFilter = "all" | "active" | "upcoming" | "completed" | "cancelled";
+
+const STATUS_FILTERS: { value: StatusFilter; label: string }[] = [
+  { value: "all", label: "All" },
+  { value: "active", label: "Active" },
+  { value: "upcoming", label: "Upcoming" },
+  { value: "completed", label: "Completed" },
+  { value: "cancelled", label: "Cancelled" },
+];
+
+function sortBookings(bookings: any[]): any[] {
+  const statusOrder: Record<string, number> = { active: 0, upcoming: 1, completed: 2, cancelled: 3 };
+
+  return [...bookings].sort((a, b) => {
+    const aOrder = statusOrder[a.status] ?? 4;
+    const bOrder = statusOrder[b.status] ?? 4;
+    if (aOrder !== bOrder) return aOrder - bOrder;
+
+    const aCheckOut = toDateStr(a.checkOut) || "9999-12-31";
+    const bCheckOut = toDateStr(b.checkOut) || "9999-12-31";
+    const aCheckIn = toDateStr(a.checkIn) || "";
+    const bCheckIn = toDateStr(b.checkIn) || "";
+
+    if (a.status === "active") {
+      // Finishing first (earliest checkOut first; ongoing last)
+      return aCheckOut.localeCompare(bCheckOut);
+    }
+    if (a.status === "upcoming") {
+      // Closest first (earliest checkIn first)
+      return aCheckIn.localeCompare(bCheckIn);
+    }
+    if (a.status === "completed") {
+      // Newest to oldest (latest checkOut first)
+      return bCheckOut.localeCompare(aCheckOut);
+    }
+    // Cancelled — newest first
+    return bCheckIn.localeCompare(aCheckIn);
+  });
+}
+
 export default function AccommodationCalendar() {
   const [offset, setOffset] = useState(0);
   const [showForm, setShowForm] = useState(false);
   const [editingBooking, setEditingBooking] = useState<any>(null);
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
 
   const { data: roomsData } = trpc.accommodation.rooms.list.useQuery();
   const { data: bookingsData, refetch } = trpc.accommodation.bookings.list.useQuery({ filter: "all" });
@@ -248,9 +289,27 @@ export default function AccommodationCalendar() {
 
       {/* ===== All Bookings List (below calendar) ===== */}
       <div className="mt-8">
-        <h2 className="text-lg font-bold text-stone-900 mb-4" style={{ fontFamily: "'DM Serif Display', serif" }}>
-          All Bookings
-        </h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-bold text-stone-900" style={{ fontFamily: "'DM Serif Display', serif" }}>
+            All Bookings
+          </h2>
+          <div className="flex items-center gap-1 bg-stone-100 rounded-lg p-1">
+            {STATUS_FILTERS.map(f => (
+              <button
+                key={f.value}
+                onClick={() => setStatusFilter(f.value)}
+                className={cn(
+                  "px-3 py-1.5 text-xs font-medium rounded-md transition-all",
+                  statusFilter === f.value
+                    ? "bg-white text-stone-900 shadow-sm"
+                    : "text-stone-500 hover:text-stone-700"
+                )}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+        </div>
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -265,14 +324,14 @@ export default function AccommodationCalendar() {
                 </tr>
               </thead>
               <tbody>
-                {allBookings.length === 0 && (
+                {sortBookings(statusFilter === "all" ? allBookings : allBookings.filter(b => b.status === statusFilter)).length === 0 && (
                   <tr>
                     <td colSpan={6} className="px-4 py-8 text-center text-stone-400 text-sm">
-                      No bookings yet. Create your first booking above.
+                      {statusFilter === "all" ? "No bookings yet. Create your first booking above." : `No ${statusFilter} bookings.`}
                     </td>
                   </tr>
                 )}
-                {allBookings.map(booking => (
+                {sortBookings(statusFilter === "all" ? allBookings : allBookings.filter(b => b.status === statusFilter)).map(booking => (
                   <tr
                     key={booking.id}
                     className={cn(

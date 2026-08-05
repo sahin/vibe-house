@@ -177,3 +177,5 @@
 - [x] Fix calendar bars not extending to right edge for indefinite/long bookings (bars cut off early)
 - [x] Move bookings list to appear below the calendar grid on the same Calendar page
 - [x] Remove separate "Bookings" tab from accommodation navigation
+- [x] Add status filter to bookings list (All, Active, Upcoming, Completed, Cancelled)
+- [x] Sort bookings: Active (finishing first), Upcoming (closest first), Completed (newest to oldest), then Cancelled
