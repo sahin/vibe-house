@@ -12,7 +12,6 @@ import EventsSeries from "./pages/EventsSeries";
 import BrandGuidelines from "./pages/BrandGuidelines";
 import AccommodationCalendar from "./pages/AccommodationCalendar";
 import AccommodationDashboard from "./pages/AccommodationDashboard";
-import AccommodationBookings from "./pages/AccommodationBookings";
 import AccommodationUpcoming from "./pages/AccommodationUpcoming";
 import AccommodationHistory from "./pages/AccommodationHistory";
 import AccommodationLayout from "./components/AccommodationLayout";
@@ -26,10 +25,8 @@ function AccommodationApp() {
   return (
     <AccommodationPasswordGate>
       <AccommodationLayout>
-        {location === "/accommodation" && <AccommodationCalendar />}
-        {location === "/accommodation/calendar" && <AccommodationCalendar />}
+        {(location === "/accommodation" || location === "/accommodation/calendar" || location === "/accommodation/bookings") && <AccommodationCalendar />}
         {location === "/accommodation/dashboard" && <AccommodationDashboard />}
-        {location === "/accommodation/bookings" && <AccommodationBookings />}
         {location === "/accommodation/upcoming" && <AccommodationUpcoming />}
         {location === "/accommodation/history" && <AccommodationHistory />}
       </AccommodationLayout>

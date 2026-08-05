@@ -1,11 +1,10 @@
-import { Calendar, CalendarDays, Clock, History, LayoutDashboard } from "lucide-react";
+import { Calendar, Clock, History, LayoutDashboard } from "lucide-react";
 import { useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
   { icon: Calendar, label: "Calendar", path: "/accommodation" },
   { icon: LayoutDashboard, label: "Dashboard", path: "/accommodation/dashboard" },
-  { icon: CalendarDays, label: "Bookings", path: "/accommodation/bookings" },
   { icon: Clock, label: "Upcoming", path: "/accommodation/upcoming" },
   { icon: History, label: "History", path: "/accommodation/history" },
 ];

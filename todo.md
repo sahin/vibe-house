@@ -175,3 +175,5 @@
 - [x] Build /accommodation page: add route in App.tsx and navigation
 - [x] Calendar: show rolling 30 days starting from today instead of current month only
 - [x] Fix calendar bars not extending to right edge for indefinite/long bookings (bars cut off early)
+- [x] Move bookings list to appear below the calendar grid on the same Calendar page
+- [x] Remove separate "Bookings" tab from accommodation navigation

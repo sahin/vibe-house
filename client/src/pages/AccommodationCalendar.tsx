@@ -1,9 +1,11 @@
 import { trpc } from "@/lib/trpc";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, Pencil, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AccommodationBookingForm } from "@/components/AccommodationBookingForm";
+import { BookingStatusBadge } from "@/components/OccupancyBadge";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const COLORS = [
   "bg-amber-200 border-amber-300 text-amber-900",
@@ -21,7 +23,6 @@ function getColor(index: number) {
 function toDateStr(d: Date | string | null | undefined): string {
   if (d === null || d === undefined) return "";
   if (d instanceof Date) {
-    // Guard against invalid dates (e.g., new Date(null) → epoch 1970)
     if (isNaN(d.getTime()) || d.getFullYear() < 2000) return "";
     return d.toISOString().split("T")[0];
   }
@@ -43,6 +44,14 @@ function formatDateStr(date: Date): string {
   const m = String(date.getMonth() + 1).padStart(2, "0");
   const d = String(date.getDate()).padStart(2, "0");
   return `${y}-${m}-${d}`;
+}
+
+function formatDateDisplay(d: Date | string | null | undefined): string {
+  if (!d) return "";
+  const str = typeof d === "string" ? d.split("T")[0] : d instanceof Date ? d.toISOString().split("T")[0] : "";
+  if (!str) return "";
+  const [y, m, day] = str.split("-").map(Number);
+  return new Date(y, m - 1, day).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
 
 const DAYS_TO_SHOW = 30;
@@ -92,9 +101,22 @@ export default function AccommodationCalendar() {
     });
   };
 
+  const getRoomName = (roomId: number) => rooms.find(r => r.id === roomId)?.name ?? "Unknown";
+
+  const deleteMutation = trpc.accommodation.bookings.delete.useMutation({
+    onSuccess: () => { toast.success("Booking deleted"); refetch(); },
+    onError: (e) => toast.error(e.message),
+  });
+
+  const handleDelete = (id: number, name: string) => {
+    if (confirm(`Delete booking for ${name}?`)) {
+      deleteMutation.mutate({ id });
+    }
+  };
+
   // CSS Grid template: fixed room label + equal day columns
   const gridTemplate = `128px repeat(${DAYS_TO_SHOW}, minmax(36px, 1fr))`;
-  const minTableWidth = 128 + DAYS_TO_SHOW * 36; // 1208px minimum
+  const minTableWidth = 128 + DAYS_TO_SHOW * 36;
 
   return (
     <div className="p-6">
@@ -121,10 +143,10 @@ export default function AccommodationCalendar() {
         </Button>
       </div>
 
-      {/* Calendar Grid — CSS Grid ensures header and body columns are always aligned */}
+      {/* Calendar Grid */}
       <div className="overflow-x-auto border border-stone-200 rounded-xl bg-white">
         <div style={{ display: "grid", gridTemplateColumns: gridTemplate, minWidth: `${minTableWidth}px` }}>
-          {/* ===== Header row ===== */}
+          {/* Header row */}
           <div className="px-3 py-2 text-xs font-medium text-stone-500 uppercase tracking-wider border-b border-stone-200 border-r border-r-stone-100 flex items-end">
             Room
           </div>
@@ -150,19 +172,17 @@ export default function AccommodationCalendar() {
             );
           })}
 
-          {/* ===== Room rows ===== */}
+          {/* Room rows */}
           {rooms.map((room, roomIdx) => {
             const roomBookings = getBookingsForRoom(room.id);
             return (
               <>
-                {/* Room label */}
                 <div
                   key={`label-${room.id}`}
                   className="px-3 py-3 border-b border-stone-100 border-r border-r-stone-100 flex items-center min-h-[48px]"
                 >
                   <span className="text-xs font-medium text-stone-700 truncate">{room.name}</span>
                 </div>
-                {/* Booking bar area — spans all day columns */}
                 <div
                   key={`bars-${room.id}`}
                   className="relative border-b border-stone-100 min-h-[48px]"
@@ -175,7 +195,6 @@ export default function AccommodationCalendar() {
                     const firstVisible = dateStrs[0];
                     const lastVisible = dateStrs[dateStrs.length - 1];
 
-                    // Start column
                     let startCol: number;
                     if (checkInStr <= firstVisible) {
                       startCol = 0;
@@ -187,7 +206,6 @@ export default function AccommodationCalendar() {
                       }
                     }
 
-                    // End column — indefinite bookings always extend to right edge
                     let endCol: number;
                     if (checkOutStr > lastVisible) {
                       endCol = DAYS_TO_SHOW - 1;
@@ -225,6 +243,74 @@ export default function AccommodationCalendar() {
               </>
             );
           })}
+        </div>
+      </div>
+
+      {/* ===== All Bookings List (below calendar) ===== */}
+      <div className="mt-8">
+        <h2 className="text-lg font-bold text-stone-900 mb-4" style={{ fontFamily: "'DM Serif Display', serif" }}>
+          All Bookings
+        </h2>
+        <div className="bg-white border border-stone-200 rounded-xl overflow-hidden shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-stone-100 bg-stone-50/50">
+                  <th className="text-left px-4 py-3 text-xs font-medium text-stone-500 uppercase tracking-wider">Guest</th>
+                  <th className="text-left px-4 py-3 text-xs font-medium text-stone-500 uppercase tracking-wider">Room</th>
+                  <th className="text-left px-4 py-3 text-xs font-medium text-stone-500 uppercase tracking-wider">Check-in</th>
+                  <th className="text-left px-4 py-3 text-xs font-medium text-stone-500 uppercase tracking-wider">Check-out</th>
+                  <th className="text-left px-4 py-3 text-xs font-medium text-stone-500 uppercase tracking-wider">Status</th>
+                  <th className="text-right px-4 py-3 text-xs font-medium text-stone-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allBookings.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="px-4 py-8 text-center text-stone-400 text-sm">
+                      No bookings yet. Create your first booking above.
+                    </td>
+                  </tr>
+                )}
+                {allBookings.map(booking => (
+                  <tr
+                    key={booking.id}
+                    className={cn(
+                      "border-b border-stone-50 hover:bg-stone-50/50 transition-colors",
+                      booking.status === "cancelled" && "opacity-60"
+                    )}
+                  >
+                    <td className="px-4 py-3">
+                      <div className={cn(booking.status === "cancelled" && "line-through")}>
+                        <p className="font-medium text-stone-800">{booking.guestName}</p>
+                        {booking.guestEmail && <p className="text-xs text-stone-400">{booking.guestEmail}</p>}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 text-stone-600">{getRoomName(booking.roomId)}</td>
+                    <td className="px-4 py-3 text-stone-600">{formatDateDisplay(booking.checkIn)}</td>
+                    <td className="px-4 py-3 text-stone-600">{booking.checkOut ? formatDateDisplay(booking.checkOut) : "—"}</td>
+                    <td className="px-4 py-3"><BookingStatusBadge status={booking.status} /></td>
+                    <td className="px-4 py-3 text-right">
+                      <div className="flex items-center justify-end gap-1">
+                        <button
+                          onClick={() => { setEditingBooking(booking); setShowForm(true); }}
+                          className="p-1.5 rounded-md hover:bg-stone-100 text-stone-500 hover:text-stone-700 transition-colors"
+                        >
+                          <Pencil className="h-3.5 w-3.5" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(booking.id, booking.guestName)}
+                          className="p-1.5 rounded-md hover:bg-red-50 text-stone-400 hover:text-red-600 transition-colors"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
