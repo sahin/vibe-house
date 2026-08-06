@@ -141,6 +141,30 @@ export const accommodationRouter = router({
         return { success: true } as const;
       }),
 
+    updateDates: publicProcedure
+      .input(
+        z.object({
+          id: z.number().int().positive(),
+          checkIn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+          checkOut: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).nullable().optional(),
+        })
+      )
+      .mutation(async ({ input }) => {
+        const db = await getDb();
+        if (!db) throw new Error("Database not available");
+
+        if (input.checkOut && input.checkOut < input.checkIn) {
+          throw new Error("Check-out date must be after check-in date");
+        }
+
+        await db.update(bookings).set({
+          checkIn: toDate(input.checkIn),
+          checkOut: input.checkOut ? toDate(input.checkOut) : null,
+        }).where(eq(bookings.id, input.id));
+
+        return { success: true } as const;
+      }),
+
     delete: publicProcedure
       .input(z.object({ id: z.number().int().positive() }))
       .mutation(async ({ input }) => {

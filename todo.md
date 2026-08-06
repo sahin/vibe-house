@@ -179,3 +179,10 @@
 - [x] Remove separate "Bookings" tab from accommodation navigation
 - [x] Add status filter to bookings list (All, Active, Upcoming, Completed, Cancelled)
 - [x] Sort bookings: Active (finishing first), Upcoming (closest first), Completed (newest to oldest), then Cancelled
+- [x] Data fix: Sahin split into two stays (end Aug 20 + re-entry Sep 4 → Dec 31)
+- [x] Data fix: Clear Denis "2-week stay" note
+- [x] Calendar starts at today − 4 days for better context
+- [x] Info popover on bar click with day names and duration in weeks+days format
+- [x] Drag-to-move bars (snap to whole days, auto-save to DB)
+- [x] Edge-resize on bars (drag left/right edge to change check-in/check-out)
+- [x] Completed bars locked (no drag, no resize)
