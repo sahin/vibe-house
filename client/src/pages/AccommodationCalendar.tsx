@@ -304,8 +304,8 @@ export default function AccommodationCalendar() {
   };
 
   // CSS Grid template
-  const gridTemplate = `128px repeat(${DAYS_TO_SHOW}, minmax(36px, 1fr))`;
-  const minTableWidth = 128 + DAYS_TO_SHOW * 36;
+  const gridTemplate = `160px repeat(${DAYS_TO_SHOW}, minmax(36px, 1fr))`;
+  const minTableWidth = 160 + DAYS_TO_SHOW * 36;
 
   return (
     <div className="p-6">
@@ -336,7 +336,7 @@ export default function AccommodationCalendar() {
       <div className="overflow-x-auto border border-stone-200 rounded-xl bg-white">
         <div style={{ display: "grid", gridTemplateColumns: gridTemplate, minWidth: `${minTableWidth}px` }}>
           {/* Header row */}
-          <div className="px-3 py-2 text-xs font-medium text-stone-500 uppercase tracking-wider border-b border-stone-200 border-r border-r-stone-100 flex items-end">
+          <div className="px-3 py-2 text-xs font-medium text-stone-500 uppercase tracking-wider border-b border-stone-200 border-r border-r-stone-100 flex items-end sticky left-0 bg-white z-10">
             Room
           </div>
           {dates.map((date, idx) => {
@@ -368,9 +368,9 @@ export default function AccommodationCalendar() {
               <>
                 <div
                   key={`label-${room.id}`}
-                  className="px-3 py-3 border-b border-stone-100 border-r border-r-stone-100 flex items-center min-h-[48px]"
+                  className="px-3 py-3 border-b border-stone-100 border-r border-r-stone-100 flex items-center min-h-[48px] sticky left-0 bg-white z-10"
                 >
-                  <span className="text-xs font-medium text-stone-700 truncate">{room.name}</span>
+                  <span className="text-xs font-medium text-stone-700 whitespace-nowrap">{room.name}</span>
                 </div>
                 <div
                   key={`bars-${room.id}`}
