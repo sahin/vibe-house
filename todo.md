@@ -186,3 +186,4 @@
 - [x] Drag-to-move bars (snap to whole days, auto-save to DB)
 - [x] Edge-resize on bars (drag left/right edge to change check-in/check-out)
 - [x] Completed bars locked (no drag, no resize)
+- [x] Restructure /events-series page with day-of-week categories, sidebar nav (desktop), tabs (mobile)
