@@ -319,6 +319,38 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
+    // Handle /manus-storage/ proxy — presign and redirect to S3
+    if (url.pathname.startsWith("/manus-storage/")) {
+      const key = url.pathname.replace("/manus-storage/", "");
+      if (!key) {
+        return new Response("Missing storage key", { status: 400 });
+      }
+      if (!env.BUILT_IN_FORGE_API_URL || !env.BUILT_IN_FORGE_API_KEY) {
+        return new Response("Storage proxy not configured", { status: 500 });
+      }
+      try {
+        const forgeUrl = new URL(
+          "v1/storage/presign/get",
+          env.BUILT_IN_FORGE_API_URL.replace(/\/+$/, "") + "/",
+        );
+        forgeUrl.searchParams.set("path", key);
+        const forgeResp = await fetch(forgeUrl.toString(), {
+          headers: { Authorization: `Bearer ${env.BUILT_IN_FORGE_API_KEY}` },
+        });
+        if (!forgeResp.ok) {
+          return new Response("Storage backend error", { status: 502 });
+        }
+        const { url: signedUrl } = (await forgeResp.json()) as { url: string };
+        if (!signedUrl) {
+          return new Response("Empty signed URL", { status: 502 });
+        }
+        return Response.redirect(signedUrl, 307);
+      } catch (err) {
+        console.error("[StorageProxy] failed:", err);
+        return new Response("Storage proxy error", { status: 502 });
+      }
+    }
+
     // Handle tRPC API routes
     if (url.pathname.startsWith("/api/trpc")) {
       // Handle CORS preflight
