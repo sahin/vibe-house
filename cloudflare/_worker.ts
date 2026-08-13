@@ -273,10 +273,8 @@ const appRouter = t.router({
           });
         } catch (err) {
           console.error("[Application] Failed to send to Airtable:", err);
-          throw new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
-            message: "Failed to submit application. Please try again.",
-          });
+          // Don't throw — Airtable failure should not block form submission
+          // The application is still recorded via admin notification below
         }
 
         // Notify admins
