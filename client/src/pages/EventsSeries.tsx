@@ -71,11 +71,6 @@ const CATEGORIES = [
         description:
           "Exited founder Sahin Boydas breaks down the strategies behind his successful pre-seed and seed rounds. Sahin has raised more than $15 million across 6 startups from over 140 investors \u2014 even though 4 of those startups were in \u201cnot hot\u201d categories. As an angel investor, he has backed 222 companies, including 31 early-stage bets. An open AMA format where founders ask anything about fundraising timing, investor psychology, cold outreach that works, and capital strategy in the AI era.",
       },
-      {
-        title: "Legal AI Vibe Lab",
-        description:
-          "A curated SF salon for lawyers, legal operators, legaltech founders, investors, and AI builders exploring what legal AI agents can actually do in real workflows. No vendor theater. No generic networking. No vague futurism. Bring one legal workflow, one tool, or one hard question. Part workshop, part build session, part teardown of what\u2019s actually shipping in production \u2014 from contract automation and compliance agents to discovery tools and invoice review systems. Hosted by Daniel Aydin, now in its 4th edition.",
-      },
     ],
   },
   {
@@ -89,6 +84,11 @@ const CATEGORIES = [
         title: "Software Factory",
         description:
           "A new SF Vibe House series about the operational reality of building with AI agents. Not the demos, not the hype \u2014 the actual management layer: orchestration patterns, failure modes, cost control, and what it takes to run multi-agent systems in production. The first edition is a Multi-Agent Orchestration Round Table \u2014 a focused discussion on how founders are actually coordinating fleets of AI agents to ship software autonomously.",
+      },
+      {
+        title: "Legal AI Vibe Lab",
+        description:
+          "A curated SF salon for lawyers, legal operators, legaltech founders, investors, and AI builders exploring what legal AI agents can actually do in real workflows. No vendor theater. No generic networking. No vague futurism. Bring one legal workflow, one tool, or one hard question. Part workshop, part build session, part teardown of what\u2019s actually shipping in production \u2014 from contract automation and compliance agents to discovery tools and invoice review systems. Hosted by Daniel Aydin, now in its 4th edition.",
       },
     ],
   },
