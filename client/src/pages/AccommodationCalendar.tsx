@@ -118,8 +118,10 @@ function sortBookings(bookings: any[]): any[] {
   const statusOrder: Record<string, number> = { active: 0, upcoming: 1, completed: 2, cancelled: 3 };
 
   return [...bookings].sort((a, b) => {
-    const aOrder = statusOrder[a.status] ?? 4;
-    const bOrder = statusOrder[b.status] ?? 4;
+    const aStatus = getDisplayStatus(a);
+    const bStatus = getDisplayStatus(b);
+    const aOrder = statusOrder[aStatus] ?? 4;
+    const bOrder = statusOrder[bStatus] ?? 4;
     if (aOrder !== bOrder) return aOrder - bOrder;
 
     const aCheckOut = toDateStr(a.checkOut) || "9999-12-31";
@@ -127,9 +129,9 @@ function sortBookings(bookings: any[]): any[] {
     const aCheckIn = toDateStr(a.checkIn) || "";
     const bCheckIn = toDateStr(b.checkIn) || "";
 
-    if (a.status === "active") return aCheckOut.localeCompare(bCheckOut);
-    if (a.status === "upcoming") return aCheckIn.localeCompare(bCheckIn);
-    if (a.status === "completed") return bCheckOut.localeCompare(aCheckOut);
+    if (aStatus === "active") return aCheckOut.localeCompare(bCheckOut);
+    if (aStatus === "upcoming") return aCheckIn.localeCompare(bCheckIn);
+    if (aStatus === "completed") return bCheckOut.localeCompare(aCheckOut);
     return bCheckIn.localeCompare(aCheckIn);
   });
 }
@@ -245,7 +247,8 @@ export default function AccommodationCalendar() {
 
   // --- Drag handlers ---
   const handleDragStart = useCallback((e: React.PointerEvent, booking: any, type: "move" | "resize-left" | "resize-right", barEl: HTMLElement) => {
-    if (booking.status === "completed" || booking.status === "cancelled") return;
+    const ds = getDisplayStatus(booking);
+    if (ds === "completed" || ds === "cancelled") return;
     e.preventDefault();
     e.stopPropagation();
     barEl.setPointerCapture(e.pointerId);
@@ -420,16 +423,9 @@ export default function AccommodationCalendar() {
               <>
                 <div
                   key={`label-${room.id}`}
-                  className="px-3 py-2 border-b border-stone-100 border-r border-r-stone-100 min-h-[48px] sticky left-0 bg-white z-10 flex flex-col justify-center"
+                  className="px-3 py-3 border-b border-stone-100 border-r border-r-stone-100 min-h-[48px] sticky left-0 bg-white z-10 flex items-center"
                 >
                   <span className="text-xs font-medium text-stone-700 whitespace-nowrap">{room.name}</span>
-                  {roomBookings.length > 0 && (
-                    <div className="flex flex-wrap gap-x-2 mt-0.5">
-                      {roomBookings.map((b, bIdx) => (
-                        <span key={b.id} className="text-[10px] text-stone-500 whitespace-nowrap">{b.guestName}</span>
-                      ))}
-                    </div>
-                  )}
                 </div>
                 <div
                   key={`bars-${room.id}`}
@@ -472,7 +468,8 @@ export default function AccommodationCalendar() {
                     const left = `${(startCol / DAYS_TO_SHOW) * 100}%`;
                     const width = `${((endCol - startCol + 1) / DAYS_TO_SHOW) * 100}%`;
 
-                    const isLocked = booking.status === "completed" || booking.status === "cancelled";
+                    const displayStatus = getDisplayStatus(booking);
+                    const isLocked = displayStatus === "completed" || displayStatus === "cancelled";
                     const isDragging = dragState?.bookingId === booking.id;
                     const startsBeforeView = checkInStr < firstVisible;
                     const endsAfterView = (checkOutAdj || "9999-12-31") > lastVisible;
@@ -578,7 +575,7 @@ export default function AccommodationCalendar() {
             </div>
             <div className="flex justify-between">
               <span className="text-stone-400">Status</span>
-              <BookingStatusBadge status={popoverBooking.status} />
+              <BookingStatusBadge status={getDisplayStatus(popoverBooking)} />
             </div>
             {popoverBooking.notes && (
               <div className="pt-2 border-t border-stone-100">
@@ -638,23 +635,23 @@ export default function AccommodationCalendar() {
                 </tr>
               </thead>
               <tbody>
-                {sortBookings(statusFilter === "all" ? allBookings : allBookings.filter(b => b.status === statusFilter)).length === 0 && (
+                {sortBookings(statusFilter === "all" ? allBookings : allBookings.filter(b => getDisplayStatus(b) === statusFilter)).length === 0 && (
                   <tr>
                     <td colSpan={6} className="px-4 py-8 text-center text-stone-400 text-sm">
                       {statusFilter === "all" ? "No bookings yet. Create your first booking above." : `No ${statusFilter} bookings.`}
                     </td>
                   </tr>
                 )}
-                {sortBookings(statusFilter === "all" ? allBookings : allBookings.filter(b => b.status === statusFilter)).map(booking => (
+                {sortBookings(statusFilter === "all" ? allBookings : allBookings.filter(b => getDisplayStatus(b) === statusFilter)).map(booking => (
                   <tr
                     key={booking.id}
                     className={cn(
                       "border-b border-stone-50 hover:bg-stone-50/50 transition-colors",
-                      booking.status === "cancelled" && "opacity-60"
+                      getDisplayStatus(booking) === "cancelled" && "opacity-60"
                     )}
                   >
                     <td className="px-4 py-3">
-                      <div className={cn(booking.status === "cancelled" && "line-through")}>
+                      <div className={cn(getDisplayStatus(booking) === "cancelled" && "line-through")}>
                         <p className="font-medium text-stone-800">{booking.guestName}</p>
                         {booking.guestEmail && <p className="text-xs text-stone-400">{booking.guestEmail}</p>}
                       </div>
@@ -662,7 +659,7 @@ export default function AccommodationCalendar() {
                     <td className="px-4 py-3 text-stone-600">{getRoomName(booking.roomId)}</td>
                     <td className="px-4 py-3 text-stone-600">{formatDateDisplay(booking.checkIn)}</td>
                     <td className="px-4 py-3 text-stone-600">{booking.checkOut ? formatDateDisplay(booking.checkOut) : "—"}</td>
-                    <td className="px-4 py-3"><BookingStatusBadge status={booking.status} /></td>
+                    <td className="px-4 py-3"><BookingStatusBadge status={getDisplayStatus(booking)} /></td>
                     <td className="px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <button
@@ -697,4 +694,15 @@ export default function AccommodationCalendar() {
       />
     </div>
   );
+}
+type DisplayStatus = "active" | "upcoming" | "completed" | "cancelled";
+
+function getDisplayStatus(booking: { checkIn: any; checkOut: any; status: string }): DisplayStatus {
+  if (booking.status === "cancelled") return "cancelled";
+  const todayStr = formatDateStr(new Date());
+  const checkInStr = toDateStr(booking.checkIn);
+  const checkOutStr = toDateStr(booking.checkOut) || "9999-12-31";
+  if (checkOutStr <= todayStr && checkOutStr !== "9999-12-31") return "completed";
+  if (checkInStr > todayStr) return "upcoming";
+  return "active";
 }
