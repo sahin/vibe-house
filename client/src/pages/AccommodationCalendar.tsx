@@ -1,7 +1,7 @@
 import { trpc } from "@/lib/trpc";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, Plus, Pencil, Trash2, X } from "lucide-react";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AccommodationBookingForm } from "@/components/AccommodationBookingForm";
 import { BookingStatusBadge } from "@/components/OccupancyBadge";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,15 @@ const COLORS = [
 
 function getColor(index: number) {
   return COLORS[index % COLORS.length];
+}
+
+function getColorForName(name: string) {
+  // Simple hash to get consistent color per guest name
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = ((hash << 5) - hash + name.charCodeAt(i)) | 0;
+  }
+  return COLORS[Math.abs(hash) % COLORS.length];
 }
 
 function toDateStr(d: Date | string | null | undefined): string {
@@ -93,7 +102,7 @@ function formatNightsLeft(checkOutStr: string | null): string {
   return `${weeks}w ${days}d left`;
 }
 
-const DAYS_TO_SHOW = 30;
+// No fixed DAYS_TO_SHOW — computed dynamically per month view
 
 type StatusFilter = "all" | "active" | "upcoming" | "completed" | "cancelled";
 
@@ -126,7 +135,8 @@ function sortBookings(bookings: any[]): any[] {
 }
 
 export default function AccommodationCalendar() {
-  const [offset, setOffset] = useState(-4);
+  const [monthOffset, setMonthOffset] = useState(0);
+  const [viewMode, setViewMode] = useState<"month" | "30days" | "60days">("month");
   const [showForm, setShowForm] = useState(false);
   const [editingBooking, setEditingBooking] = useState<any>(null);
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
@@ -135,6 +145,8 @@ export default function AccommodationCalendar() {
 
   // Drag state
   const didDragRef = useRef(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [scrollLeft, setScrollLeft] = useState(0);
   const [dragState, setDragState] = useState<{
     bookingId: number;
     type: "move" | "resize-left" | "resize-right";
@@ -150,6 +162,15 @@ export default function AccommodationCalendar() {
   const rooms = roomsData ?? [];
   const allBookings = bookingsData ?? [];
 
+  // Track horizontal scroll for sticky bar text
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const onScroll = () => setScrollLeft(el.scrollLeft);
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
   const updateDatesMutation = trpc.accommodation.bookings.updateDates.useMutation({
     onSuccess: () => { toast.success("Dates updated"); refetch(); },
     onError: (e) => toast.error(e.message),
@@ -159,23 +180,42 @@ export default function AccommodationCalendar() {
   const todayStr = formatDateStr(today);
 
   const dates = useMemo(() => {
-    const startDate = addDays(today, offset);
-    return Array.from({ length: DAYS_TO_SHOW }, (_, i) => addDays(startDate, i));
-  }, [offset]);
+    if (viewMode === "30days") {
+      return Array.from({ length: 30 }, (_, i) => addDays(today, i));
+    } else if (viewMode === "60days") {
+      return Array.from({ length: 60 }, (_, i) => addDays(today, i));
+    } else {
+      if (monthOffset === 0) {
+        const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        const daysLeft = endOfMonth.getDate() - today.getDate() + 1;
+        return Array.from({ length: daysLeft }, (_, i) => addDays(today, i));
+      } else {
+        const targetMonth = new Date(today.getFullYear(), today.getMonth() + monthOffset, 1);
+        const daysInMonth = new Date(targetMonth.getFullYear(), targetMonth.getMonth() + 1, 0).getDate();
+        return Array.from({ length: daysInMonth }, (_, i) => addDays(targetMonth, i));
+      }
+    }
+  }, [monthOffset, viewMode]);
+
+  const DAYS_TO_SHOW = dates.length;
 
   const dateStrs = useMemo(() => dates.map(formatDateStr), [dates]);
 
   const rangeLabel = useMemo(() => {
     const start = dates[0];
     const end = dates[dates.length - 1];
-    const startLabel = start.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-    const endLabel = end.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-    return `${startLabel} — ${endLabel}`;
+    if (viewMode === "month" && monthOffset !== 0) {
+      return start.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+    } else {
+      const startLabel = start.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      const endLabel = end.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      return `${startLabel} — ${endLabel}`;
+    }
   }, [dates]);
 
-  const prevPeriod = () => setOffset(prev => prev - 15);
-  const nextPeriod = () => setOffset(prev => prev + 15);
-  const goToToday = () => setOffset(-4);
+  const prevPeriod = () => { setViewMode("month"); setMonthOffset(prev => prev - 1); };
+  const nextPeriod = () => { setViewMode("month"); setMonthOffset(prev => prev + 1); };
+  const goToToday = () => { setViewMode("month"); setMonthOffset(0); };
 
   const getBookingsForRoom = (roomId: number) => {
     const visibleStart = dateStrs[0];
@@ -321,11 +361,23 @@ export default function AccommodationCalendar() {
           <button onClick={nextPeriod} className="p-1.5 rounded-md hover:bg-stone-100 transition-colors">
             <ChevronRight className="h-5 w-5 text-stone-600" />
           </button>
-          {offset !== -4 && (
+          {(monthOffset !== 0 || viewMode !== "month") && (
             <button onClick={goToToday} className="ml-2 px-3 py-1 text-xs rounded-md bg-stone-100 hover:bg-stone-200 text-stone-600 transition-colors">
               Today
             </button>
           )}
+          <button
+            onClick={() => { setViewMode("30days"); setMonthOffset(0); }}
+            className={cn("ml-2 px-3 py-1 text-xs rounded-md transition-colors", viewMode === "30days" ? "bg-stone-800 text-white" : "bg-stone-100 hover:bg-stone-200 text-stone-600")}
+          >
+            30 Days
+          </button>
+          <button
+            onClick={() => { setViewMode("60days"); setMonthOffset(0); }}
+            className={cn("ml-2 px-3 py-1 text-xs rounded-md transition-colors", viewMode === "60days" ? "bg-stone-800 text-white" : "bg-stone-100 hover:bg-stone-200 text-stone-600")}
+          >
+            60 Days
+          </button>
         </div>
         <Button onClick={() => { setEditingBooking(null); setShowForm(true); }} size="sm" className="gap-1.5">
           <Plus className="h-4 w-4" /> New Booking
@@ -333,7 +385,7 @@ export default function AccommodationCalendar() {
       </div>
 
       {/* Calendar Grid */}
-      <div className="overflow-x-auto border border-stone-200 rounded-xl bg-white">
+      <div ref={scrollContainerRef} className="overflow-x-auto border border-stone-200 rounded-xl bg-white">
         <div style={{ display: "grid", gridTemplateColumns: gridTemplate, minWidth: `${minTableWidth}px` }}>
           {/* Header row */}
           <div className="px-3 py-2 text-xs font-medium text-stone-500 uppercase tracking-wider border-b border-stone-200 border-r border-r-stone-100 flex items-end sticky left-0 bg-white z-10">
@@ -368,9 +420,16 @@ export default function AccommodationCalendar() {
               <>
                 <div
                   key={`label-${room.id}`}
-                  className="px-3 py-3 border-b border-stone-100 border-r border-r-stone-100 flex items-center min-h-[48px] sticky left-0 bg-white z-10"
+                  className="px-3 py-2 border-b border-stone-100 border-r border-r-stone-100 min-h-[48px] sticky left-0 bg-white z-10 flex flex-col justify-center"
                 >
                   <span className="text-xs font-medium text-stone-700 whitespace-nowrap">{room.name}</span>
+                  {roomBookings.length > 0 && (
+                    <div className="flex flex-wrap gap-x-2 mt-0.5">
+                      {roomBookings.map((b, bIdx) => (
+                        <span key={b.id} className="text-[10px] text-stone-500 whitespace-nowrap">{b.guestName}</span>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div
                   key={`bars-${room.id}`}
@@ -422,8 +481,8 @@ export default function AccommodationCalendar() {
                       <div
                         key={booking.id}
                         className={cn(
-                          "absolute top-2 h-7 rounded-md border text-[11px] font-medium truncate select-none group",
-                          getColor(bIdx + roomIdx),
+                          "absolute top-2 h-7 rounded-md border text-[11px] font-medium select-none group overflow-hidden",
+                          getColorForName(booking.guestName),
                           isLocked ? "cursor-default opacity-70" : "cursor-grab",
                           isDragging && "opacity-60 shadow-lg z-20"
                         )}
@@ -445,7 +504,21 @@ export default function AccommodationCalendar() {
                           </div>
                         )}
                         {/* Bar content */}
-                        <span className="px-2 leading-7 truncate block">{booking.guestName}</span>
+                        <span
+                          className="px-2 leading-7 whitespace-nowrap block pointer-events-none relative"
+                          style={{
+                            transform: (() => {
+                              // Calculate how much the text should shift right to stay visible
+                              const container = scrollContainerRef.current;
+                              if (!container) return "none";
+                              const containerWidth = container.scrollWidth - 160; // minus room label column
+                              const barLeftPx = (startCol / DAYS_TO_SHOW) * containerWidth;
+                              const barWidthPx = ((endCol - startCol + 1) / DAYS_TO_SHOW) * containerWidth;
+                              const textOffset = Math.max(0, Math.min(scrollLeft - barLeftPx, barWidthPx - 80));
+                              return textOffset > 0 ? `translateX(${textOffset}px)` : "none";
+                            })()
+                          }}
+                        >{booking.guestName}</span>
                         {/* Right resize handle */}
                         {!isLocked && !endsAfterView && (
                           <div

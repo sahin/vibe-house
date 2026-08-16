@@ -48,7 +48,7 @@ const CATEGORIES = [
   {
     id: "truth-tuesday",
     number: "01",
-    name: "Truth Tuesday",
+    name: "Truth Tuesdays",
     theme:
       "What does it mean to be human when machines can think, create, and reason? Truth Tuesday is where exited founders, AI researchers, and thought leaders slow down to explore the questions that success never answers. Practical spirituality, multi-faith dialogue, philosophy of consciousness, the evolving relationship between humans and AI, and the inner work that sustains everything else \u2014 conversations that go beyond product and into purpose. How do we stay grounded when the tools we build become more capable than we are? This is the night for those who know that the hardest problems they\u2019ll ever face aren\u2019t technical.",
     events: [
@@ -62,7 +62,7 @@ const CATEGORIES = [
   {
     id: "wealth-wednesday",
     number: "02",
-    name: "Wealth Wednesday",
+    name: "Wealth Wednesdays",
     theme:
       "Fundraising has fundamentally changed in the AI era, and so has capital allocation. Wealth Wednesday brings together exited founders, allocators, and operators to discuss how money moves now \u2014 from AI-native fund structures to solo GP strategies, from treasury management post-exit to angel investing with conviction. Whether you\u2019re raising, deploying, or rethinking your relationship with capital entirely, this is the room where those conversations happen honestly.",
     events: [
@@ -76,7 +76,7 @@ const CATEGORIES = [
   {
     id: "technical-thursday",
     number: "03",
-    name: "Technical Thursday",
+    name: "Technical Thursdays",
     theme:
       "The deepest builders in the room, working on the hardest problems. Technical Thursday is dedicated to software factories, deep tech, robotics, energy systems, legal AI, and frontier architecture \u2014 the infrastructure layer that everything else runs on. This is where founders who ship compilers, train models, build hardware, and architect systems come to share what\u2019s actually working. No slides, no hand-waving \u2014 just technical depth from people who\u2019ve built at scale.",
     events: [
@@ -95,7 +95,7 @@ const CATEGORIES = [
   {
     id: "future-fridays",
     number: "04",
-    name: "Future Fridays",
+    name: "Future Fridays (Vibe Demo Nights)",
     theme:
       "Exited founders show how they built \u2014 live, on stage, unpolished. Future Fridays is our flagship demo night, now in its 23rd edition. Founders present what they\u2019ve been vibe coding all week: weekend prototypes, full product pivots, AI agents that actually work, tools that solve real problems. The energy is electric, the feedback is honest, and the creative collisions are why people keep coming back. This is where the future gets built in public.",
     events: [
@@ -109,7 +109,7 @@ const CATEGORIES = [
   {
     id: "founder-friday-breakfasts",
     number: "05",
-    name: "Founder Friday \u2014 Breakfasts",
+    name: "Founder Friday (Breakfasts)",
     theme:
       "Before the demos, before the energy of the evening, there\u2019s the quiet power of morning. Founder Friday Breakfasts bring together peer groups and wealth partners over coffee \u2014 intimate, unhurried, and intentional. These are the conversations that happen when founders who\u2019ve already won sit together without an agenda: identity after exit, what to build next, who to build with, and how to stay sharp when the pressure is gone.",
     events: [
