@@ -187,3 +187,7 @@
 - [x] Edge-resize on bars (drag left/right edge to change check-in/check-out)
 - [x] Completed bars locked (no drag, no resize)
 - [x] Restructure /events-series page with day-of-week categories, sidebar nav (desktop), tabs (mobile)
+- [ ] Apply the approved event-led copy to the actual public site source files (homepage, Why Now, Events Series, Biological Founder, Founder’s Pharmacy, Brand page)
+- [ ] Update shared branding copy in useBranding.ts and content.yaml so live messaging reflects the event-led positioning
+- [ ] Verify revised copy on all affected routes and save a checkpoint after implementation
+- [x] Draft generative community copy redline centered on post-exit possibility, generosity, and meaningful connection
