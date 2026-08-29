@@ -138,7 +138,7 @@ function sortBookings(bookings: any[]): any[] {
 
 export default function AccommodationCalendar() {
   const [monthOffset, setMonthOffset] = useState(0);
-  const [viewMode, setViewMode] = useState<"month" | "30days" | "60days">("month");
+  const [viewMode, setViewMode] = useState<"month" | "30days" | "60days">("60days");
   const [showForm, setShowForm] = useState(false);
   const [editingBooking, setEditingBooking] = useState<any>(null);
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");

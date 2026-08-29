@@ -192,3 +192,4 @@
 - [ ] Verify revised copy on all affected routes and save a checkpoint after implementation
 - [x] Draft generative community copy redline centered on post-exit possibility, generosity, and meaningful connection
 - [x] Update accommodation skill to check availability and recommend an empty room when a booking request omits a room
+- [x] Make the 60-day calendar view the default on the accommodation page
