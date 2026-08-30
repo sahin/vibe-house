@@ -193,3 +193,6 @@
 - [x] Draft generative community copy redline centered on post-exit possibility, generosity, and meaningful connection
 - [x] Update accommodation skill to check availability and recommend an empty room when a booking request omits a room
 - [x] Make the 60-day calendar view the default on the accommodation page
+- [x] Complete the literal page-by-page copy redline with current wording, marked changes, and clean proposed copy for every reviewed section
+- [x] Add full literal redlines for remaining high-visibility copy on the Biological Founder, Founder’s Pharmacy, and Brand pages
+- [x] Cross-check all current-copy blocks against the website source before finalizing the redline
