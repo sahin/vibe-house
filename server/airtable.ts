@@ -36,6 +36,8 @@ const COMMUNITY_LABELS: Record<string, string> = {
   other: "Other",
 };
 
+const OPTIONAL_FIELDS = new Set(["Phone", "LinkedIn", "Communities", "Notes"]);
+
 /**
  * Parse the unknown field name from an Airtable UNKNOWN_FIELD_NAME error response.
  * Returns the field name if found, or null otherwise.
@@ -145,7 +147,7 @@ export async function createAirtableRecord(
     // Check if the error is about an unknown field
     if (result.status === 422) {
       const unknownField = parseUnknownFieldName(result.body);
-      if (unknownField && fields[unknownField] !== undefined) {
+      if (unknownField && OPTIONAL_FIELDS.has(unknownField) && fields[unknownField] !== undefined) {
         console.log(
           `[Airtable] Field "${unknownField}" not found in table, removing and retrying (attempt ${attempt + 1}/${MAX_RETRIES})`
         );

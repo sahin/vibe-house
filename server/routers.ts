@@ -66,7 +66,9 @@ export const appRouter = router({
           additionalNotes: input.additionalNotes || null,
         });
 
-        // Send to Airtable
+        // The application is already in the site database, but callers must know
+        // when it did not reach the Airtable Members list.
+        let airtableSynced = false;
         try {
           await createAirtableRecord({
             fullName: input.fullName,
@@ -77,6 +79,7 @@ export const appRouter = router({
             communities: input.communities || [],
             notes: input.additionalNotes || null,
           });
+          airtableSynced = true;
         } catch (err) {
           console.warn("[Application] Failed to send to Airtable:", err);
         }
@@ -107,7 +110,7 @@ export const appRouter = router({
           console.warn("[Application] Failed to send admin notifications:", err);
         }
 
-        return { success: true } as const;
+        return { success: true, airtableSynced } as const;
       }),
   }),
 });

@@ -46,6 +46,8 @@ const COMMUNITY_LABELS: Record<string, string> = {
   other: "Other",
 };
 
+const OPTIONAL_FIELDS = new Set(["Phone", "LinkedIn", "Communities", "Notes"]);
+
 function parseUnknownFieldName(errorBody: string): string | null {
   try {
     const parsed = JSON.parse(errorBody);
@@ -139,13 +141,32 @@ async function createAirtableRecord(
 
     if (result.status === 422) {
       const unknownField = parseUnknownFieldName(result.body);
-      if (unknownField && fields[unknownField] !== undefined) {
+      if (unknownField && OPTIONAL_FIELDS.has(unknownField) && fields[unknownField] !== undefined) {
         console.log(
           `[Airtable] Field "${unknownField}" not found, removing and retrying (attempt ${attempt + 1}/${MAX_RETRIES})`
         );
         delete fields[unknownField];
         skippedFields.push(unknownField);
         continue;
+      }
+
+      // Some community options aren't configured in the Airtable select field.
+      // Preserve the contact record even when that optional selection cannot be saved.
+      try {
+        const parsed = JSON.parse(result.body);
+        if (
+          fields["Communities"] &&
+          (parsed?.error?.type === "INVALID_MULTIPLE_CHOICE_OPTIONS" ||
+            parsed?.error?.type === "INVALID_VALUE_FOR_COLUMN" ||
+            result.body.toLowerCase().includes("invalid"))
+        ) {
+          console.warn("[Airtable] Invalid Communities options, retrying without that field");
+          delete fields["Communities"];
+          skippedFields.push("Communities");
+          continue;
+        }
+      } catch {
+        // Non-JSON error response; fail the submission below.
       }
     }
 
@@ -260,7 +281,8 @@ const appRouter = t.router({
         })
       )
       .mutation(async ({ input, ctx }) => {
-        // Send to Airtable
+        // Airtable is the only persistent store on Cloudflare. Never acknowledge a
+        // submission unless Airtable actually accepted it.
         try {
           await createAirtableRecord(ctx.env, {
             fullName: input.fullName,
@@ -273,8 +295,10 @@ const appRouter = t.router({
           });
         } catch (err) {
           console.error("[Application] Failed to send to Airtable:", err);
-          // Don't throw — Airtable failure should not block form submission
-          // The application is still recorded via admin notification below
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "We couldn't save your application. Please use the backup form.",
+          });
         }
 
         // Notify admins
@@ -308,7 +332,7 @@ const appRouter = t.router({
           );
         }
 
-        return { success: true } as const;
+        return { success: true, airtableSynced: true } as const;
       }),
   }),
 });

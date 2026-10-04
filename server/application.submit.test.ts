@@ -14,7 +14,7 @@ vi.mock("./notifyAdmins", () => ({
 
 // Mock the airtable module
 vi.mock("./airtable", () => ({
-  createAirtableRecord: vi.fn().mockResolvedValue(undefined),
+  createAirtableRecord: vi.fn().mockResolvedValue({ id: "recTEST" }),
 }));
 
 function createPublicContext(): TrpcContext {
@@ -49,7 +49,7 @@ describe("application.submit", () => {
       additionalNotes: "Building an AI startup",
     });
 
-    expect(result).toEqual({ success: true });
+    expect(result).toEqual({ success: true, airtableSynced: true });
 
     const { insertApplication } = await import("./db");
     expect(insertApplication).toHaveBeenCalledOnce();
@@ -74,7 +74,7 @@ describe("application.submit", () => {
       founderType: "pef_member",
     });
 
-    expect(result).toEqual({ success: true });
+    expect(result).toEqual({ success: true, airtableSynced: true });
 
     const { insertApplication } = await import("./db");
     expect(insertApplication).toHaveBeenCalledOnce();
@@ -123,7 +123,23 @@ describe("application.submit", () => {
       founderType: "other",
     });
 
-    expect(result).toEqual({ success: true });
+    expect(result).toEqual({ success: true, airtableSynced: true });
+  });
+
+  it("reports when the database saved the application but Airtable failed", async () => {
+    const { createAirtableRecord } = await import("./airtable");
+    vi.mocked(createAirtableRecord).mockRejectedValueOnce(new Error("Airtable unavailable"));
+
+    const caller = appRouter.createCaller(createPublicContext());
+    const result = await caller.application.submit({
+      fullName: "Site-only User",
+      email: "site-only@example.com",
+      founderType: "other",
+    });
+
+    expect(result).toEqual({ success: true, airtableSynced: false });
+    const { insertApplication } = await import("./db");
+    expect(insertApplication).toHaveBeenCalledOnce();
   });
 
   it("rejects submission with missing full name", async () => {
@@ -195,6 +211,6 @@ describe("application.submit", () => {
       linkedinUrl: "",
     });
 
-    expect(result).toEqual({ success: true });
+    expect(result).toEqual({ success: true, airtableSynced: true });
   });
 });

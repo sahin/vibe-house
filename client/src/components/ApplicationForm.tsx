@@ -230,6 +230,7 @@ export default function ApplicationForm({ founderTypeLabels, communitiesLabel: c
   const [additionalNotes, setAdditionalNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState(false);
+  const [syncError, setSyncError] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   // Refs for focusing on validation errors
@@ -248,8 +249,9 @@ export default function ApplicationForm({ founderTypeLabels, communitiesLabel: c
   };
 
   const submitMutation = trpc.application.submit.useMutation({
-    onSuccess: () => {
-      setSubmitted(true);
+    onSuccess: (result) => {
+      setSubmitted(result.airtableSynced === true);
+      setSyncError(result.airtableSynced !== true);
       setServerError(false);
     },
     onError: (error) => {
@@ -264,6 +266,7 @@ export default function ApplicationForm({ founderTypeLabels, communitiesLabel: c
         setFieldErrors(mapped);
       } else {
         setServerError(true);
+        setSyncError(false);
       }
     },
   });
@@ -315,7 +318,7 @@ export default function ApplicationForm({ founderTypeLabels, communitiesLabel: c
     });
   };
 
-  if (serverError) {
+  if (serverError || syncError) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -328,9 +331,11 @@ export default function ApplicationForm({ founderTypeLabels, communitiesLabel: c
             <AlertTriangle className="w-7 h-7 text-red-600" />
           </div>
         </div>
-        <h3 className={`${T.l} mb-6`}>Something went wrong.</h3>
+        <h3 className={`${T.l} mb-6`}>We couldn't add you to the list.</h3>
         <p className={`${T.m} text-foreground/55 mb-8`}>
-          We couldn't submit your application right now. Please use the backup form instead.
+          {syncError
+            ? "Your application was saved on the site, but it did not reach Airtable. Please use the backup form so we can see it there."
+            : "Your application could not be saved. Please use the backup form instead."}
         </p>
         <a
           href="https://airtable.com/appqVucbI0ROcWtt5/pagqasZj50JPqUSfk/form"

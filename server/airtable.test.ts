@@ -178,6 +178,24 @@ describe("airtable", () => {
         })
       ).rejects.toThrow("Airtable API error (401)");
     });
+
+    it("never retries without a required contact field", async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 422,
+        text: async () => JSON.stringify({
+          error: { type: "UNKNOWN_FIELD_NAME", message: 'Unknown field name: "Email"' },
+        }),
+      });
+
+      await expect(createAirtableRecord({
+        fullName: "Test",
+        email: "test@example.com",
+        founderType: "other",
+        communities: [],
+      })).rejects.toThrow("Airtable API error (422)");
+      expect(mockFetch).toHaveBeenCalledOnce();
+    });
   });
 
   describe("verifyAirtableConnection", () => {
