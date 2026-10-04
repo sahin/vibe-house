@@ -196,3 +196,4 @@
 - [x] Complete the literal page-by-page copy redline with current wording, marked changes, and clean proposed copy for every reviewed section
 - [x] Add full literal redlines for remaining high-visibility copy on the Biological Founder, Founder’s Pharmacy, and Brand pages
 - [x] Cross-check all current-copy blocks against the website source before finalizing the redline
+- [x] Fix false form success on the custom domain when Airtable fails; show a backup route and verify Cloudflare deployment
