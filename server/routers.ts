@@ -2,7 +2,8 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
-import { createAirtableRecord } from "./airtable";
+import { createAirtableRecord, verifyAirtableConnection } from "./airtable";
+import { ENV } from "./_core/env";
 import { insertApplication } from "./db";
 import { notifyAdmins } from "./notifyAdmins";
 import { accommodationRouter } from "./accommodationRouter";
@@ -32,6 +33,11 @@ export const appRouter = router({
   }),
 
   application: router({
+    airtableHealth: publicProcedure.query(async () => ({
+      connected: await verifyAirtableConnection(),
+      baseId: ENV.airtableBaseId,
+      tableId: ENV.airtableTableId,
+    })),
     submit: publicProcedure
       .input(
         z.object({

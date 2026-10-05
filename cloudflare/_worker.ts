@@ -18,6 +18,31 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
+    if (url.pathname === "/api/trpc/application.airtableHealth") {
+      if (request.method !== "GET") {
+        return new Response("Method not allowed", { status: 405 });
+      }
+      try {
+        const upstream = await fetch(
+          `${APPLICATION_BACKEND}${url.pathname}${url.search}`,
+          { signal: AbortSignal.timeout(15000) }
+        );
+        if (!upstream.headers.get("content-type")?.includes("application/json")) {
+          throw new Error(`Airtable health backend returned non-JSON (${upstream.status})`);
+        }
+        return new Response(upstream.body, {
+          status: upstream.status,
+          headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+        });
+      } catch (error) {
+        console.error("[Application] Airtable health check unavailable:", error);
+        return new Response(JSON.stringify({ error: { message: "Health check unavailable" } }), {
+          status: 502,
+          headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+        });
+      }
+    }
+
     if (url.pathname === "/api/trpc/application.submit") {
       if (request.method === "OPTIONS") {
         return new Response(null, {

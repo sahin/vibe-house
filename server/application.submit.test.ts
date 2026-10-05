@@ -15,6 +15,7 @@ vi.mock("./notifyAdmins", () => ({
 // Mock the airtable module
 vi.mock("./airtable", () => ({
   createAirtableRecord: vi.fn().mockResolvedValue({ id: "recTEST" }),
+  verifyAirtableConnection: vi.fn().mockResolvedValue(true),
 }));
 
 function createPublicContext(): TrpcContext {
@@ -33,6 +34,15 @@ function createPublicContext(): TrpcContext {
 describe("application.submit", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("reports live Airtable connectivity without writing an application", async () => {
+    const caller = appRouter.createCaller(createPublicContext());
+    const status = await caller.application.airtableHealth();
+    const { verifyAirtableConnection, createAirtableRecord } = await import("./airtable");
+    expect(status.connected).toBe(true);
+    expect(verifyAirtableConnection).toHaveBeenCalledOnce();
+    expect(createAirtableRecord).not.toHaveBeenCalled();
   });
 
   it("accepts a valid application with all fields", async () => {
