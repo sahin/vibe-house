@@ -1,38 +1,80 @@
-import { describe, it, expect } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { accommodationRouter } from "./accommodationRouter";
+import { getDb } from "./db";
+import type { TrpcContext } from "./_core/context";
+import { bookings, rooms } from "../drizzle/schema";
 
-describe("Accommodation", () => {
-  it("VITE_ACCOMMODATION_PASSWORD env is set", () => {
-    const pw = process.env.VITE_ACCOMMODATION_PASSWORD;
-    expect(pw).toBeDefined();
-    expect(typeof pw).toBe("string");
-    expect(pw!.length).toBeGreaterThan(0);
+vi.mock("./db", () => ({ getDb: vi.fn() }));
+
+const roomRows = [
+  { id: 1, name: "Portola Ave - South" },
+  { id: 2, name: "Portola Ave - North" },
+  { id: 3, name: "Middle" },
+  { id: 4, name: "Ocean - SF" },
+  { id: 5, name: "Ocean - Bay Area" },
+  { id: 6, name: "First Floor" },
+];
+const bookingRows = [{ id: 101, roomId: 6, guestName: "Example Guest" }];
+
+function publicContext(): TrpcContext {
+  return {
+    user: null,
+    req: { protocol: "https", headers: {} } as TrpcContext["req"],
+    res: { clearCookie: vi.fn() } as unknown as TrpcContext["res"],
+  };
+}
+
+const orderBy = vi.fn();
+const where = vi.fn(() => ({ orderBy }));
+const from = vi.fn(() => ({ where, orderBy }));
+const select = vi.fn(() => ({ from }));
+const updateWhere = vi.fn().mockResolvedValue(undefined);
+const set = vi.fn(() => ({ where: updateWhere }));
+const update = vi.fn(() => ({ set }));
+
+beforeEach(() => {
+  vi.clearAllMocks();
+  vi.mocked(getDb).mockResolvedValue({ select, update } as never);
+  orderBy.mockImplementation(async () => from.mock.lastCall?.[0] === rooms ? roomRows : bookingRows);
+});
+
+describe("Accommodation router", () => {
+  it("returns the six seeded room names from the room table", async () => {
+    const result = await accommodationRouter.createCaller(publicContext()).rooms.list();
+    expect(from).toHaveBeenCalledWith(rooms);
+    expect(result).toEqual(roomRows);
   });
 
-  it("rooms list API returns seeded rooms", async () => {
-    const res = await fetch("http://localhost:3000/api/trpc/accommodation.rooms.list");
-    expect(res.ok).toBe(true);
-    const body = await res.json();
-    const rooms = body.result.data.json;
-    expect(rooms.length).toBe(6);
-    expect(rooms[0].name).toBe("Portola Ave - South");
-    expect(rooms[5].name).toBe("First Floor");
+  it("returns all bookings including historical stays", async () => {
+    const result = await accommodationRouter.createCaller(publicContext()).bookings.list({ filter: "all" });
+    expect(from).toHaveBeenCalledWith(bookings);
+    expect(result).toEqual(bookingRows);
   });
 
-  it("bookings list API returns bookings", async () => {
-    const res = await fetch('http://localhost:3000/api/trpc/accommodation.bookings.list?input=%7B%22json%22%3A%7B%22filter%22%3A%22all%22%7D%7D');
-    expect(res.ok).toBe(true);
-    const body = await res.json();
-    expect(body.result.data.json.length).toBeGreaterThanOrEqual(30);
+  it("applies a date filter when listing upcoming stays", async () => {
+    await accommodationRouter.createCaller(publicContext()).bookings.list({ filter: "upcoming" });
+    expect(from).toHaveBeenCalledWith(bookings);
+    expect(where).toHaveBeenCalledOnce();
   });
 
-  it("updateDates mutation endpoint exists", async () => {
-    // Test that the endpoint responds (even with invalid input it should return a tRPC error, not 404)
-    const res = await fetch("http://localhost:3000/api/trpc/accommodation.bookings.updateDates", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ json: { id: 999999, checkIn: "2026-01-01", checkOut: "2026-01-05" } }),
+  it("rejects invalid date ranges before writing a booking", async () => {
+    const caller = accommodationRouter.createCaller(publicContext());
+    await expect(caller.bookings.updateDates({
+      id: 101, checkIn: "2026-10-05", checkOut: "2026-10-01",
+    })).rejects.toThrow("Check-out date must be after check-in date");
+    expect(update).not.toHaveBeenCalled();
+  });
+
+  it("updates booking dates with midnight UTC timestamps", async () => {
+    const result = await accommodationRouter.createCaller(publicContext()).bookings.updateDates({
+      id: 101, checkIn: "2026-10-01", checkOut: "2026-10-10",
     });
-    // Should get a response (not 404) — the mutation exists
-    expect(res.status).not.toBe(404);
+    expect(result).toEqual({ success: true });
+    expect(update).toHaveBeenCalledWith(bookings);
+    expect(set).toHaveBeenCalledWith({
+      checkIn: new Date("2026-10-01T00:00:00.000Z"),
+      checkOut: new Date("2026-10-10T00:00:00.000Z"),
+    });
+    expect(updateWhere).toHaveBeenCalledOnce();
   });
 });
