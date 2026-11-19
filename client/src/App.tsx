@@ -4,11 +4,12 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
-import WhyNow from "./pages/WhyNow";
-import BiologicalFounder from "./pages/BiologicalFounder";
-import CuratedProducts from "./pages/CuratedProducts";
-import EventsSeries from "./pages/EventsSeries";
+// Public pages: SF Vibe House design (client/src/vh)
+import Home from "./vh/pages/Home";
+import WhyNow from "./vh/pages/WhyNow";
+import BiologicalFounder from "./vh/pages/BiologicalFounder";
+import CuratedProducts from "./vh/pages/FoundersPharmacy";
+import EventsSeries from "./vh/pages/EventsSeries";
 import BrandGuidelines from "./pages/BrandGuidelines";
 import AccommodationCalendar from "./pages/AccommodationCalendar";
 import AccommodationDashboard from "./pages/AccommodationDashboard";
