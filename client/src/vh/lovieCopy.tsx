@@ -73,7 +73,7 @@ export const LOVIE_COPY: Record<string, string> = {
   "Designing for the Biological Founder":
     "Designing for the Biological [Team Member]",
   "The Founder Kitchen: Food as Infrastructure":
-    "[The Team\u00a0Member Kitchen:] [Food as Infrastructure]",
+    "[The Team\u00a0Member] Kitchen: [Food as Infrastructure]",
   "Designing a Founder House for Health, Not Just Aesthetics":
     "Designing a [Team Member] House for Health, [Not Just Aesthetics]",
   "San Francisco has no shortage of hacker houses. There are sleep-deprived founders coding through the night, whiteboards filled with impossible ideas, refrigerators stocked with energy drinks and ambition.":

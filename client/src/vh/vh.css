@@ -2732,6 +2732,24 @@ html.vh-doc {
     display: inline;
   }
 }
+/* Smallest phones (330px and below): a lovie.co heading's longest line-break group would not fit at the
+   design's minimum size, so it shrinks just enough to fit (factor = measured group width / font size). */
+@media (max-width: 20.625em) {
+  :where(.vh-page) .hx-title:has(.keep) {
+    font-size: min(2.5rem, calc((100vw - 2rem) / 7.75));
+  }
+}
+@media (max-width: 20.3125em) {
+  :where(.vh-page) .d1:has(.keep) {
+    font-size: min(3.25rem, calc((100vw - 2rem) / 5.75));
+  }
+}
+/* Biological founder article headings shrink together (same size for all ten) so "Food as Infrastructure" fits. */
+@media (max-width: 20.3125em) {
+  .vh-page:has(.ahead .keep) .article .ahead .d2 {
+    font-size: min(2.125rem, calc((100vw - 2rem) / 8.85));
+  }
+}
 :where(.vh-page) .close .logo-row .brand-suffix {
   font-size: clamp(1.5rem, 3vw, 2.125rem);
   color: var(--on-ink-muted);
