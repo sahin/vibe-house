@@ -1,0 +1,100 @@
+name: Preview on Cloudflare Pages
+
+# Builds a branch exactly like the production deploy and uploads it as a Cloudflare Pages
+# *preview* deployment (https://<branch>.vibe-house.pages.dev). The live site is untouched:
+# production is still deployed only by deploy-cloudflare.yml on pushes to main.
+on:
+  push:
+    branches-ignore:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: preview-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    if: github.ref_name != 'main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: Deploy preview
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: TypeScript and unit tests
+        run: pnpm check && pnpm test
+
+      - name: Build frontend
+        run: pnpm build
+        env:
+          NODE_ENV: production
+
+      - name: Bundle Cloudflare Worker
+        run: |
+          npx esbuild cloudflare/_worker.ts \
+            --bundle \
+            --platform=neutral \
+            --target=es2022 \
+            --format=esm \
+            --outfile=dist/public/_worker.js \
+            --conditions=workerd,worker,browser \
+            --main-fields=browser,module,main
+
+      # Safety check: only upload when the project's production branch is main, so a
+      # branch upload can only ever become a preview, never the live site.
+      - name: Check that this branch is not the production branch
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          production_branch=$(curl -fsS \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/vibe-house" \
+            | jq -r '.result.production_branch')
+          echo "Production branch: $production_branch"
+          if [ "$production_branch" != "main" ]; then
+            echo "::error::Production branch is '$production_branch', expected 'main'. Not uploading a preview."
+            exit 1
+          fi
+
+      - name: Deploy preview to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist/public --project-name=vibe-house --branch=${{ github.ref_name }} --commit-dirty=true
+
+      - name: Preview links
+        env:
+          ALIAS_URL: ${{ steps.deploy.outputs.pages-deployment-alias-url }}
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: |
+          base="${ALIAS_URL:-$DEPLOYMENT_URL}"
+          base="${base%/}"
+          for path in "/" "/about/location?isLovie=true"; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "$base$path")
+            echo "$base$path -> HTTP $code"
+            [ "$code" = "200" ] || exit 1
+          done
+          {
+            echo "### Preview"
+            echo "- sfvibehouse.com version: $base/"
+            echo "- lovie.co version: $base/about/location?isLovie=true"
+            echo "- This deployment: $DEPLOYMENT_URL"
+          } >> "$GITHUB_STEP_SUMMARY"
