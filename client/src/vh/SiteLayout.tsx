@@ -23,6 +23,12 @@ const NAV: [path: string, label: string][] = [
 
 const trimSlash = (p: string) => (p.length > 1 ? p.replace(/\/+$/, "") : p);
 
+/** "smooth", or an instant jump for visitors who ask their system for reduced motion. */
+const smooth = (): ScrollBehavior =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? "auto"
+    : "smooth";
+
 function scrollToId(id: string, behavior: ScrollBehavior) {
   const el = document.getElementById(decodeURIComponent(id));
   if (!el) return false;
@@ -58,9 +64,9 @@ export function A({ href, onClick, ...rest }: AProps) {
     if (trimSlash(window.location.pathname) === trimSlash(targetPath)) {
       if (hash) {
         window.history.pushState(null, "", to);
-        scrollToId(hash, "smooth");
+        scrollToId(hash, smooth());
       } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({ top: 0, behavior: smooth() });
       }
       return;
     }
@@ -116,6 +122,33 @@ export default function SiteLayout({
     const hash = window.location.hash.slice(1);
     if (hash && scrollToId(hash, "instant")) return;
     window.scrollTo({ top: 0, behavior: "instant" });
+  }, [location]);
+
+  // On narrow screens the menu is a horizontally scrolling strip: when the current page's link is
+  // off-screen, bring it into view (centred). Re-run once the web fonts have loaded,
+  // since they change the link widths.
+  useEffect(() => {
+    const strip = headerRef.current?.querySelector<HTMLElement>("nav.links");
+    const centre = () => {
+      const current = strip?.querySelector<HTMLElement>(
+        '[aria-current="page"]'
+      );
+      if (!strip || strip.scrollWidth <= strip.clientWidth) {
+        if (strip) strip.scrollLeft = 0;
+        return;
+      }
+      if (!current) return;
+      const s = strip.getBoundingClientRect();
+      const c = current.getBoundingClientRect();
+      if (c.left >= s.left && c.right <= s.right) return; // already fully visible
+      strip.scrollLeft += c.left + c.width / 2 - (s.left + s.width / 2);
+    };
+    centre();
+    let alive = true;
+    document.fonts?.ready.then(() => alive && centre());
+    return () => {
+      alive = false;
+    };
   }, [location]);
 
   const isCurrent = (path: string) =>

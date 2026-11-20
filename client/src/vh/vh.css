@@ -2677,6 +2677,21 @@ html.vh-doc {
   top: calc(var(--vh-header-h, 4.3125rem) + 2.5625rem);
 }
 
+/* Desktop header (wider than 900px): the menu is centred, but when its links overflow (the design at
+   905-955px, longer lovie.co labels up to 1065px) a centred scroller cuts off its start for good.
+   Auto margins centre it the same way while it fits and start it at the first link when it doesn't. */
+@media (min-width: 56.3125em) {
+  :where(.vh-page) .nav .links {
+    justify-content: flex-start;
+  }
+  :where(.vh-page) .nav .links > a:first-child {
+    margin-left: auto;
+  }
+  :where(.vh-page) .nav .links > a:last-child {
+    margin-right: auto;
+  }
+}
+
 /* Narrower than the design's smallest layout (20em = 320px at the default font size, reached on
    small phones with a large browser font): let long words and buttons wrap instead of overflowing. */
 @media (max-width: 19.99em) {
@@ -2686,6 +2701,11 @@ html.vh-doc {
   }
   :where(.vh-page) :is(.btn, .pill) {
     white-space: normal;
+  }
+  :where(.vh-page) .nav .cta {
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: 100%;
   }
 }
 /* lovie.co: "| Lovie HQ" next to the logo, as on the previous site (SiteLayout renders it only there). */
@@ -2706,6 +2726,19 @@ html.vh-doc {
 /* 380–464px: the design's header fits the logo and the CTA on one row with no room to spare, so the
    lovie.co suffix would push the CTA to a second row; it stays in the footer there. (Measured.) */
 @media (min-width: 23.75em) and (max-width: 28.9375em) {
+  :where(.vh-page) .nav .brand-suffix {
+    display: none;
+  }
+}
+/* Large browser text on a phone (the logo plus suffix need about 17.35em; media-query ems follow the
+   browser's text size): drop the header suffix rather than push the page sideways. */
+@media (max-width: 17.5em) {
+  :where(.vh-page) .nav .brand-suffix {
+    display: none;
+  }
+}
+/* 901-1065px: likewise on the one-row desktop header, where the suffix makes the lovie.co menu overflow. */
+@media (min-width: 56.3125em) and (max-width: 66.5625em) {
   :where(.vh-page) .nav .brand-suffix {
     display: none;
   }
