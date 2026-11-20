@@ -38,10 +38,16 @@ queryClient.getMutationCache().subscribe(event => {
   }
 });
 
+// lovie.co serves this site under /about/location through a proxy that only forwards that path,
+// so the API lives at /about/location/api/trpc there (lovie.co/api/trpc is lovie's own site).
+const apiUrl = /(^|\.)lovie\.co$/.test(window.location.hostname)
+  ? "/about/location/api/trpc"
+  : "/api/trpc";
+
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: "/api/trpc",
+      url: apiUrl,
       transformer: superjson,
       fetch(input, init) {
         return globalThis.fetch(input, {
