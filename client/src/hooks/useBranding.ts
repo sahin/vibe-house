@@ -172,7 +172,7 @@ const lovieCopy: BrandingCopy = {
   communitiesLabel: "Which communities are you part of?",
 
   // ── SEO: Home ──
-  seoHomeTitle: "Vibe House — Lovie HQ",
+  seoHomeTitle: "Vibe House | Lovie HQ",
   seoHomeDescription:
     "The home base for the Lovie team. Vibe code together in a space designed for deep work, health, and human flourishing.",
   seoHomeKeywords:
@@ -276,7 +276,9 @@ export function useBranding() {
     if (isLovie) {
       if (favicon) favicon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/lovie-favicon-32_0d26ce06.png";
       if (appleTouchIcon) appleTouchIcon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/lovie-favicon-192_4c6f1eeb.png";
-      document.title = "Vibe House | Lovie HQ";
+      // Fallback only: a page's own SEO title (which already ends in "Lovie HQ") wins, whichever
+      // of the two runs first, so the tab title no longer depends on timing.
+      if (!document.title.includes("Lovie HQ")) document.title = "Vibe House | Lovie HQ";
     } else {
       if (favicon) favicon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/vh-favicon-v2-32_7bd17f4e.png";
       if (appleTouchIcon) appleTouchIcon.href = "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/vh-favicon-v2-192_8a81f695.png";
