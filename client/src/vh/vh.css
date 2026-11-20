@@ -2655,14 +2655,20 @@ html.vh-doc body {
 
 /* ---------- Site additions (not in the design file) ---------- */
 
-/* Sticky/anchor offsets follow the real header height. SiteLayout measures the header and
-   sets --vh-header-h; the fallbacks are the design's own values. The extra gaps match the design. */
-/* Canvas colour = the footer's ink. The page itself keeps its candle background (on body), so nothing
-   changes on screen; but past the end of the page (iPhone Safari shows the canvas below the footer, behind
-   its toolbar, and in overscroll) the colour now continues the dark footer instead of a light band. */
-html.vh-doc {
+/* Below the footer: iPhone Safari paints the area behind its bottom toolbar (and overscroll) with the
+   page background - the body's colour when no fixed element touches the bottom edge. html and body take
+   the footer's ink and the page wrapper carries the design's candle background instead, so the page
+   looks the same and only the area past its end continues the dark footer. */
+html.vh-doc,
+html.vh-doc body {
   background-color: var(--vh-ink);
 }
+:where(.vh-page) {
+  background-color: var(--vh-candle);
+}
+
+/* Sticky/anchor offsets follow the real header height. SiteLayout measures the header and
+   sets --vh-header-h; the fallbacks are the design's own values. The extra gaps match the design. */
 html.vh-doc {
   scroll-padding-top: calc(var(--vh-header-h, 4.3125rem) + 1.6875rem);
 }
