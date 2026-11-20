@@ -17,8 +17,8 @@ export const LOVIE_COPY: Record<string, string> = {
   // Navigation labels and form options
   "Biological founder": "Biological [team member]",
   "The founder's pharmacy": "The team's pharmacy",
-  "Exited Founder": "Lovie [Team Member]",
-  "Technical Founder": "Technical [Team Member]",
+  "Exited Founder": "Lovie Team Member",
+  "Technical Founder": "Technical Team Member",
   // Header & footer
   "Vibe House SF · San Francisco, California":
     "Vibe House SF | Lovie HQ · [San Francisco, California]",

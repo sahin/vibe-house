@@ -2719,8 +2719,10 @@ html.vh-doc {
   width: 100%;
 }
 /* Preferred line-break groups in lovie.co headings ("|" in lovieCopy.tsx): a group stays on one line when it fits. */
+/* An inline-block doesn't receive its parent's underline, so it draws the same one itself (links). */
 :where(.vh-page) .keep {
   display: inline-block;
+  text-decoration: inherit;
 }
 /* Home hero: the design's own headline is 4 lines (staircase) below 430px and from 1390px up, and 3
    balanced lines in between (measured). The lovie.co headline follows the same rhythm: its break groups
