@@ -2657,6 +2657,12 @@ html.vh-doc body {
 
 /* Sticky/anchor offsets follow the real header height. SiteLayout measures the header and
    sets --vh-header-h; the fallbacks are the design's own values. The extra gaps match the design. */
+/* Canvas colour = the footer's ink. The page itself keeps its candle background (on body), so nothing
+   changes on screen; but past the end of the page (iPhone Safari shows the canvas below the footer, behind
+   its toolbar, and in overscroll) the colour now continues the dark footer instead of a light band. */
+html.vh-doc {
+  background-color: var(--vh-ink);
+}
 html.vh-doc {
   scroll-padding-top: calc(var(--vh-header-h, 4.3125rem) + 1.6875rem);
 }
