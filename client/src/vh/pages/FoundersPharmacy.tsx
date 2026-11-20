@@ -3427,9 +3427,9 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0BN2FZWJW?tag=lovie084-20"
+                  href="https://getwonderfeel.com/product/wonderfeel-youngr-nmn/"
                   target="_blank"
-                  rel="noopener sponsored"
+                  rel="noopener"
                 >
                   <span className="ptop">
                     <svg
@@ -3474,7 +3474,7 @@ export default function FoundersPharmacy() {
                     Clinically studied NMN with ergothioneine and olive fruit
                     extract — premium longevity formula.
                   </span>
-                  <span className="go">View on Amazon ↗</span>
+                  <span className="go">View on Wonderfeel ↗</span>
                 </a>
                 <a
                   className="prod"
