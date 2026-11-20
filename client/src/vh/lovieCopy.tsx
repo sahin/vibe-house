@@ -22,22 +22,22 @@ export const LOVIE_COPY: Record<string, string> = {
   // Header & footer
   "Vibe House SF · San Francisco, California":
     "Vibe House SF | Lovie HQ · [San Francisco, California]",
-  "Exited founders and technical builders in one San Francisco living room, with something on every Tuesday through Friday.":
-    "The Lovie team and technical builders in one San Francisco living room, with something on every Tuesday through Friday.",
   // Home
   "A new type of hacker house for exited founders to vibe code together.":
     "[A new kind of] [home base for] [the Lovie team to] [vibe code together.]",
-  "Bring the project you're building this week and work on it next to founders who build the same way.":
-    "Bring the project you're building this week and work on it next to team members who build the same way.",
+  "A calm, beautiful house in San Francisco where experienced founders come to build again, together.":
+    "A calm, beautiful house in San Francisco where the Lovie team comes to build again, together.",
+  "Exited founders, together": "The Lovie team, together",
+  "Every founder in the room knows something you don't.":
+    "Every [team member] in the room knows something you don't.",
+  "The people here have built companies, sold them and started again with AI. The conversations are generous and specific: what they tried this week, what worked and what didn't.":
+    "The people here have built great things and started again with AI. The conversations are generous and specific: what they tried this week, what worked and what didn't.",
+  "You've had an exit and you still love making things. Members of PEF, Superfounders and similar communities are always welcome.":
+    "You're part of the Lovie team and you still love making things. All Lovie team members are always welcome.",
   "Essays on the biological founder": "Essays on the biological [team member]",
   "The tools are evolving daily. The founders who master them first will define what comes next.":
     "The tools are evolving daily. The team members who master them first will define what comes next.",
-  "Just for the builders who want to build again.":
-    "Just for the team that wants to build together.",
-  "Exited founder": "Lovie [team member]",
-  "You've built and exited.": "You're part of the Lovie team.",
-  "Super founder and exited founder communities, like PEF and Superfounders, are welcome anytime.":
-    "All Lovie team members are welcome anytime.",
+  "Exited founder": "Lovie team member",
   // Why now
   "Twenty years ago, we were in our 20s. We'd sit together, founders, engineers, dreamers, pulling long nights, building and building and building. We didn't call it work. We called it Tuesday.":
     "Twenty years ago, we were in our 20s. We'd sit together, builders, engineers, dreamers, pulling long nights, building and building and building. We didn't call it work. We called it Tuesday.",

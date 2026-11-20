@@ -197,7 +197,7 @@ export default function SiteLayout({
             <h2>{closingTitle}</h2>
             <p>
               {t(
-                "Exited founders and technical builders in one San Francisco living room, with something on every Tuesday through Friday."
+                "Good people, honest conversations and a beautiful room to build in, every Tuesday through Friday."
               )}
             </p>
             <div className="btns" style={{ justifyContent: "center" }}>
