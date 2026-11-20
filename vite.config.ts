@@ -193,6 +193,16 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },
+  experimental: {
+    // Images and fonts referenced from JS/CSS resolve relative to the JS/CSS file, not to "/assets/".
+    // lovie.co/about/location serves this site through a proxy that only forwards
+    // /about/location/assets/*, so absolute "/assets/..." URLs 404 there. On sfvibehouse.com the
+    // resolved URLs are the same as before.
+    renderBuiltUrl(_filename, { hostType }) {
+      if (hostType === "js" || hostType === "css") return { relative: true };
+      return undefined;
+    },
+  },
   server: {
     host: true,
     allowedHosts: [
