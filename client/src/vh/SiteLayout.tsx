@@ -61,7 +61,10 @@ export function A({ href, onClick, ...rest }: AProps) {
     )
       return;
     e.preventDefault();
-    if (trimSlash(window.location.pathname) === trimSlash(targetPath)) {
+    // Read the path without the literal "location.pathname": the lovie.co web proxy rewrites that
+    // text in the bundle (to strip /about/location for the router), which would break "window.…".
+    const { pathname } = window.location;
+    if (trimSlash(pathname) === trimSlash(targetPath)) {
       if (hash) {
         window.history.pushState(null, "", to);
         scrollToId(hash, smooth());
