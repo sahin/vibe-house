@@ -298,7 +298,7 @@ export function useBranding() {
       /** SEO site name */
       siteName: isLovie ? "Vibe House | Lovie HQ" : "Vibe House SF",
       /** SEO base URL */
-      baseUrl: isLovie ? "https://www.lovie.co/about/location" : "",
+      baseUrl: isLovie ? "https://www.lovie.co/about/location" : "https://www.sfvibehouse.com",
       /** Default OG image — Lovie logo for lovie.co, exterior photo for default */
       ogImage: isLovie
         ? "https://d2xsxph8kpxj0f.cloudfront.net/120748616/D66doBaWmncxm5rVMvJ4yM/lovie-og-image_ca46b039.png"
