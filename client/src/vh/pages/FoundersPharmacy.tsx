@@ -1258,7 +1258,7 @@ export default function FoundersPharmacy() {
               <div className="products">
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0CNXPQHGM?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0CRTPVD1D?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -1316,7 +1316,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0BVFXJZ4R?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B089QG2GSP?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -2224,7 +2224,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0BXKZQJ8P?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B09MJGMT4V?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -2283,7 +2283,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B09RQGZQHP?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0FSGHP1FC?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -3316,7 +3316,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0C1J1GKXP?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B096YRXJKZ?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -3530,7 +3530,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0CXQJ8PPA?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B09DGTBBSF?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -3584,7 +3584,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0DXQJ8PPB?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B09WWK4R2C?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -3898,7 +3898,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0D9KXHQZP?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0F1DTCQZ9?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -4141,7 +4141,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0CY8VQXHQ?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0BYKBCHFY?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -4194,7 +4194,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0D9KXHQZQ?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0CQ8VMXJD?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -4439,7 +4439,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0DFXVQZ8P?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0FHJ8ZD35?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -4536,7 +4536,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0C4KXQJ8P?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0GHPD19ZL?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -4577,7 +4577,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0CY8VQXHP?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0GCPDB6GV?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -5454,7 +5454,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B078WQXJ8P?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B00MMHV878?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -5678,7 +5678,7 @@ export default function FoundersPharmacy() {
               <div className="products">
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B07VP1QNLT?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B07T1LNJ3X?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -6319,7 +6319,7 @@ export default function FoundersPharmacy() {
               <div className="products">
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0BVFXJZ4S?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B07KFVQPTW?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -6354,7 +6354,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0BVFXJZ4T?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0DDTYXN15?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -6416,7 +6416,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0BVFXJZ4U?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B07N47L6MG?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -6509,7 +6509,7 @@ export default function FoundersPharmacy() {
               <div className="products">
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0BVFXJZ4V?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0CRHK7MH5?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -6887,7 +6887,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0CXQJ8PPP?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0D9WDDQ42?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -7213,7 +7213,7 @@ export default function FoundersPharmacy() {
               <div className="products">
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B08KXQJ8PP?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B08XM1B6ZX?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -7516,7 +7516,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0CXKZQJ8P?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0DM4VQNGJ?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
@@ -7615,7 +7615,7 @@ export default function FoundersPharmacy() {
                 </a>
                 <a
                   className="prod"
-                  href="https://www.amazon.com/dp/B0DKXQJ8PP?tag=lovie084-20"
+                  href="https://www.amazon.com/dp/B0DV7JN7ZD?tag=lovie084-20"
                   target="_blank"
                   rel="noopener sponsored"
                 >
