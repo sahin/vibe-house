@@ -2809,3 +2809,70 @@ html.vh-doc {
     display: none;
   }
 }
+
+/* Şahin's 2026-11-18/19 updates (artifact change log). Arches: content starts at one shared line
+   under the icon, so the day labels align, centered; slightly taller. */
+:where(.vh-page) .col {
+  justify-content: flex-start;
+  height: auto;
+  min-height: clamp(17.5rem, 23vw, 20rem);
+  padding-top: clamp(6rem, 8.4vw, 7.625rem);
+}
+@media (max-width: 56.25em) {
+  :where(.vh-page) .col {
+    height: auto;
+    min-height: 17.5rem;
+  }
+}
+:where(.vh-page) .col {
+  align-items: center;
+  text-align: center;
+}
+/* Home headline stands alone now that the side column is gone. */
+:where(.vh-page) .hx-top {
+  grid-template-columns: minmax(0, 1fr);
+}
+/* Press badge above the home headline. */
+:where(.vh-page) .press {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.625rem;
+  max-width: 100%;
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+  border-radius: 1.375rem;
+  background: var(--vh-linen);
+  border: 1px solid var(--vh-seam);
+  font-family: var(--vh-display);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--vh-ink);
+  text-decoration: none;
+  transition: border-color var(--vh-motion);
+}
+:where(.vh-page) .press:hover {
+  border-color: rgba(22, 21, 21, 0.3);
+}
+:where(.vh-page) .press-k {
+  background: var(--vh-amber);
+  color: var(--vh-ink);
+  border-radius: 999px;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.71875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+:where(.vh-page) .press b {
+  font-weight: 500;
+}
+:where(.vh-page) .press-q {
+  color: var(--vh-stone);
+}
+:where(.vh-page) .press .ar {
+  transition: transform var(--vh-motion);
+}
+:where(.vh-page) .press:hover .ar {
+  transform: translateX(3px);
+}

@@ -1022,7 +1022,7 @@ export default function EventsSeries() {
                   <p>
                     Vibe demo nights. Exited founders show how they built: live,
                     on stage, unpolished. Future Fridays is our flagship demo
-                    night, now in its 23rd edition.
+                    night, now in its 31st edition.
                   </p>
                   <p>
                     Founders present what they've been vibe coding all week:
@@ -1259,7 +1259,7 @@ export default function EventsSeries() {
               </div>
               <div className="sub">
                 <article className="card">
-                  <span className="k">23rd edition</span>
+                  <span className="k">31st edition</span>
                   <h3 className="d3">Vibe night demos</h3>
                   <p>
                     San Francisco's post-exit founder clubhouse hosts weekly AI
