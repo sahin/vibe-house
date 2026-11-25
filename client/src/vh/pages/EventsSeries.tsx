@@ -781,6 +781,23 @@ export default function EventsSeries() {
                     </div>
                   </div>
                 </article>
+                <article className="card">
+                  <span className="k">4th edition</span>
+                  <h3 className="d3">Legal AI Vibe Lab</h3>
+                  <p>
+                    A curated SF salon for lawyers, legal operators, legaltech
+                    founders, investors, and AI builders exploring what legal AI
+                    agents can actually do in real workflows. No vendor theater.
+                    No generic networking. No vague futurism.
+                  </p>
+                  <p>
+                    Bring one legal workflow, one tool, or one hard question.
+                    Part workshop, part build session, part teardown of what's
+                    actually shipping in production, from contract automation
+                    and compliance agents to discovery tools and invoice review
+                    systems. Hosted by Daniel Aydin.
+                  </p>
+                </article>
               </div>
             </section>
             <section className="series s-tech" id="technical-thursday">
@@ -793,9 +810,9 @@ export default function EventsSeries() {
                   <p>
                     The deepest builders in the room, working on the hardest
                     problems. Technical Thursday is dedicated to software
-                    factories, deep tech, robotics, energy systems, legal AI,
-                    and frontier architecture, the infrastructure layer that
-                    everything else runs on.
+                    factories, deep tech, robotics, energy systems, and frontier
+                    architecture, the infrastructure layer that everything else
+                    runs on.
                   </p>
                   <p>
                     This is where founders who ship compilers, train models,
@@ -1070,23 +1087,6 @@ export default function EventsSeries() {
                     Table, a focused discussion on how founders are actually
                     coordinating fleets of AI agents to ship software
                     autonomously.
-                  </p>
-                </article>
-                <article className="card">
-                  <span className="k">4th edition</span>
-                  <h3 className="d3">Legal AI Vibe Lab</h3>
-                  <p>
-                    A curated SF salon for lawyers, legal operators, legaltech
-                    founders, investors, and AI builders exploring what legal AI
-                    agents can actually do in real workflows. No vendor theater.
-                    No generic networking. No vague futurism.
-                  </p>
-                  <p>
-                    Bring one legal workflow, one tool, or one hard question.
-                    Part workshop, part build session, part teardown of what's
-                    actually shipping in production, from contract automation
-                    and compliance agents to discovery tools and invoice review
-                    systems. Hosted by Daniel Aydin.
                   </p>
                 </article>
               </div>
