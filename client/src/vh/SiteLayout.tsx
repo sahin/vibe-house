@@ -312,7 +312,7 @@ export default function SiteLayout({
             <h2>{closingTitle}</h2>
             <p>
               {t(
-                "Good people, honest conversations and a beautiful room to build in, every Tuesday through Friday."
+                "Exited founders and technical builders in one San Francisco living room, with something on every Tuesday through Friday."
               )}
             </p>
             <div className="btns" style={{ justifyContent: "center" }}>
@@ -360,7 +360,10 @@ export default function SiteLayout({
             </div>
           </div>
           <div className="foot">
-            <span>{t("Vibe House SF · San Francisco, California")}</span>
+            <span>
+              {t("Vibe House SF · San Francisco, California")} ·{" "}
+              <A href="/change-log">Change log</A> · <A href="/rules">Rules</A>
+            </span>
             <nav aria-label="Footer">
               {NAV.map(([path, label]) => (
                 <A key={path} href={path}>

@@ -4,14 +4,6 @@ import SEO from "@/components/SEO";
 import { useCopy } from "../lovieCopy";
 import SiteLayout, { A } from "../SiteLayout";
 import ApplyForm from "../ApplyForm";
-import logoBetaworks from "../assets/logos/betaworks.png";
-import logoEo from "../assets/logos/eo.png";
-import logoPef from "../assets/logos/pef.png";
-import logoStartx from "../assets/logos/startx.png";
-import logoSuperfounders from "../assets/logos/superfounders.png";
-import logoTiger21 from "../assets/logos/tiger21.png";
-import logoYc from "../assets/logos/y-combinator.png";
-import logoYpo from "../assets/logos/ypo.png";
 
 export default function Home() {
   const { t, copy, isLovie } = useCopy();
@@ -223,7 +215,7 @@ export default function Home() {
                 <span className="day">Friday, 6:00pm</span>
                 <b>Vibe night demos</b>
                 <span className="line">
-                  Our flagship demo night, now in its 31st edition.
+                  Founders show how they built, live. 31st edition.
                 </span>
                 <span className="go" aria-hidden="true">
                   →
@@ -898,160 +890,50 @@ export default function Home() {
             </figure>
           </div>
         </section>
-        <section className="band ink peers" id="founders">
+        <section className="band linen" id="about">
           <div className="container">
             <div className="split io">
               <div>
-                <span className="label">{t("Exited founders, together")}</span>
-                <h2 className="d2">
-                  {t("Every founder in the room knows something you don't.")}
-                </h2>
+                <span className="label">The concept</span>
+                <h2 className="d2">Show up any day we're open.</h2>
               </div>
               <p className="lede">
-                {t(
-                  "The people here have built companies, sold them and started again with AI. The conversations are generous and specific: what they tried this week, what worked and what didn't."
-                )}
+                Not for pitching. Not for networking. For building.
               </p>
             </div>
             <ol className="cells c4">
               <li>
                 <h3>Show up</h3>
-                <p>
-                  Come any day we're open. There's always a seat on the sofa and
-                  someone worth meeting.
-                </p>
+                <p>One living room in San Francisco. Bring your laptop.</p>
               </li>
               <li>
                 <h3>Vibe code</h3>
                 <p>
-                  Work on your own project at your own pace, in a room that
-                  makes focus easy.
+                  Work on your own project, at your own pace, in good company.
                 </p>
               </li>
               <li>
-                <h3>Learn how they use AI</h3>
-                <p>
-                  Each week you see the agents, prompts and workflows behind
-                  real products, explained by the people who made them.
-                </p>
+                <h3>Share what's working</h3>
+                <p>The agents, the prompts, the tricks.</p>
               </li>
               <li>
                 <h3>Prompt together</h3>
-                <p>
-                  Everyone adds to one shared project. It's the easiest way to
-                  pick up someone else's tricks.
-                </p>
+                <p>An ongoing group project that everyone prompts together.</p>
               </li>
             </ol>
-            <div className="peer-who io">
-              <span className="label">Who it's for</span>{" "}
-              <div className="row">
-                <div className="pw">
-                  <b>{t("Exited founder")}</b>
-                  <span>
-                    {t(
-                      "You've had an exit and you still love making things. Members of PEF, Superfounders and similar communities are always welcome."
-                    )}
-                  </span>
-                </div>
-                <div className="pw">
-                  <b>Technical background</b>
-                  <span>
-                    You write code and you've shipped real products. Bring
-                    whatever you're working on this week.
-                  </span>
-                </div>
-              </div>
-            </div>
-            {/* Communities strip: hidden on lovie.co, like the communities field of the form. */}
-            {!isLovie && (
-              <div className="peer-logos io">
-                <span className="label">Exited founders' communities</span>
-                <div className="row">
-                  <img
-                    src={logoPef}
-                    alt="PEF"
-                    width="416"
-                    height="75"
-                    loading="lazy"
-                    style={{ height: "1.25rem", width: "auto" }}
-                  />
-                  <img
-                    src={logoSuperfounders}
-                    alt="Superfounders"
-                    width="96"
-                    height="119"
-                    loading="lazy"
-                    style={{ height: "2.5rem", width: "auto" }}
-                  />
-                  <img
-                    src={logoYc}
-                    alt="Y Combinator"
-                    width="444"
-                    height="92"
-                    loading="lazy"
-                    style={{ height: "1.5rem", width: "auto" }}
-                  />
-                  <img
-                    src={logoTiger21}
-                    alt="Tiger 21"
-                    width="238"
-                    height="110"
-                    loading="lazy"
-                    style={{ height: "1.875rem", width: "auto" }}
-                  />
-                  <img
-                    src={logoEo}
-                    alt="EO"
-                    width="404"
-                    height="108"
-                    loading="lazy"
-                    style={{ height: "1.625rem", width: "auto" }}
-                  />
-                  <img
-                    src={logoYpo}
-                    alt="YPO"
-                    width="343"
-                    height="124"
-                    loading="lazy"
-                    style={{ height: "1.625rem", width: "auto" }}
-                  />
-                  <img
-                    src={logoStartx}
-                    alt="StartX"
-                    width="424"
-                    height="157"
-                    loading="lazy"
-                    style={{ height: "1.625rem", width: "auto" }}
-                  />
-                  <img
-                    src={logoBetaworks}
-                    alt="Betaworks"
-                    width="480"
-                    height="123"
-                    loading="lazy"
-                    style={{ height: "1.5rem", width: "auto" }}
-                  />
-                </div>
-              </div>
-            )}
           </div>
         </section>
-        <section className="band linen" id="vibe">
+        <section className="band candle" id="vibe">
           <div className="container">
             <div className="split io">
               <div>
                 <span className="label">The vibe</span>
                 <h2 className="d2">
-                  A house that's a pleasure to spend the day in.
+                  Every detail engineered for deep focus and peak performance.
                 </h2>
               </div>
               <div className="split-side">
-                <p className="lede">
-                  Soft light, good music and plants in every room. It's designed
-                  so you can stay focused for hours and still feel good at the
-                  end of the day.
-                </p>
+                <p className="lede">Your vibe. We built the house around it.</p>
                 <A className="textlink" href="/biological-founder">
                   How we designed the house →
                 </A>
@@ -1060,50 +942,73 @@ export default function Home() {
             <ol className="cells c3">
               <li>
                 <h3>Sit how you want</h3>
-                <p>
-                  Floor cushions, standing desks and a quiet corner for whenever
-                  you need one.
-                </p>
+                <p>Floor cushions. Standing desks. Your corner.</p>
               </li>
               <li>
-                <h3>Teas and tonics</h3>
+                <h3>Biohacking built in</h3>
                 <p>
-                  Blue lotus and dandelion tea, cold brew on tap, adaptogens and
-                  nootropic blends.
+                  Blue lotus tea. Dandelion tea. Essential oils. Nootropic
+                  blends. Cold brew on tap. Adaptogens.
                 </p>
               </li>
               <li>
                 <h3>Inspiration everywhere</h3>
-                <p>
-                  Quotes on the walls and shelves of AI-written books to get
-                  lost in.
-                </p>
+                <p>Quotes on walls. AI-written books. Rabbit holes.</p>
               </li>
               <li>
-                <h3>Music and scent</h3>
-                <p>
-                  A carefully chosen soundtrack and natural scents that make it
-                  easy to settle in.
-                </p>
+                <h3>Curated atmosphere</h3>
+                <p>Amazing music. Curated scents. Flow state.</p>
               </li>
               <li>
                 <h3>Nourishment</h3>
                 <p>
-                  Organic snacks and fresh fruit, with nothing processed and no
-                  seed oils.
+                  Organic snacks. Fresh fruit. Clean fuel. No junk. No seed
+                  oils.
                 </p>
               </li>
               <li>
-                <h3>A clean home</h3>
-                <p>
-                  No harsh chemicals, synthetic fragrances or toxic cleaners
-                  anywhere in the house.
-                </p>
+                <h3>Health focus</h3>
+                <p>No chemicals. No toxins. No synthetics.</p>
               </li>
             </ol>
           </div>
         </section>
-        <section className="band sage" id="join">
+        <section className="band linen" id="who">
+          <div className="container">
+            <div className="split io">
+              <div>
+                <span className="label">Who it's for</span>
+                <h2 className="d2">
+                  {t("Just for the builders who want to build again.")}
+                </h2>
+              </div>
+              <p className="lede">
+                If you've shipped something real and miss making things with
+                your own hands, you'll fit right in.
+              </p>
+            </div>
+            <div className="who">
+              <article className="wcard s-wealth">
+                <h3 className="d3">{t("Exited founder")}</h3>
+                <p className="big">{t("You've built and exited.")}</p>
+                <p>
+                  {t(
+                    "Super founder and exited founder communities, like PEF and Superfounders, are welcome anytime."
+                  )}
+                </p>
+              </article>
+              <article className="wcard s-tech">
+                <h3 className="d3">Technical background</h3>
+                <p className="big">You can code. You've shipped.</p>
+                <p>
+                  Bring the project you're vibe coding this week, and the
+                  prompts that got it there.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+        <section className="band candle" id="join">
           <div className="container apply">
             <div className="intro io">
               <span className="label">Join our next event</span>{" "}
