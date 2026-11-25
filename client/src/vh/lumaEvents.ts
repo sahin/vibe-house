@@ -95,10 +95,13 @@ export function nextEventFor(
   );
 }
 
-/** "Thu, Dec 10, 5:30 PM PT" */
+/**
+ * "Thu, Dec 10, 5:30 PM PT". The day and the time are each kept on one line (non-breaking
+ * spaces), so if a narrow card ever has to wrap it breaks after the comma, never before "PT".
+ */
 export function whenText(iso: string): string {
   try {
-    return (
+    return keepTogether(
       new Intl.DateTimeFormat("en-US", {
         timeZone: "America/Los_Angeles",
         weekday: "short",
@@ -111,6 +114,14 @@ export function whenText(iso: string): string {
   } catch {
     return new Date(iso).toDateString();
   }
+}
+
+/** "Thu, Dec 10, 5:30 PM PT" -> only the space after "10," can break. */
+function keepTogether(text: string): string {
+  const cut = text.lastIndexOf(", ");
+  if (cut < 0) return text.replace(/ /g, "\u00a0");
+  const nb = (part: string) => part.replace(/\s/g, "\u00a0");
+  return nb(text.slice(0, cut + 1)) + " " + nb(text.slice(cut + 2));
 }
 
 const MONTHS = [
