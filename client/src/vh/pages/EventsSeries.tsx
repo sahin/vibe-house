@@ -5,13 +5,21 @@ import SiteLayout, { A } from "../SiteLayout";
 import {
   checkedText,
   nextEventFor,
+  useLumaEvents,
   whenText,
+  type LumaEvent,
   type SeriesSlug,
 } from "../lumaEvents";
 
 /** The next upcoming event of a series from the Luma calendar; past events are never shown. */
-function NextEvent({ series }: { series: SeriesSlug }) {
-  const ev = nextEventFor(series, Date.now());
+function NextEvent({
+  series,
+  events,
+}: {
+  series: SeriesSlug;
+  events: LumaEvent[];
+}) {
+  const ev = nextEventFor(series, Date.now(), events);
   return (
     <div className="next-ev" data-series={series}>
       {ev ? (
@@ -29,6 +37,7 @@ function NextEvent({ series }: { series: SeriesSlug }) {
 }
 
 export default function EventsSeries() {
+  const luma = useLumaEvents();
   return (
     <SiteLayout closingTitle="See you Friday.">
       <SEO
@@ -99,7 +108,7 @@ export default function EventsSeries() {
                   </span>
                   <span className="go">Read more →</span>
                 </A>
-                <NextEvent series="truth-tuesday" />
+                <NextEvent series="truth-tuesday" events={luma.events} />
               </div>
               <div className="stile-wrap s-wealth">
                 <A
@@ -122,7 +131,7 @@ export default function EventsSeries() {
                   <span>How money moves now, talked about honestly.</span>
                   <span className="go">Read more →</span>
                 </A>
-                <NextEvent series="wealth-wednesday" />
+                <NextEvent series="wealth-wednesday" events={luma.events} />
               </div>
               <div className="stile-wrap s-tech">
                 <A
@@ -181,7 +190,7 @@ export default function EventsSeries() {
                   </span>
                   <span className="go">Read more →</span>
                 </A>
-                <NextEvent series="technical-thursday" />
+                <NextEvent series="technical-thursday" events={luma.events} />
               </div>
               <div className="stile-wrap s-future">
                 <A
@@ -224,7 +233,7 @@ export default function EventsSeries() {
                   </span>
                   <span className="go">Read more →</span>
                 </A>
-                <NextEvent series="future-fridays" />
+                <NextEvent series="future-fridays" events={luma.events} />
               </div>
               <div className="stile-wrap s-breakfast">
                 <A
@@ -262,12 +271,15 @@ export default function EventsSeries() {
                   <span>Breakfasts for peer groups and wealth partners.</span>
                   <span className="go">Read more →</span>
                 </A>
-                <NextEvent series="founder-friday-breakfasts" />
+                <NextEvent
+                  series="founder-friday-breakfasts"
+                  events={luma.events}
+                />
               </div>
             </div>
             <p className="luma-note" id="luma-note">
-              Dates come from our Luma calendar, last checked {checkedText()}.
-              Past events are hidden automatically.
+              Dates come from our Luma calendar, last checked{" "}
+              {checkedText(luma.checked)}. Past events are hidden automatically.
             </p>
           </div>
         </section>

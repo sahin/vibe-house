@@ -1,6 +1,10 @@
+import { useEffect, useState } from "react";
+
 /**
  * Upcoming events for the "Next event" cards on the Events series page.
- * Copied from the Luma calendar (luma.com/sfvibehouse) on EVENTS_CHECKED; times are UTC.
+ * The page reads them live from the worker's /api/luma-events (the Luma calendar feed). The list
+ * below is the built-in fallback, copied from the Luma calendar (luma.com/sfvibehouse) on
+ * EVENTS_CHECKED, used until the live answer arrives or when it can't be reached. Times are UTC.
  * Rule from the design: past events are never shown. An event drops off once its end time has
  * passed and the next one in the same series takes its place, so a stale copy can run out of
  * events but never shows a past one.
@@ -112,4 +116,53 @@ const MONTHS = [
 export function checkedText(date: string = EVENTS_CHECKED): string {
   const [y, m, d] = date.split("-");
   return `${MONTHS[Number(m) - 1]} ${Number(d)}, ${y}`;
+}
+
+/** lovie.co forwards only /about/location/* to this site, so the API sits under that prefix there. */
+function lumaEventsUrl(): string {
+  return /(^|\.)lovie\.co$/.test(window.location.hostname)
+    ? "/about/location/api/luma-events"
+    : "/api/luma-events";
+}
+
+function isLumaEvent(e: unknown): e is LumaEvent {
+  const v = e as Record<string, unknown>;
+  return (
+    !!v &&
+    typeof v.name === "string" &&
+    typeof v.start === "string" &&
+    typeof v.end === "string" &&
+    typeof v.url === "string" &&
+    v.url.startsWith("https://luma.com/")
+  );
+}
+
+/** Live events from Luma, starting from (and falling back to) the built-in copy. */
+export function useLumaEvents(): { events: LumaEvent[]; checked: string } {
+  const [data, setData] = useState({ events: EVENTS, checked: EVENTS_CHECKED });
+  useEffect(() => {
+    const ctrl = new AbortController();
+    fetch(lumaEventsUrl(), {
+      signal: ctrl.signal,
+      headers: { Accept: "application/json" },
+    })
+      .then(r =>
+        r.ok ? r.json() : Promise.reject(new Error(String(r.status)))
+      )
+      .then((d: { checked?: unknown; events?: unknown }) => {
+        if (
+          typeof d.checked === "string" &&
+          /^\d{4}-\d{2}-\d{2}/.test(d.checked) &&
+          Array.isArray(d.events) &&
+          d.events.every(isLumaEvent)
+        ) {
+          setData({ events: d.events, checked: d.checked.slice(0, 10) });
+        }
+      })
+      .catch(() => {
+        // Keep the built-in copy; past events are still hidden at view time.
+      });
+    return () => ctrl.abort();
+  }, []);
+  return data;
 }
