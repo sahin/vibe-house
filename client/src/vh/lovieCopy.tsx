@@ -22,6 +22,8 @@ export const LOVIE_COPY: Record<string, string> = {
   // Header & footer
   "Vibe House SF · San Francisco, California":
     "Vibe House SF | Lovie HQ · [San Francisco, California]",
+  "Exited founders and technical builders in one San Francisco living room, with something on every Tuesday through Friday.":
+    "The Lovie team and technical builders in one San Francisco living room, with something on every Tuesday through Friday.",
   // Home
   "A new type of hacker house for exited founders to vibe code together.":
     "[A new kind of] [home base for] [the Lovie team to] [vibe code together.]",
@@ -37,7 +39,12 @@ export const LOVIE_COPY: Record<string, string> = {
   "Essays on the biological founder": "Essays on the biological [team member]",
   "The tools are evolving daily. The founders who master them first will define what comes next.":
     "The tools are evolving daily. The team members who master them first will define what comes next.",
-  "Exited founder": "Lovie team member",
+  "Exited founder": "Lovie [team member]",
+  "Just for the builders who want to build again.":
+    "Just for the team that wants to build together.",
+  "You've built and exited.": "You're part of the Lovie team.",
+  "Super founder and exited founder communities, like PEF and Superfounders, are welcome anytime.":
+    "All Lovie team members are welcome anytime.",
   // Why now
   "Twenty years ago, we were in our 20s. We'd sit together, founders, engineers, dreamers, pulling long nights, building and building and building. We didn't call it work. We called it Tuesday.":
     "Twenty years ago, we were in our 20s. We'd sit together, builders, engineers, dreamers, pulling long nights, building and building and building. We didn't call it work. We called it Tuesday.",

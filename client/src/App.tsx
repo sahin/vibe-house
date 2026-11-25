@@ -10,6 +10,7 @@ import WhyNow from "./vh/pages/WhyNow";
 import BiologicalFounder from "./vh/pages/BiologicalFounder";
 import CuratedProducts from "./vh/pages/FoundersPharmacy";
 import EventsSeries from "./vh/pages/EventsSeries";
+import { ChangeLog, Rules } from "./vh/pages/SiteHistory";
 import BrandGuidelines from "./pages/BrandGuidelines";
 import AccommodationCalendar from "./pages/AccommodationCalendar";
 import AccommodationDashboard from "./pages/AccommodationDashboard";
@@ -52,6 +53,8 @@ function Routes() {
       <Route path={"/biological-founder"} component={BiologicalFounder} />
       <Route path={"/the-founders-pharmacy"} component={CuratedProducts} />
       <Route path={"/events-series"} component={EventsSeries} />
+      <Route path={"/change-log"} component={ChangeLog} />
+      <Route path={"/rules"} component={Rules} />
       <Route path={"/brand"} component={BrandGuidelines} />
 
       {/* Lovie routes — same pages served under /about/location/ */}
@@ -61,6 +64,8 @@ function Routes() {
       <Route path={"/about/location/biological-founder"} component={BiologicalFounder} />
       <Route path={"/about/location/the-founders-pharmacy"} component={CuratedProducts} />
       <Route path={"/about/location/events-series"} component={EventsSeries} />
+      <Route path={"/about/location/change-log"} component={ChangeLog} />
+      <Route path={"/about/location/rules"} component={Rules} />
       <Route path={"/about/location/brand"} component={BrandGuidelines} />
 
       {/* Accommodation routes — password-protected dashboard */}

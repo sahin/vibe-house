@@ -1,15 +1,10 @@
 import { type FormEvent, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { useCopy } from "./lovieCopy";
-import logoBetaworks from "./assets/logos/betaworks.png";
-import logoEo from "./assets/logos/eo.png";
-import logoInception from "./assets/logos/inception.png";
 import logoPef from "./assets/logos/pef.png";
 import logoStartx from "./assets/logos/startx.png";
 import logoSuperfounders from "./assets/logos/superfounders.png";
-import logoTiger21 from "./assets/logos/tiger21.png";
 import logoYc from "./assets/logos/y-combinator.png";
-import logoYpo from "./assets/logos/ypo.png";
 import thanksMark from "./assets/thanks-mark.svg";
 
 /** Same backup form the previous site linked to when a submission could not be saved. */
@@ -55,37 +50,18 @@ const COMMUNITIES: Community[] = [
     label: "Y Combinator",
     logo: { src: logoYc, width: 444, height: 92, w: 112, h: 23 },
   },
-  {
-    value: "tiger_21",
-    label: "Tiger 21",
-    logo: { src: logoTiger21, width: 238, height: 110, w: 75, h: 35 },
-  },
-  {
-    value: "eo",
-    label: "EO",
-    logo: { src: logoEo, width: 404, height: 108, w: 110, h: 30 },
-  },
-  {
-    value: "ypo",
-    label: "YPO",
-    logo: { src: logoYpo, width: 343, height: 124, w: 76, h: 28 },
-  },
-  { value: "longsdale", label: "Longsdale" },
+  { value: "tiger_21", label: "Tiger 21" },
+  { value: "eo", label: "EO" },
+  { value: "ypo", label: "YPO" },
+  // Sent by name: the backend has no id for these and passes unknown values to Airtable unchanged.
+  { value: "Long Angle", label: "Long Angle" },
+  { value: "Hampton", label: "Hampton" },
   {
     value: "startx",
     label: "StartX",
     logo: { src: logoStartx, width: 424, height: 157, w: 72, h: 27 },
   },
-  {
-    value: "inception",
-    label: "Inception",
-    logo: { src: logoInception, width: 150, height: 40, w: 77, h: 21 },
-  },
-  {
-    value: "betaworks",
-    label: "Betaworks",
-    logo: { src: logoBetaworks, width: 480, height: 123, w: 111, h: 28 },
-  },
+  { value: "inception", label: "Inception" },
   { value: "other", label: "Other" },
 ];
 
