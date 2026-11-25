@@ -26,7 +26,9 @@ function NextEvent({
         <a href={ev.url} target="_blank" rel="noopener">
           <span className="next-k">Next event</span>
           <b>{whenText(ev.start)}</b>
-          <span className="next-t">{ev.name}</span>
+          <span className="next-t" title={ev.name}>
+            {ev.name}
+          </span>
           <span className="next-go">RSVP on Luma →</span>
         </a>
       ) : (

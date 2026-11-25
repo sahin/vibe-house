@@ -3063,6 +3063,39 @@ html.vh-doc {
   color: var(--vh-ink);
   box-shadow: none;
 }
+/* With the social icons the one-row desktop header only fits the menu above 1100px (measured on
+   sfvibehouse.com). Between 901 and 1100px the design's centred menu overflowed and cut "Why now"
+   off at the left, out of reach; there the header uses its two-row layout (as below 900px). */
+@media (min-width: 56.3125em) and (max-width: 68.75em) {
+  :where(.vh-page) .nav .container {
+    flex-wrap: wrap;
+    gap: 0 0.75rem;
+    padding-block: 0.625rem 0;
+  }
+  :where(.vh-page) .nav .brand {
+    order: 1;
+    padding-block: 0.375rem;
+  }
+  :where(.vh-page) .nav .nsocial {
+    order: 2;
+    margin-left: auto;
+  }
+  :where(.vh-page) .nav .cta {
+    order: 2;
+    margin-left: 4px;
+  }
+  :where(.vh-page) .nav .links {
+    order: 3;
+    flex-basis: 100%;
+    justify-content: flex-start;
+    margin-inline: -0.75rem;
+    padding: 0.375rem 0 0.5rem;
+  }
+  :where(.vh-page) .nav .links > a:first-child,
+  :where(.vh-page) .nav .links > a:last-child {
+    margin-inline: 0;
+  }
+}
 /* lovie.co (the header has the "| Lovie HQ" suffix): the longer menu labels plus the social icons
    don't fit the design's one-row desktop header. From 1160px (measured) the row fits with slightly
    tighter link padding and gaps; between 901 and 1159px the header uses its two-row layout (as below
@@ -3108,4 +3141,40 @@ html.vh-doc {
   :where(.vh-page) .nav .container:has(.brand-suffix) .brand-suffix {
     display: inline;
   }
+}
+/* Next-event cards keep the series boxes even (our addition; the design let them drift): every box
+   and every card in a grid row share two subgrid rows, so the boxes are one height with their
+   "Read more" on one line, and the cards below are one height whatever Luma returns. Event names
+   stop at two lines. Without subgrid support the layout stays as before. */
+@supports (grid-template-rows: subgrid) {
+  :where(.vh-page) .stile-wrap {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0.5rem;
+  }
+  :where(.vh-page) .next-ev {
+    display: grid;
+  }
+}
+:where(.vh-page) .next-ev a {
+  display: flex;
+  flex-direction: column;
+}
+:where(.vh-page) .next-go {
+  margin-top: auto;
+  padding-top: 0.125rem;
+}
+:where(.vh-page) .next-t {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+:where(.vh-page) .next-none {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }

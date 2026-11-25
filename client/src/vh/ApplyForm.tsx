@@ -1,6 +1,8 @@
 import { type FormEvent, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { useCopy } from "./lovieCopy";
+import logoHampton from "./assets/logos/hampton.svg";
+import logoLongAngle from "./assets/logos/long-angle.svg";
 import logoPef from "./assets/logos/pef.png";
 import logoStartx from "./assets/logos/startx.png";
 import logoSuperfounders from "./assets/logos/superfounders.png";
@@ -54,8 +56,17 @@ const COMMUNITIES: Community[] = [
   { value: "eo", label: "EO" },
   { value: "ypo", label: "YPO" },
   // Sent by name: the backend has no id for these and passes unknown values to Airtable unchanged.
-  { value: "Long Angle", label: "Long Angle" },
-  { value: "Hampton", label: "Hampton" },
+  // Logos from each community's own site (longangle.com, joinhampton.com).
+  {
+    value: "Long Angle",
+    label: "Long Angle",
+    logo: { src: logoLongAngle, width: 363, height: 42, w: 130, h: 15 },
+  },
+  {
+    value: "Hampton",
+    label: "Hampton",
+    logo: { src: logoHampton, width: 234, height: 52, w: 90, h: 20 },
+  },
   {
     value: "startx",
     label: "StartX",
