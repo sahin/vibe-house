@@ -2,6 +2,31 @@
 // Markup mirrors the design 1:1; styling lives in ../vh.css.
 import SEO from "@/components/SEO";
 import SiteLayout, { A } from "../SiteLayout";
+import {
+  checkedText,
+  nextEventFor,
+  whenText,
+  type SeriesSlug,
+} from "../lumaEvents";
+
+/** The next upcoming event of a series from the Luma calendar; past events are never shown. */
+function NextEvent({ series }: { series: SeriesSlug }) {
+  const ev = nextEventFor(series, Date.now());
+  return (
+    <div className="next-ev" data-series={series}>
+      {ev ? (
+        <a href={ev.url} target="_blank" rel="noopener">
+          <span className="next-k">Next event</span>
+          <b>{whenText(ev.start)}</b>
+          <span className="next-t">{ev.name}</span>
+          <span className="next-go">RSVP on Luma →</span>
+        </a>
+      ) : (
+        <p className="next-none">No upcoming date on Luma yet.</p>
+      )}
+    </div>
+  );
+}
 
 export default function EventsSeries() {
   return (
@@ -29,181 +54,221 @@ export default function EventsSeries() {
               gatherings for exited founders, designed around the natural
               cadence of a builder's week.
             </p>
+            <a
+              className="press press-luma"
+              target="_blank"
+              rel="noopener"
+              href="https://luma.com/sfvibehouse"
+            >
+              <span className="press-k">Upcoming events</span>
+              <b>See what's on and RSVP on Luma</b>
+              <span className="press-q">luma.com/sfvibehouse</span>
+              <span className="ar" aria-hidden="true">
+                →
+              </span>
+            </a>
           </div>
           <div
             className="container"
             style={{ marginTop: "clamp(2.25rem,5vw,4rem)" }}
           >
             <div className="series-row">
-              <A
-                className="stile s-truth io"
-                href="/events-series#truth-tuesday"
-              >
-                <svg
-                  className="sicon"
-                  viewBox="9 9 82 83"
-                  aria-hidden="true"
-                  focusable="false"
+              <div className="stile-wrap s-truth">
+                <A
+                  className="stile s-truth io"
+                  href="/events-series#truth-tuesday"
                 >
-                  <path d="M13 91V50a37 37 0 0 1 74 0v41Z" fill="#E1E7D6" />
-                  <circle cx="40" cy="60" r="19" fill="#4F6B3A" />
-                  <circle cx="60" cy="60" r="19" fill="#8AA06F" />
-                  <path
-                    d="M50 43.8A19 19 0 0 1 50 76.2A19 19 0 0 1 50 43.8Z"
-                    fill="#D9973A"
-                  />
-                </svg>
-                <span className="day">Tuesday</span>
-                <b>Truth Tuesdays</b>
-                <span>
-                  Conversations that go beyond product and into purpose.
-                </span>
-                <span className="go">Read more →</span>
-              </A>
-              <A
-                className="stile s-wealth io"
-                href="/events-series#wealth-wednesday"
-              >
-                <svg
-                  className="sicon"
-                  viewBox="9 9 82 83"
-                  aria-hidden="true"
-                  focusable="false"
+                  <svg
+                    className="sicon"
+                    viewBox="9 9 82 83"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M13 91V50a37 37 0 0 1 74 0v41Z" fill="#E1E7D6" />
+                    <circle cx="40" cy="60" r="19" fill="#4F6B3A" />
+                    <circle cx="60" cy="60" r="19" fill="#8AA06F" />
+                    <path
+                      d="M50 43.8A19 19 0 0 1 50 76.2A19 19 0 0 1 50 43.8Z"
+                      fill="#D9973A"
+                    />
+                  </svg>
+                  <span className="day">Tuesday</span>
+                  <b>Truth Tuesdays</b>
+                  <span>
+                    Conversations that go beyond product and into purpose.
+                  </span>
+                  <span className="go">Read more →</span>
+                </A>
+                <NextEvent series="truth-tuesday" />
+              </div>
+              <div className="stile-wrap s-wealth">
+                <A
+                  className="stile s-wealth io"
+                  href="/events-series#wealth-wednesday"
                 >
-                  <path d="M13 91V50a37 37 0 0 1 74 0v41Z" fill="#EFE4D3" />
-                  <path d="M22 91V77a7 7 0 0 1 14 0v14Z" fill="#D9973A" />
-                  <path d="M43 91V63a7 7 0 0 1 14 0v28Z" fill="#7E5414" />
-                  <path d="M64 91V49a7 7 0 0 1 14 0v42Z" fill="#7E5414" />
-                </svg>
-                <span className="day">Wednesday</span>
-                <b>Wealth Wednesdays</b>
-                <span>How money moves now, talked about honestly.</span>
-                <span className="go">Read more →</span>
-              </A>
-              <A
-                className="stile s-tech io"
-                href="/events-series#technical-thursday"
-              >
-                <svg
-                  className="sicon"
-                  viewBox="9 9 82 83"
-                  aria-hidden="true"
-                  focusable="false"
+                  <svg
+                    className="sicon"
+                    viewBox="9 9 82 83"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M13 91V50a37 37 0 0 1 74 0v41Z" fill="#EFE4D3" />
+                    <path d="M22 91V77a7 7 0 0 1 14 0v14Z" fill="#D9973A" />
+                    <path d="M43 91V63a7 7 0 0 1 14 0v28Z" fill="#7E5414" />
+                    <path d="M64 91V49a7 7 0 0 1 14 0v42Z" fill="#7E5414" />
+                  </svg>
+                  <span className="day">Wednesday</span>
+                  <b>Wealth Wednesdays</b>
+                  <span>How money moves now, talked about honestly.</span>
+                  <span className="go">Read more →</span>
+                </A>
+                <NextEvent series="wealth-wednesday" />
+              </div>
+              <div className="stile-wrap s-tech">
+                <A
+                  className="stile s-tech io"
+                  href="/events-series#technical-thursday"
                 >
-                  <path d="M13 91V50a37 37 0 0 1 74 0v41Z" fill="#DCE4EB" />
-                  <rect
-                    x="22"
-                    y="40"
-                    width="56"
-                    height="44"
-                    rx="7"
-                    fill="#2E4A68"
-                  />
-                  <circle cx="30" cy="48" r="2.2" fill="#DCE4EB" />
-                  <circle cx="37" cy="48" r="2.2" fill="#DCE4EB" opacity=".6" />
-                  <circle
-                    cx="44"
-                    cy="48"
-                    r="2.2"
-                    fill="#DCE4EB"
-                    opacity=".35"
-                  />
-                  <path
-                    d="M32 60l8 6.5-8 6.5"
-                    fill="none"
-                    stroke="#DCE4EB"
-                    strokeWidth="4.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M46 74h14"
-                    stroke="#D9973A"
-                    strokeWidth="4.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <span className="day">Thursday</span>
-                <b>Technical Thursdays</b>
-                <span>Technical depth from people who've built at scale.</span>
-                <span className="go">Read more →</span>
-              </A>
-              <A
-                className="stile s-future io"
-                href="/events-series#future-fridays"
-              >
-                <svg
-                  className="sicon"
-                  viewBox="9 9 82 83"
-                  aria-hidden="true"
-                  focusable="false"
+                  <svg
+                    className="sicon"
+                    viewBox="9 9 82 83"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M13 91V50a37 37 0 0 1 74 0v41Z" fill="#DCE4EB" />
+                    <rect
+                      x="22"
+                      y="40"
+                      width="56"
+                      height="44"
+                      rx="7"
+                      fill="#2E4A68"
+                    />
+                    <circle cx="30" cy="48" r="2.2" fill="#DCE4EB" />
+                    <circle
+                      cx="37"
+                      cy="48"
+                      r="2.2"
+                      fill="#DCE4EB"
+                      opacity=".6"
+                    />
+                    <circle
+                      cx="44"
+                      cy="48"
+                      r="2.2"
+                      fill="#DCE4EB"
+                      opacity=".35"
+                    />
+                    <path
+                      d="M32 60l8 6.5-8 6.5"
+                      fill="none"
+                      stroke="#DCE4EB"
+                      strokeWidth="4.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M46 74h14"
+                      stroke="#D9973A"
+                      strokeWidth="4.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <span className="day">Thursday</span>
+                  <b>Technical Thursdays</b>
+                  <span>
+                    Technical depth from people who've built at scale.
+                  </span>
+                  <span className="go">Read more →</span>
+                </A>
+                <NextEvent series="technical-thursday" />
+              </div>
+              <div className="stile-wrap s-future">
+                <A
+                  className="stile s-future io"
+                  href="/events-series#future-fridays"
                 >
-                  <path d="M13 91V50a37 37 0 0 1 74 0v41Z" fill="#D9973A" />
-                  <rect
-                    x="20"
-                    y="38"
-                    width="60"
-                    height="40"
-                    rx="5"
-                    fill="#161515"
-                  />
-                  <path
-                    d="M45 49.5v17a1.6 1.6 0 0 0 2.4 1.4l14-8.5a1.6 1.6 0 0 0 0-2.8l-14-8.5a1.6 1.6 0 0 0-2.4 1.4z"
-                    fill="#FBF9F5"
-                  />
-                  <rect x="46" y="78" width="8" height="7" fill="#161515" />
-                  <rect
-                    x="34"
-                    y="85"
-                    width="32"
-                    height="5"
-                    rx="2.5"
-                    fill="#161515"
-                  />
-                </svg>
-                <span className="day">Friday evening</span>
-                <b>Future Fridays</b>
-                <span>
-                  Vibe demo nights. Founders show how they built, live.
-                </span>
-                <span className="go">Read more →</span>
-              </A>
-              <A
-                className="stile s-breakfast io"
-                href="/events-series#founder-friday-breakfasts"
-              >
-                <svg
-                  className="sicon"
-                  viewBox="9 9 82 83"
-                  aria-hidden="true"
-                  focusable="false"
+                  <svg
+                    className="sicon"
+                    viewBox="9 9 82 83"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M13 91V50a37 37 0 0 1 74 0v41Z" fill="#D9973A" />
+                    <rect
+                      x="20"
+                      y="38"
+                      width="60"
+                      height="40"
+                      rx="5"
+                      fill="#161515"
+                    />
+                    <path
+                      d="M45 49.5v17a1.6 1.6 0 0 0 2.4 1.4l14-8.5a1.6 1.6 0 0 0 0-2.8l-14-8.5a1.6 1.6 0 0 0-2.4 1.4z"
+                      fill="#FBF9F5"
+                    />
+                    <rect x="46" y="78" width="8" height="7" fill="#161515" />
+                    <rect
+                      x="34"
+                      y="85"
+                      width="32"
+                      height="5"
+                      rx="2.5"
+                      fill="#161515"
+                    />
+                  </svg>
+                  <span className="day">Friday evening</span>
+                  <b>Future Fridays</b>
+                  <span>
+                    Vibe demo nights. Founders show how they built, live.
+                  </span>
+                  <span className="go">Read more →</span>
+                </A>
+                <NextEvent series="future-fridays" />
+              </div>
+              <div className="stile-wrap s-breakfast">
+                <A
+                  className="stile s-breakfast io"
+                  href="/events-series#founder-friday-breakfasts"
                 >
-                  <path d="M13 91V50a37 37 0 0 1 74 0v41Z" fill="#F4ECDF" />
-                  <circle cx="64" cy="40" r="11" fill="#D9973A" />
-                  <path
-                    d="M24 60h38v7a17 17 0 0 1-17 17h-4a17 17 0 0 1-17-17z"
-                    fill="#7E5414"
-                  />
-                  <path
-                    d="M62 63h3a7 7 0 0 1 0 14h-4"
-                    fill="none"
-                    stroke="#7E5414"
-                    strokeWidth="4.5"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M20 91h48"
-                    stroke="#7E5414"
-                    strokeWidth="4.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <span className="day">Friday morning</span>
-                <b>Founder Friday</b>
-                <span>Breakfasts for peer groups and wealth partners.</span>
-                <span className="go">Read more →</span>
-              </A>
+                  <svg
+                    className="sicon"
+                    viewBox="9 9 82 83"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M13 91V50a37 37 0 0 1 74 0v41Z" fill="#F4ECDF" />
+                    <circle cx="64" cy="40" r="11" fill="#D9973A" />
+                    <path
+                      d="M24 60h38v7a17 17 0 0 1-17 17h-4a17 17 0 0 1-17-17z"
+                      fill="#7E5414"
+                    />
+                    <path
+                      d="M62 63h3a7 7 0 0 1 0 14h-4"
+                      fill="none"
+                      stroke="#7E5414"
+                      strokeWidth="4.5"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M20 91h48"
+                      stroke="#7E5414"
+                      strokeWidth="4.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <span className="day">Friday morning</span>
+                  <b>Founder Friday</b>
+                  <span>Breakfasts for peer groups and wealth partners.</span>
+                  <span className="go">Read more →</span>
+                </A>
+                <NextEvent series="founder-friday-breakfasts" />
+              </div>
             </div>
+            <p className="luma-note" id="luma-note">
+              Dates come from our Luma calendar, last checked {checkedText()}.
+              Past events are hidden automatically.
+            </p>
           </div>
         </section>
         <section className="band linen">

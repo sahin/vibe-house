@@ -86,6 +86,56 @@ type SiteLayoutProps = {
 };
 
 /** Announcement bar, header, footer and page-level behaviour shared by the design pages. */
+const INSTAGRAM_URL = "https://www.instagram.com/sf.vibehouse";
+const LINKEDIN_URL = "https://www.linkedin.com/showcase/sfvibehouse/";
+const FACEBOOK_URL =
+  "https://www.facebook.com/people/SF-Vibe-House/61597062085273/";
+
+function InstagramIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4.2" />
+      <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M5 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM3.3 8.6h3.4V21H3.3zM9.2 8.6h3.3v1.7h.05c.46-.87 1.6-1.8 3.3-1.8 3.5 0 4.15 2.3 4.15 5.3V21h-3.4v-6.4c0-1.5-.03-3.5-2.1-3.5-2.1 0-2.45 1.65-2.45 3.4V21H9.2z" />
+    </svg>
+  );
+}
+
+function FacebookIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M13.6 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.5V21z" />
+    </svg>
+  );
+}
+
 export default function SiteLayout({
   closingTitle,
   children,
@@ -196,6 +246,35 @@ export default function SiteLayout({
               </A>
             ))}
           </nav>
+          <div className="nsocial">
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener"
+              aria-label="Vibe House SF on Instagram"
+              title="Instagram @sf.vibehouse"
+            >
+              <InstagramIcon />
+            </a>
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener"
+              aria-label="SF Vibe House on LinkedIn"
+              title="LinkedIn · SF Vibe House"
+            >
+              <LinkedInIcon />
+            </a>
+            <a
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="noopener"
+              aria-label="SF Vibe House on Facebook"
+              title="Facebook · SF Vibe House"
+            >
+              <FacebookIcon />
+            </a>
+          </div>
           <A className="btn sm cta" href="/#join">
             Join our next event{" "}
             <span className="ar" aria-hidden="true">
@@ -246,6 +325,38 @@ export default function SiteLayout({
               <A className="btn ghost on-ink" href="/events-series">
                 See the week
               </A>
+            </div>
+            <div className="social">
+              <span className="social-k">Follow Vibe House</span>
+              <div className="social-row">
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Vibe House SF on Instagram, @sf.vibehouse"
+                >
+                  <InstagramIcon />
+                  Instagram <span className="h">@sf.vibehouse</span>
+                </a>
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="SF Vibe House on LinkedIn"
+                >
+                  <LinkedInIcon />
+                  LinkedIn <span className="h">SF Vibe House</span>
+                </a>
+                <a
+                  href={FACEBOOK_URL}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="SF Vibe House on Facebook"
+                >
+                  <FacebookIcon />
+                  Facebook <span className="h">SF Vibe House</span>
+                </a>
+              </div>
             </div>
           </div>
           <div className="foot">
