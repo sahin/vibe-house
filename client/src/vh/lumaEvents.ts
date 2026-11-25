@@ -52,17 +52,33 @@ export type SeriesSlug =
   | "future-fridays"
   | "founder-friday-breakfasts";
 
-const SERIES_MATCH: [SeriesSlug, RegExp][] = [
-  ["truth-tuesday", /truth tuesday/i],
-  ["wealth-wednesday", /wealth wednesday/i],
-  ["technical-thursday", /technical thursday/i],
-  ["future-fridays", /vibe night|future friday/i],
-  ["founder-friday-breakfasts", /founder friday|breakfast/i],
-];
-
-function seriesOf(name: string): SeriesSlug | null {
-  for (const [slug, re] of SERIES_MATCH) if (re.test(name)) return slug;
-  return null;
+/**
+ * Events go under the box of the day they happen in San Francisco, whatever their title
+ * (Sahin, 2026-11-25: "luma event titles are fine, but they will under the days with the names").
+ * Friday has two boxes: morning events are the founder breakfasts, later ones Future Fridays.
+ * Monday and weekend events have no box; they stay reachable through the Luma banner.
+ */
+function seriesOf(event: LumaEvent): SeriesSlug | null {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Los_Angeles",
+    weekday: "short",
+    hour: "numeric",
+    hourCycle: "h23",
+  }).formatToParts(new Date(event.start));
+  const weekday = parts.find(p => p.type === "weekday")?.value;
+  const hour = Number(parts.find(p => p.type === "hour")?.value);
+  switch (weekday) {
+    case "Tue":
+      return "truth-tuesday";
+    case "Wed":
+      return "wealth-wednesday";
+    case "Thu":
+      return "technical-thursday";
+    case "Fri":
+      return hour < 12 ? "founder-friday-breakfasts" : "future-fridays";
+    default:
+      return null;
+  }
 }
 
 /** The next event of `series` that has not ended yet at `now`, or null. */
@@ -75,7 +91,7 @@ export function nextEventFor(
     events
       .filter(e => new Date(e.end).getTime() > now && /^https:\/\//.test(e.url))
       .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
-      .find(e => seriesOf(e.name) === series) ?? null
+      .find(e => seriesOf(e) === series) ?? null
   );
 }
 

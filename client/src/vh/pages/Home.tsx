@@ -360,16 +360,6 @@ export default function Home() {
                     strokeWidth="1.2"
                     strokeLinejoin="round"
                   />
-                  <path d="M186 330l4-18 6 18Z" fill="#9C8BB8" />
-                  <path d="M194 330l7-34 8 34Z" fill="#7D4F6B" />
-                  <path d="M206 330l6-24 7 24Z" fill="#9C8BB8" />
-                  <path d="M216 330l4-14 5 14Z" fill="#B9A9D0" />
-                  <path
-                    d="M201 296l2 34"
-                    stroke="#B9A9D0"
-                    strokeWidth="1.4"
-                    opacity=".7"
-                  />
                   <path d="M436 232V176a32 32 0 0 1 64 0V232Z" fill="#FBF9F5" />
                   <path d="M443 225V178a25 25 0 0 1 50 0V225Z" fill="#EFE4D3" />
                   <circle cx="468" cy="192" r="10" fill="#D9973A" />
@@ -824,24 +814,6 @@ export default function Home() {
                     strokeLinecap="round"
                     opacity=".45"
                   />
-                  <path
-                    d="M384 520l3-20 5 20Z"
-                    fill="#FBF9F5"
-                    stroke="#DCE4EB"
-                    strokeWidth="1.2"
-                  />
-                  <path
-                    d="M392 520l4-28 6 28Z"
-                    fill="#E9E3F2"
-                    stroke="#B9A9D0"
-                    strokeWidth="1.2"
-                  />
-                  <path
-                    d="M398 520l2-12 4 12Z"
-                    fill="#FBF9F5"
-                    stroke="#DCE4EB"
-                    strokeWidth="1.2"
-                  />
                   <ellipse cx="438" cy="566" rx="44" ry="15" fill="#2E4A68" />
                   <path
                     d="M404 566h68M416 560l6 6-6 6M454 560l6 6-6 6"
@@ -849,35 +821,6 @@ export default function Home() {
                     stroke="#DCE4EB"
                     strokeWidth="1.5"
                     opacity=".7"
-                  />
-                  <ellipse cx="438" cy="550" rx="38" ry="13" fill="#D9973A" />
-                  <path
-                    d="M408 550h60M420 545l5 5-5 5M450 545l5 5-5 5"
-                    fill="none"
-                    stroke="#FBF9F5"
-                    strokeWidth="1.5"
-                    opacity=".75"
-                  />
-                  <ellipse cx="262" cy="584" rx="46" ry="14" fill="#8AA06F" />
-                  <path
-                    d="M226 584h72M240 579l5 5-5 5M276 579l5 5-5 5"
-                    fill="none"
-                    stroke="#FBF9F5"
-                    strokeWidth="1.5"
-                    opacity=".7"
-                  />
-                  <path d="M488 572h48a24 18 0 0 1-48 0Z" fill="#B9893F" />
-                  <path
-                    d="M488 572h48"
-                    stroke="#E8B53C"
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M540 594l-14-30"
-                    stroke="#7E5414"
-                    strokeWidth="5"
-                    strokeLinecap="round"
                   />
                 </g>
                 <path
